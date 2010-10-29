@@ -1,8 +1,9 @@
-\documentclass[7pt]{article}
+\documentclass[10pt]{article}
 \usepackage{fullpage,latexsym,amsthm,amsmath,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
 
 % Define new commands.
 
+\newcommand{\pref}[1]{{(\ref{#1})}}
 \newcommand{\annotate}[1]{{\color{red}{#1}}}
 
 \newtheorem{defn}{Definition}[section]
@@ -19,7 +20,7 @@
 % Setup document header/footer and adjust spacing accordingly.
 \pagestyle{fancy}
 \lhead{Cheatsheet - EE 253 Fall 2010}
-\rhead{AUTHOR (EMAIL)}
+\rhead{Bryan Matsuo (bryan.matsuo@gmail.com)}
 \rfoot{\today}
 \renewcommand\headheight{15pt}
 \renewcommand\footrulewidth{0.4pt}
@@ -33,7 +34,36 @@
 %end the header thing.
 
 \begin{multicols}{2}
-\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.\lemma{Some lemma}This is a lemma about something mathematical.
+
+    Blah blah blah. This is from lemma \pref{lem: a} (or lemma \ref{lem: a}) and simple stuff.
+    \lemma[Some lemma]
+    
+    This is a lemma about something mathematical.
+
+    \lemma{Some lemma}\label{lem: a}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
 
 % Add a bibliography.
 % \bibliographystyle{plain}
