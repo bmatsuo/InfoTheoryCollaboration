@@ -72,8 +72,16 @@ b) By stationarity we have $\forall 1 \le i \le n$,
 \[H(X_n | X^{n-1} = \frac{\sum_{i=1}^n H(X_n | X^{n-1} } {n} \]
 \[ \frac{\sum_{i=1}^n H(X_i | X^{i-1} } {n} = \frac{H(X_1,X_2,\cdots,X_n)}{n}\]
 
+\section*{Entropy rates of Markov chains}
+[THIS PROBLEM NEEDS TABLES ADDED and questions!]
+a) The stationary distribution is: $u_0=\frac{p_{10}}{p_{01}+p_{10}}$, $u_1=\frac{p_{01}}{p_{01}+p_{10}}$
+Therefore the entropy is: \( H(X_2 \mid X_1) = u_0H(p_{01})+u_1H(p_{10}) = \frac{p_{10}H(p_{01})+ p_{01}H(p_{10})}{p_{01}+p_{10}}. \)
+
+b) The entropy rate is at most 1 bit because process has only two states. This rate can be achieved iff \(p_{01}=p_{10}=1/2 \), in which case the process is i.i.d with \( \Pr(X_i = 0) =\Pr(X_i=1) = 1/2 \)
+
+c) special case if the general two-state Markov chain, the entropy rate is \( H(X_2 | X_1)=u_0H(p)+u_1H(1)=\frac{H(p)}{p+1} = \frac{-p\log(p)-(1-p)\log(1-p)}{1+p} \)
 \section*{problem 9}
-Solution: initial conditions. For a Markov chain, by the data processing theorom we have 
+Solution: initial conditions. For a Markov chain, by the data processing theorem we have 
 $I(X_0  \: X_{n-1}) \ge I(X_0 \ : X_n)$
 
 Therefore $H(X_0) - H(X_0 | X_{n-1}) \ge H(X_0) - H(X_0 | X_n)$ or $H(X_0 | X_n)$  increases with n
