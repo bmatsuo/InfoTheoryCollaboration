@@ -1,6 +1,5 @@
-\documentclass[12pt]{article}
-
-\usepackage{geometry,fullpage,latexsym,amsthm,amsmath,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
+\documentclass[10pt]{article}
+\usepackage{fullpage,latexsym,amsthm,amsmath,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
 
 % Define new commands.
 
@@ -12,7 +11,8 @@
 \newtheorem{corollary}{Corollary}[section]
 \newtheorem{question}{Question}[section]
 \newtheorem{proposition}{Proposition}[section]
-
+\usepackage{multicol}
+\usepackage{savetrees}
 % Begin the actual document content here.
 
 \begin{document}
@@ -20,11 +20,10 @@
 % Setup document header/footer and adjust spacing accordingly.
 \pagestyle{fancy}
 \lhead{Cheatsheet - EE 253 Fall 2010}
-\rhead{Bryan Matsuo (EMAIL)}
+\rhead{Bryan Matsuo (bryan.matsuo@gmail.com)}
 \rfoot{\today}
 \renewcommand\headheight{15pt}
 \renewcommand\footrulewidth{0.4pt}
-
 \setlength{\parskip}{0pt}
 \setlength{\parsep}{0pt}
 \setlength{\headsep}{0pt}
@@ -32,12 +31,42 @@
 \setlength{\topmargin}{0pt}
 \setlength{\topsep}{0pt}
 \setlength{\partopsep}{0pt}
+%end the header thing.
 
-Lemma \pref{lem: test} is a lemma.
-\lemma{Some lemma} \label{lem: test}This is a lemma about something mathematical.
+\begin{multicols}{2}
+
+    Blah blah blah. This is from lemma \pref{lem: a} (or lemma \ref{lem: a}) and simple stuff.
+    \lemma[Some lemma]
+    
+    This is a lemma about something mathematical.
+
+    \lemma{Some lemma}\label{lem: a}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
+    \lemma{Some lemma}This is a lemma about something mathematical.
 
 % Add a bibliography.
 % \bibliographystyle{plain}
 % \bibliography{brlen}
-
+\end{multicols}
 \end{document}
