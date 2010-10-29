@@ -1,0 +1,84 @@
+\documentclass[5pt]{article}
+
+\usepackage{esdiff}
+\usepackage{multirow}
+\usepackage[large]{caption}
+
+
+\newcommand{\secref}[1]{Section~\ref{sec:#1}}
+\newcommand{\tabref}[1]{Table~\ref{tab:#1}}
+\newcommand{\figref}[1]{Figure~\ref{fig:#1}}
+\newcommand{\eqref}[1]{Equation~\ref{eq:#1}}
+
+\textwidth=6.5in
+\textheight=9in
+\oddsidemargin=0in
+\evensidemargin=0in
+\topmargin=-.75in
+\topskip=0in
+\headheight=0in
+\headsep=0in
+
+\makeatletter
+\def\@maketitle{%
+  \newpage
+  \begin{center}%
+  \let \footnote \thanks
+    {\LARGE \@title \par}%
+    \vskip 1.5em%
+    {\large
+      \lineskip .5em%
+      \begin{tabular}[t]{c}%§
+        \@author
+      \end{tabular}\par}%
+    \vskip 1em%
+    {\large \@date}%
+  \end{center}%
+  \par
+  \vskip 1.5em}
+\makeatother
+
+
+
+\author{Michael P. Cutter}
+\title{{\LaTeX} math mode exercise, BME 200}
+\date{September 20, 2005}
+
+\begin{document}
+\maketitle
+\[H(b) - H(a) \]
+\[\sum_t a_i \log (a_i) \]
+\[ - \sum_j \sum_i a_iP_{ij} \log(\sum_k a_kP_{kj})+\sum_t a_i \log (a_i) \]	
+\[ \sum_{ij}a_iP_{ij} \log(\frac{ a_i }{\sum_{k} a_kP_{kj}}) (cite mult by 1)\]	
+\[ \ge (\sum_{ij}a_iP_{ij}) \log(\frac{\sum_{ij} a_i }{\sum_{ij} b_j }) (cite log sum)\]	
+
+b) If the matrix is doubly stochastic, the substituting $u_i$ = $1\over{m}$, we can easily see it satisfies $u=uP$
+c) if the uniform is a stationary distribution, then $\frac{1}{m} = u_i = \sum_{j}u_{j}P_{ij}$ = $ \frac{1}{m}\sum_jP{ji}$ or $\sum_jP{ji}=1$ or that the matrix is doubly stochastic.
+
+
+\section*{monotonicity of entropy per element}
+\[ (chainRule)  \frac{H(X_1,X_2,\cdots,X_n)}{n} = \frac{\sum_{i=1}^n H(X_i | X^{i-1})}{n} \]
+\[ \frac{(H(X_n | X^{n-1}) + \sum_{i=1}^{n-1} H(X_i |X^{i-1}) } {n} \]
+\[ (cite??) \frac{H(X_n | X^{n-1}) + H(X_1,X_2,\cdots,X_{n-1}) } {n} \]
+From stationarity it follows that for all $1\le i \le n$ $->$ $H(X_n | X^{n-1}) \le H(X_i | X^{i-1}) $
+which further implies, by averaging both sides, that,
+\[ H(X_n | X^{n-1}) \le \frac{ \sum_{i=1}^{n-1} H(X_i | X^{i-1})} {n-1} \]
+\[ \frac{ H(X_i,X_2,\cdots,X_{n-1})} {n-1} \]
+combining past two results yeilds, 
+\[ \frac{H(X_1,X_2,\cdots,X_n)}{n} \le \frac{1}{n} [ \frac{ H(X_1,X_2,\cdots,X_n) } {n-1} + H(X_1,X_2,\cdots,X_{n-1}) ]  = \frac{H(X_1,X_2,\cdots,X_{n-1})}{n-1} \]
+\\
+b) By stationarity we have $\forall 1 \le i \le n$,
+\[ H(X_n | X^{n-1} ) \le H(X_i | X^{i-1}) (whichimplies)\]
+\[H(X_n | X^{n-1} = \frac{\sum_{i=1}^n H(X_n | X^{n-1} } {n} \]
+\[ \frac{\sum_{i=1}^n H(X_i | X^{i-1} } {n} = \frac{H(X_1,X_2,\cdots,X_n)}{n}\]
+
+\section*{problem 9}
+Solution: initial conditions. For a Markov chain, by the data processing theorom we have 
+$I(X_0  \: X_{n-1}) \ge I(X_0 \ : X_n)$
+
+Therefore $H(X_0) - H(X_0 | X_{n-1}) \ge H(X_0) - H(X_0 | X_n)$ or $H(X_0 | X_n)$  increases with n
+
+\section*{prob 11}
+Solution: stationary processes A) $H(x_n | X_0) = H(X_{-n} | X_0).$ True cause: $H(X_n | X_0) = H(X_n,X_0) - H(X_0)$ and $H(X_{-n} | X_0) = H(X_{-n},X_0) - H(X_0)$ 
+
+\end{document}
