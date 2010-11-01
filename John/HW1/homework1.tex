@@ -72,10 +72,11 @@
 
 % The graphicx package lets us include images with \includegraphics
 \usepackage{graphicx}
-
+\usepackage{epstopdf}
 % The caption package lets us customize captions when we want to make
 % formal figures and tables
 \usepackage{caption}
+
 
 %% Here, we use the fancyhdr and lastpage packages to customize the
 %% header and footer of each page
@@ -246,7 +247,7 @@
             
             	 \begin{figure}[htbp]
 			\begin{center}
-				\includegraphics[scale=0.4]{Figs/venn_2_12-eps-converted-to.pdf}
+				\includegraphics[scale=0.4]{Figs/venn_2_12}
 				\caption{{\bf 2.12 Part e Venn Diagram}}
 				\label{fig:212venn}
 			\end{center}
@@ -263,7 +264,7 @@
 		\begin{eqnarray*}
 			I(X_{1};X_{2},\ldots,X_{n}) = \\
 			let~~X_{3},\ldots,X_{n} = Y\\
-			I(X_{1};X_{2},Y) = I(X_{1};X_{2})+I(X_{1};Y|X_{2})
+			I(X_{1};X_{2},Y) = I(X_{1};X_{2})+I(X_{1};Y|X_{2}) \mbox{ partial application of chain rule}
 		\end{eqnarray*}
 		Now since this is a markov chain, and we know that $X_{1}$ and $Y$ are completely independent
 		we can say that $I(X_{1};Y|X_{2})=0$ since $Y|X_{2}$ is just a subset of $Y$ which as noted
@@ -272,34 +273,52 @@
         \item[2.26.]
         		\begin{enumerate}[a)]
 			\item $ln(x) \leq x-1$ for $0\leq x \leq \infty$
-				As $x$ approaches 0 $x-1$ approaches -1 while $ln(x)$ approaches $-\infty$. $x-1$ 
-				grows linearly while $ln(x)$ grows much slower, logarithmically, so for large numbers
-				it is given that $x-1$ is larger.\\
-				From the derivative of $x-1$ and $ln(x)$ we know that $x-1$ has a slope of $1$ for all 
-				$x$, while $ln(x)$ has slope $\frac{1}{x}$. This means that when $x<1, ln(x)$ has an
-				increasingly steep negative sloap, more steeply negative than 1, and when $x>1$ 
-				it has an increasingly shallow 
-				positive slope. The only point at which their slopes are equal is $x=1$, and since
-				$ln(1)=0=1-1$ we can say that $(x-1)\geq ln(x)$. 
-			\item
-				Since $D(p||q)=\sum_{x}p(x)ln\left(\frac{p(x)}{q(x)}\right)$ that means that
-				$-D(p||q)=-\sum_{x}p(x)ln\left(\frac{p(x)}{q(x)}\right)$ which is equal to the
-				reciprocal of the log, giving us: $\sum_{x}p(x)ln\left(\frac{q(x)}{p(x)}\right)$\\
-				Let $\frac{q(x)}{p(x)}$ be $x$, as shown before $x-1\geq ln(x)$ which 
-				justifies the second step.\\
-				The final step is fairly straight forward as well. In the equation
-				$\sum_{x}p(x)\left(\frac{q(x)}{p(x)}-1\right)$ the $p(x)$ terms cancel
-				leaving $\sum_{x}q(x)-1$. Since $q(x)$ is a probability, we know
-				that over all $x$ it will sum to 1 meaning that the equation simplifies
-				to 0.
-			\item
-				To equal 0, I have just shown that $\sum_{x}p(x)\left(\frac{q(x)}{p(x)}-1\right)=0$
-				additionally, in my argument for part a, I showed that $ln(x) = x-1$ only when
-				$x=1$. Thus when $\frac{q(x)}{p(x)}=1$ (when $q(x)=p(x)$) the value of $D$ 
-				will be 0.
-		\end{enumerate}
+				If the second derivative of a function is positive, that means that it is concave up, or convex. If it is always greater than 0, it will never not be convex. If it could be zero on the interval, then we can't make this claim, and the converse isn't necessarily true.
+				Let \(f(x)=x-1-ln\ x \) then 
+				\begin{eqnarray*}
+				 f'(x)= 1-\frac{1}{x}\\
+				 f''(x)=\frac{1}{x^2} > 0
+				 \end{eqnarray*}
+				 so we can say that $f(x)$ is strictly convex and a local minimum is also a global minimum. To find the local minimum we just set $f'(x)=0$ and get $x=1$. So $f(x) \geq f(1)$ which means that $x-1-ln\ x \geq 1-1-ln\ 1 = 0$. Showing that $x-1 \geq ln\ x$ on the interval $(0,\infty)$.
+			\item Justify the following steps
+				Let A be the set of $x$ such that $p(x) > 0$
+				\begin{eqnarray*}
+				-D_e(p||q)=\sum_{x\in A} p(x) ln \frac{q(x)}{p(x)}\\
+				\leq \sum_{x\in A} p(x)\left( \frac{q(x)}{p(x)}-1\right)\\
+				=\sum_{x\in A} q(x) - \sum_{x\in A} p(x)\\
+				\leq 0
+				\end{eqnarray*}
+				The first step follows from the definition of D, the second step follows from the inequality $ln\ t \leq t - 1$, the third from expanding the sum, and the last step from the fact that the $q(A) \leq 1$ and $p(A)=1$.
+			\item Conditions for equality?
+			We have the inequality $ln\ t \leq t-1$ from a previous problem, and showed equality iff $t=1$. Therefore we have equality if $\frac{q(x)}{p(x)}=1$ for all $x\in A$. This implies that $p(x)=q(x)$ for all $x$ and then we'll have equality in the last step as well. 
+			\end{enumerate}	
           
-        \item[2.32.] See attached sheet.
+        \item[2.32.] 
+        \[P(X,Y) = \left( \begin{array}{ccc}
+\frac{1}{6} & \frac{1}{12} & \frac{1}{12} \\
+\frac{1}{12} & \frac{1}{6} & \frac{1}{12} \\
+\frac{1}{12} & \frac{1}{12} & \frac{1}{6} \end{array} \right)\]
+ where $X$ is indexed $[a,b,c]$ and $Y$ is indexed $[1,2,3]$. Let $\hat{X}(Y)$  be an estimator for $X$ based on $Y$ and let $P_e=Pr\{\hat{X}(Y)\neq X\}$
+         \begin{enumerate}[a)]
+        \item 
+        	From inspection we see that 
+        	\[\hat{X}(y)=\left\{ \begin{array}{cc}
+        		1 & y=a\\
+        		2 & y=b\\
+        		3 & y=c \end{array}\right. \]
+	and the associated $P_e$ is the sum of $P(1,b),\ P(1,c),\ P(2,a),\ P(2,c),\ P(3,a),\ P(3,b)$. Therefore $P_e=\frac{1}{2}$
+        \item 
+        	From Fano's inequality we know \[P_e \geq \frac{H(X|Y)-1}{log\ |\chi|}\]
+        	\begin{eqnarray*}
+        	H(X|Y)= H(X|Y=a)Pr\{y=a\}+H(X|Y=b)Pr\{y=b\}+H(X|Y=c)Pr\{y=c\}\\
+        	=H\left(\frac{1}{2},\frac{1}{4},\frac{1}{4}\right)Pr\{y=a\}+H\left(\frac{1}{2},\frac{1}{4},\frac{1}{4}\right)Pr\{y=b\}+H\left(\frac{1}{2},\frac{1}{4},\frac{1}{4}\right)Pr\{y=c\}\\
+        	=H\left(\frac{1}{2},\frac{1}{4},\frac{1}{4}\right)\left( Pr\{y=a\}+Pr\{y=b\}+Pr\{y=c\}\right)\\
+        	=H\left(\frac{1}{2},\frac{1}{4},\frac{1}{4}\right)\\
+        	=1.5 \mbox{ bits}
+        	\end{eqnarray*}
+        	Our estimator of error $P_e\geq \frac{1.5-1}{log\ 3}=0.316$ is not very close to Fano's bound in this form. Since $\hat{X}\in \chi$ we can use the stronger form of Fano's inequality 
+        	\( P_e \geq \frac{H(X|Y)-1}{log(|\chi|-1)}  \) to get \( P_e \geq \frac{1.5-1}{log\ 2}=\frac{1}{2} \) which is a great bound on our actual $P_e$.
+        \end{enumerate}
 
 \end{itemize}
 
