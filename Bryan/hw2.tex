@@ -1,9 +1,11 @@
-\documentclass[12pt]{article}
+\documentclass[10pt]{article}
 
-\usepackage{fullpage,latexsym,amsthm,amsmath,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
+\usepackage{fullpage,latexsym,amsthm,amsmath,amsfonts,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr,}
 
 % Define new commands.
+\DeclareMathOperator*{\E}{\mbox{\text{E}}}
 
+\newcommand{\pref}[1]{{(\ref{#1})}}
 \newcommand{\bmat}[1]{{\color{red}{#1}}}
 
 \newtheorem{defn}{Definition}[section]
@@ -11,84 +13,92 @@
 \newtheorem{corollary}{Corollary}[section]
 \newtheorem{question}{Question}[section]
 \newtheorem{proposition}{Proposition}[section]
-
-% Setup document header/footer and adjust spacing accordingly.
-\pagestyle{fancy}
-\lhead{HW \#2 - EE 253 Fall `10}
-\rhead{Bryan Matsuo (bryan.matsuo@gmail.com)}
-\rfoot{\today}
-\renewcommand\headheight{15pt}
-\renewcommand\footrulewidth{0.4pt}
-
-\setlength{\parskip}{0pt}
-\setlength{\parsep}{0pt}
-\setlength{\headsep}{0pt}
-\setlength{\topskip}{15pt}
-\setlength{\topmargin}{0pt}
-\setlength{\topsep}{0pt}
-\setlength{\partopsep}{0pt}
+\usepackage{multicol}
+\usepackage{savetrees}
 
 % Begin the actual document content here.
 \begin{document}
+
+\begin{multicols}{2}
 
 \section*{3.1}
 
 \subsection*{(a)}
 
+(Markov's Inequality) For non-negative random variable $X$ and  $t>0$,
+Show
+\begin{equation}
+    \Pr\{X \geq t\} \leq \frac{\E X}{t} \label{eq: markovs ineq}
+\end{equation}
+And provide an example random variable for with the above condition is met
+with equality.
+
+\proof
+
 \begin{eqnarray}
-    Pr \{ X \geq t \} &=&  \int_t^\infty p(x)dx \nonumber \\
-    &=& \int_t^\infty \frac{x}{x}p(x)dx
-    \label{eq:LHS times one}
+    \E X &= \int_{-\infty}^\infty x f(x)dx &\text{(Defn of expectation.)}
+        \nonumber \\
+    &\geq \int_t^\infty x f(x)dx &\text{(Integral over subdomain)} 
+        \nonumber \\
+    &\geq \int_t^\infty t f(x)dx &\text{($x \geq t$ in integral)} 
+        \nonumber \\
+    &= t \Pr\{X \geq t\}  &\text{($t$ constant in integral)}
+        \label{eq: 3.1a QED}
 \end{eqnarray}
+The last equation \pref{eq: 3.1a QED} proves Markov's Inequality
+\pref{eq: markovs ineq}.
 
-It is given in the problem statement that $0 < t \leq x$.
-Thus $\frac{1}{x} \leq \frac{1}{t}$ and $\frac{x}{x} \leq \frac{x}{t}$. 
-This inequality can be plugged into equation \ref{eq:LHS times one},
+\begin{flushright}
+    $\Box$
+\end{flushright}
 
-\begin{eqnarray}
-    Pr \{ X \geq t \} 
-        &=&  \int_t^\infty \frac{x}{x}p(x)dx \nonumber \\
-        &\leq& \int_t^\infty \frac{x}{t}p(x)dx \nonumber \\
-        &\leq& \frac{1}{t} \int_t^\infty xp(x)dx \nonumber \\
-        &\leq& \frac{1}{t} E[X]
-    \label{eq:3.1a finished}
-\end{eqnarray}
-
-So the inequality $Pr \{ X \geq t \} \leq \frac{E[X]}{t}$ has been shown.
-When $X$ is a discrete random variable, the same argument carries through
-when replacing integrals with sums.
-
-One example of a random variable for which the above inequality is an
-equality is discrete variable $X$, where $X=0$ with probability 1. 
-Thus, for a positive real number $t$, 
-$E[X] = \frac{1}{t}E[X] =  0$ and $Pr \{ X \geq t \} = 0$.
+Let $X$ be a \emph{random variable} which has value zero with probability
+one.
+The expected value of $X$ is zero and thus, 
+\pref{eq: markovs ineq} is always an equality.
 
 \subsection*{(b)}
 
-$Y$ is a random variable with mean $\mu$ and variance $\sigma^2$.
-
-Consider $Pr\{|Y-\mu| \geq \varepsilon\}$. 
-This probability is equal to $Pr\{(Y-\mu)^2 \geq \varepsilon^2\}$.
-Using Markov's inequality from problem 3.1(a), have the inequality
+(Chebychev's Inequality) Let $Y$ be a random variable with mean $\mu$ and
+variance $\sigma^2$. By letting $X = (Y-\mu)^2$, show that for
+$\varepsilon > 0$
 \begin{equation}
-    Pr\{(Y-\mu)^2 \geq \varepsilon^2\} \leq \frac{E[(Y-\mu)^2]}{\varepsilon^2}
-    \label{eq:instatiate 3.1a}
+    \Pr \{(Y-\mu)^2 > \varepsilon\} \leq \frac{\sigma^2}{\varepsilon^2}
+    \label{eq: chebychevs ineq}
 \end{equation}
-. The numerator $E[(Y-\mu)^2]$ is equal to $\sigma^2$, from the definition
+
+\proof
+
+\begin{eqnarray}
+    \Pr\{(Y-\mu)^2 > \varepsilon\} &\leq& \Pr\{(Y-\mu)^2 \geq \varepsilon^2\}
+        \nonumber \\
+        &=& \Pr\{|Y-\mu| \geq \varepsilon\}
+        \label{eq: equate probs} \\
+    \Pr \{(Y-\mu)^2 > \varepsilon^2\} &\leq& \frac{\E \big[(Y-\mu)^2\big]}{\varepsilon^2}
+        \label{eq:instatiate 3.1a}
+\end{eqnarray}
+The final inequality coming from an application of Markov's Inequality
+\pref{eq: markovs ineq} and the derived inequality \pref{eq: equate probs}.
+The numerator $E[(Y-\mu)^2]$ is equal to $\sigma^2$, from the definition
 of variance and the fact that $\mu = E[Y]$. Thus we are left with
-Chebyshev's inequality.
-\begin{equation}
-    Pr\{(Y-\mu)^2 \geq \varepsilon^2\} \leq \frac{\sigma^2}{\varepsilon^2}
-    \label{chebyshev}
-\end{equation}
-
-
-
-% Add a bibliography.
-% \bibliographystyle{plain}
-% \bibliography{brlen}
+Chebyshev's inequality \pref{eq: chebychevs ineq}.
+\begin{flushright}
+    $\Box$
+\end{flushright}
 
 \subsection*{(c)}
+
+(The weak law of large numbers.) Let $Z_1,Z_2,\dots,Z_n$ be a sequence of
+i.i.d. random variables with mean $\mu$ and variance $\sigma^2$. Let
+$\overline{Z_n} = \frac{1}{n}\sum{i=1,2,\dots,n}Z_i$ be the sample mean.
+Show 
+\begin{equation}
+    \Pr \{|\overline{Z_n} - \mu| > \varepsilon\} \leq
+    \frac{\sigma^2}{n\varepsilon^2}
+    \label{eq: weak loln}
+\end{equation}
+
+\proof
 
 $\overline{Z_n}$ is a random variable with mean $\mu$ and variance
 $\frac{\sigma^2}{n}$. This is easily computed because expectation
@@ -105,101 +115,96 @@ leading coefficients,
     = \frac{n\sigma^2}{n^2} 
     = \frac{\sigma^2}{n}
 \end{equation*}
-. Chebyshev's inequality can then be applied to $\overline{Z_n}$, arriving
-at
-\begin{equation}
-    Pr\{ |\overline{Z_n} - \mu| > \varepsilon\} 
-        \leq \frac{\sigma^2}{n\varepsilon^2}
-    \label{eq:weak loln}
-\end{equation}
-. The inequality \ref{eq:weak loln} is the weak law of large numbers.
-
+. The weak law of large numbers \pref{eq: weak loln} comes from applying
+Chebychev's inequality \pref{eq: chebychevs ineq} to $\overline{Z_n}$.
+\begin{flushright}
+    $\Box$
+\end{flushright}
 \section*{3.2}
 
-\begin{eqnarray*}
-    \frac{1}{n} log \frac{p(X^n)p(Y^n)}{p(X^n,Y^n)} 
-        &=& \frac{1}{n} log\ p(X^n) + \frac{1}{n} log\ p(Y^n) 
-            - \frac{1}{n} log\ p(X^n,Y^n)  \\
-            \label{eq:log separate}
-        &\rightarrow& -H(X) -H(Y) + H(X,Y) \\
-        \label{eq:distribute limit}
-        &=& -I(X;Y)
-        \label{eq:apply MI theorem}
-\end{eqnarray*}
+Let $(X_i,Y_i)$ be i.i.d. $\sim p(x,y)$. We form the log likelihood ratio
+of the hypothesis that $X$ and $Y$ are independent vs. the hypothesis that
+$X$ and $Y$ are dependent. What is the limit of
+\begin{equation}
+    \frac{1}{n}\log \frac{p(X^n)p(Y^n)}p(X^n,Y^n)
+    \label{eq: normalized llr}
+\end{equation}
+$Solution$:
+\begin{eqnarray}
+    \frac{1}{n}\log \frac{p(X^n)p(Y^n)}{p(X^n,Y^n)}
+    &=& \frac{1}{n} \log \prod_{i=1}^{n}\frac{p(X_i)p(Y_i)}{p(X_i,Y_i)}
+    \label{eq: expand probs} \\
+    &=& \frac{1}{n} \sum_{i=1}^{n} \log \frac{p(X_i)p(Y_i)}{p(X_i,Y_i)}
+    \label{eq: log of prods} \\
+    &\rightarrow& \E \log \frac{p(X_i)p(Y_i)}{p(X_i,Y_i)} 
+    \label{eq: sum convergence} \\
+    &=& -I(X;Y) 
+    \label{eq: from MI defn}\\
+\end{eqnarray}
 
-Equation \ref{eq:log separate} is merely from applying basic rules of
-logarithms. The covergence in \ref{eq:distribute limit} comes from the
-convergence of each $\frac{1}{n}log(\dots)$ term. 
-Finally, a basic theorem relating mutual information to entropy gives 
-\ref{eq:apply MI theorem}.
+The initial equality \pref{eq: expand probs} comes from the initial
+independence assumption.
+The convergence \pref{eq: sum convergence} comes from \pref{eq: log of
+prods} and the (strong?) law of large numbers. 
+The equality \pref{eq: from MI defn} comes from the
+definition of mutual information.
+
+This implies convergence of the likelihood ratio
+$\frac{p(X^n)p(Y^n)}{p(X^n,Y^n)} \rightarrow 2^{-nI(X;Y)}$ which is 1 iff
+$X$ and $Y$ are independent.
 
 \section*{3.6}
 
-Let $P_n$ be defined as follows,
+Let $X_1,X_2,\dots$ be i.i.d. drawn according to probability mass function
+$p(x)$. Find the limit
 \begin{equation}
-    P_n = (p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}
-    \label{eq:defn P_n}
+    \lim_{n \to \infty} (p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}
+    \label{eq: aep like limit}
 \end{equation}
-. The limit of $P_n$ as $n$ tends to inifity can be evaluated as
-\begin{equation}
-    \lim_{n\to \infty} P_n = 2^{lim_{n\to\infty}log\ P_n}
-    \label{eq:limit of composition}
-\end{equation}
-. It's known from the definition of the AEP that $log(P_n)$ converges to
-$-H(p)$. That is,
-\begin{equation}
-    log\ (p(X_1,\dots,X_n))^{\frac{1}{n}} 
-        = \frac{1}{n} log\ p(X_1,\dots,X_n) \rightarrow -H(p)
-    \label{eq:P_n convergence}
-\end{equation}
-. So, using \ref{eq:P_n convergence}, \ref{eq:limit of composition} then
-becomes 
-\begin{equation}
-    \lim_{n\to\infty} P_n = 2^{-H(p)}
-    \label{eq:P_n limit}
-\end{equation}.
+$Solution$:
+\begin{eqnarray}
+    P_n &=& (p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}
+        \label{eq: defn P_n} \\
+    \lim_{n\to \infty} P_n &=& 2^{lim_{n\to\infty}log\ P_n}
+        \label{eq: limit of composition} \\
+    &=& 2^{-H(X)},
+        \label{eq: P_n limit} 
+    \end{eqnarray} 
+    The convergence of the exponent in \pref{eq: limit of composition} to
+    $-H(X)$ comes from the definition of the AEP.
+    The above result assumes that $H(X)$ exists.
 
 \section*{3.11}
 
 \subsection*{(a)}
 
-It is given that, for sets $A$ and $B$,
-\begin{align}
-    &Pr(A) > 1 - \varepsilon_1 and \\
-    &Pr(B) > 1 - \varepsilon_2
-\end{align}
-. One can rewrite the probability of the intersection $A\cap B$ as
+Given any two sets $A$, $B$ such that $\Pr{A} > 1-\varepsilon_1$ and
+$\Pr{B} > 1-\varepsilon_2$, show that $\Pr(A\cap B) > 1 - \varepsilon_1 -
+\varepsilon_2$. Hence
 \begin{equation}
-    Pr(A\cap B) = Pr(A) + Pr(B) - Pr(A\cup B)
-    \label{eq:pr A intersect B}
+    \Pr(A_\varepsilon^{(n)} \cap B_\delta^{(n)}) > 1 - \varepsilon - \delta
+    \label{eq: 3.11(a) conclusion}
 \end{equation}
-. Using our hypotheses about the probabilities of $A$ and $B$, it's easy
-to see
-\begin{equation}
-    Pr(A\cap B) > 2 - \varepsilon_1 - \varepsilon_2 - Pr(A\cup B)
-    \label{eq:sub hypotheses}
-\end{equation}
-. Because the probablity of the union can be no more than one, the right
-hand side of \ref{eq:sub hypotheses} is bounded from below by
-$1-\varepsilon_1-\varepsilon_2$. So, we have shown the desired inequality.
-\begin{equation}
-    Pr(A\cap B) > 1 - \varepsilon_1 - \varepsilon_2
-    \label{eq:3.11a}
-\end{equation}
+$Solution$:
+\begin{eqnarray}
+    Pr(A\cap B) &=& Pr(A) + Pr(B) - Pr(A\cup B)
+    \label{eq: pr A intersect B} \\
+    &>& 2 - \varepsilon_1 - \varepsilon_2 - Pr(A\cup B)
+    \label{eq: sub hypotheses} \\
+    &>& 1 - \varepsilon_1 - \varepsilon_2
+    \label{eq: 3.11a}
+\end{eqnarray}
 
 \subsection*{(b)}
 \begin{itemize}
-    \item (3.34): Inequality \ref{eq:3.11a} from the last part
-        of this problem.
-    \item (3.35): Definition of the probability of a set.
-    \item (3.36): The definition of the AEP $A_\varepsilon^{(n)}$
-        bounds the probability of sequence $x^n$ from above by
-        $2^{-n(H-\varepsilon)}$.
-    \item (3.37): Sums of a constant summand (not dependant on the
-        sequence $x^n$) are simply equal to the product of the summand 
-        and the number of terms in the sum.
-    \item (3.38): The cardinality of a the insection of two sets, is no
-        greater than the cardinality of either sets individually.
+    \item (3.34): Inequality \ref{eq: 3.11(a) conclusion} from part (a).
+    \item (3.35): Definition of the probability of an event.
+    \item (3.36): By definition, for $x^n \in A_\varepsilon^{(n)}$
+        $p(x^n) \leq 2^{-n(H - \varepsilon)}$.
+    \item (3.37): Sum over a constant summand (not dependant on the
+        sequence $x^n$).
+    \item (3.38): The intersection's cardinality is no greater than the cardinality of either set individually.
 \end{itemize}
 
+\end{multicols}
 \end{document}
