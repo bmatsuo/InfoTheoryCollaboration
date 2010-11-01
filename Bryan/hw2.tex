@@ -1,0 +1,205 @@
+\documentclass[12pt]{article}
+
+\usepackage{fullpage,latexsym,amsthm,amsmath,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
+
+% Define new commands.
+
+\newcommand{\bmat}[1]{{\color{red}{#1}}}
+
+\newtheorem{defn}{Definition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{question}{Question}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+% Setup document header/footer and adjust spacing accordingly.
+\pagestyle{fancy}
+\lhead{HW \#2 - EE 253 Fall `10}
+\rhead{Bryan Matsuo (bryan.matsuo@gmail.com)}
+\rfoot{\today}
+\renewcommand\headheight{15pt}
+\renewcommand\footrulewidth{0.4pt}
+
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{15pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+
+% Begin the actual document content here.
+\begin{document}
+
+\section*{3.1}
+
+\subsection*{(a)}
+
+\begin{eqnarray}
+    Pr \{ X \geq t \} &=&  \int_t^\infty p(x)dx \nonumber \\
+    &=& \int_t^\infty \frac{x}{x}p(x)dx
+    \label{eq:LHS times one}
+\end{eqnarray}
+
+It is given in the problem statement that $0 < t \leq x$.
+Thus $\frac{1}{x} \leq \frac{1}{t}$ and $\frac{x}{x} \leq \frac{x}{t}$. 
+This inequality can be plugged into equation \ref{eq:LHS times one},
+
+\begin{eqnarray}
+    Pr \{ X \geq t \} 
+        &=&  \int_t^\infty \frac{x}{x}p(x)dx \nonumber \\
+        &\leq& \int_t^\infty \frac{x}{t}p(x)dx \nonumber \\
+        &\leq& \frac{1}{t} \int_t^\infty xp(x)dx \nonumber \\
+        &\leq& \frac{1}{t} E[X]
+    \label{eq:3.1a finished}
+\end{eqnarray}
+
+So the inequality $Pr \{ X \geq t \} \leq \frac{E[X]}{t}$ has been shown.
+When $X$ is a discrete random variable, the same argument carries through
+when replacing integrals with sums.
+
+One example of a random variable for which the above inequality is an
+equality is discrete variable $X$, where $X=0$ with probability 1. 
+Thus, for a positive real number $t$, 
+$E[X] = \frac{1}{t}E[X] =  0$ and $Pr \{ X \geq t \} = 0$.
+
+\subsection*{(b)}
+
+$Y$ is a random variable with mean $\mu$ and variance $\sigma^2$.
+
+Consider $Pr\{|Y-\mu| \geq \varepsilon\}$. 
+This probability is equal to $Pr\{(Y-\mu)^2 \geq \varepsilon^2\}$.
+Using Markov's inequality from problem 3.1(a), have the inequality
+\begin{equation}
+    Pr\{(Y-\mu)^2 \geq \varepsilon^2\} \leq \frac{E[(Y-\mu)^2]}{\varepsilon^2}
+    \label{eq:instatiate 3.1a}
+\end{equation}
+. The numerator $E[(Y-\mu)^2]$ is equal to $\sigma^2$, from the definition
+of variance and the fact that $\mu = E[Y]$. Thus we are left with
+Chebyshev's inequality.
+\begin{equation}
+    Pr\{(Y-\mu)^2 \geq \varepsilon^2\} \leq \frac{\sigma^2}{\varepsilon^2}
+    \label{chebyshev}
+\end{equation}
+
+
+
+% Add a bibliography.
+% \bibliographystyle{plain}
+% \bibliography{brlen}
+
+\subsection*{(c)}
+
+$\overline{Z_n}$ is a random variable with mean $\mu$ and variance
+$\frac{\sigma^2}{n}$. This is easily computed because expectation
+distributes across linear combinations, 
+\begin{equation*}
+    E\bigg[\frac{1}{n}\sum_{i=1}^{n}Z_i\bigg] 
+    = \frac{1}{n} \sum_{i=0}^{n} E[Z_i] = \frac{n\mu}{n} = \mu
+\end{equation*}
+, and variance distributes across linear combinations, squaring the
+leading coefficients,
+\begin{equation*}
+    Var\bigg[\frac{1}{n}\sum_{i=1}^{n}Z_i\bigg]
+    = \frac{1}{n^2}\sum_{i=0}^{n} Var[Z_i] 
+    = \frac{n\sigma^2}{n^2} 
+    = \frac{\sigma^2}{n}
+\end{equation*}
+. Chebyshev's inequality can then be applied to $\overline{Z_n}$, arriving
+at
+\begin{equation}
+    Pr\{ |\overline{Z_n} - \mu| > \varepsilon\} 
+        \leq \frac{\sigma^2}{n\varepsilon^2}
+    \label{eq:weak loln}
+\end{equation}
+. The inequality \ref{eq:weak loln} is the weak law of large numbers.
+
+\section*{3.2}
+
+\begin{eqnarray*}
+    \frac{1}{n} log \frac{p(X^n)p(Y^n)}{p(X^n,Y^n)} 
+        &=& \frac{1}{n} log\ p(X^n) + \frac{1}{n} log\ p(Y^n) 
+            - \frac{1}{n} log\ p(X^n,Y^n)  \\
+            \label{eq:log separate}
+        &\rightarrow& -H(X) -H(Y) + H(X,Y) \\
+        \label{eq:distribute limit}
+        &=& -I(X;Y)
+        \label{eq:apply MI theorem}
+\end{eqnarray*}
+
+Equation \ref{eq:log separate} is merely from applying basic rules of
+logarithms. The covergence in \ref{eq:distribute limit} comes from the
+convergence of each $\frac{1}{n}log(\dots)$ term. 
+Finally, a basic theorem relating mutual information to entropy gives 
+\ref{eq:apply MI theorem}.
+
+\section*{3.6}
+
+Let $P_n$ be defined as follows,
+\begin{equation}
+    P_n = (p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}
+    \label{eq:defn P_n}
+\end{equation}
+. The limit of $P_n$ as $n$ tends to inifity can be evaluated as
+\begin{equation}
+    \lim_{n\to \infty} P_n = 2^{lim_{n\to\infty}log\ P_n}
+    \label{eq:limit of composition}
+\end{equation}
+. It's known from the definition of the AEP that $log(P_n)$ converges to
+$-H(p)$. That is,
+\begin{equation}
+    log\ (p(X_1,\dots,X_n))^{\frac{1}{n}} 
+        = \frac{1}{n} log\ p(X_1,\dots,X_n) \rightarrow -H(p)
+    \label{eq:P_n convergence}
+\end{equation}
+. So, using \ref{eq:P_n convergence}, \ref{eq:limit of composition} then
+becomes 
+\begin{equation}
+    \lim_{n\to\infty} P_n = 2^{-H(p)}
+    \label{eq:P_n limit}
+\end{equation}.
+
+\section*{3.11}
+
+\subsection*{(a)}
+
+It is given that, for sets $A$ and $B$,
+\begin{align}
+    &Pr(A) > 1 - \varepsilon_1 and \\
+    &Pr(B) > 1 - \varepsilon_2
+\end{align}
+. One can rewrite the probability of the intersection $A\cap B$ as
+\begin{equation}
+    Pr(A\cap B) = Pr(A) + Pr(B) - Pr(A\cup B)
+    \label{eq:pr A intersect B}
+\end{equation}
+. Using our hypotheses about the probabilities of $A$ and $B$, it's easy
+to see
+\begin{equation}
+    Pr(A\cap B) > 2 - \varepsilon_1 - \varepsilon_2 - Pr(A\cup B)
+    \label{eq:sub hypotheses}
+\end{equation}
+. Because the probablity of the union can be no more than one, the right
+hand side of \ref{eq:sub hypotheses} is bounded from below by
+$1-\varepsilon_1-\varepsilon_2$. So, we have shown the desired inequality.
+\begin{equation}
+    Pr(A\cap B) > 1 - \varepsilon_1 - \varepsilon_2
+    \label{eq:3.11a}
+\end{equation}
+
+\subsection*{(b)}
+\begin{itemize}
+    \item (3.34): Inequality \ref{eq:3.11a} from the last part
+        of this problem.
+    \item (3.35): Definition of the probability of a set.
+    \item (3.36): The definition of the AEP $A_\varepsilon^{(n)}$
+        bounds the probability of sequence $x^n$ from above by
+        $2^{-n(H-\varepsilon)}$.
+    \item (3.37): Sums of a constant summand (not dependant on the
+        sequence $x^n$) are simply equal to the product of the summand 
+        and the number of terms in the sum.
+    \item (3.38): The cardinality of a the insection of two sets, is no
+        greater than the cardinality of either sets individually.
+\end{itemize}
+
+\end{document}
