@@ -22,9 +22,7 @@
 \begin{multicols}{2}
 
 \section*{3.1}
-
-\subsection*{(a)}
-
+$\mathbf{(a)}$
 (Markov's Inequality) For non-negative random variable $X$ and  $t>0$,
 Show
 \begin{equation}
@@ -32,33 +30,26 @@ Show
 \end{equation}
 And provide an example random variable for with the above condition is met
 with equality.
-
 \proof
-
 \begin{eqnarray}
-    \E X &= \int_{-\infty}^\infty x f(x)dx &\text{(Defn of expectation.)}
-        \nonumber \\
+    \E X %&= \int_{-\infty}^\infty x f(x)dx &\text{(Defn of expectation.)}
+        %\nonumber \\
     &\geq \int_t^\infty x f(x)dx &\text{(Integral over subdomain)} 
-        \nonumber \\
+    \nonumber \\
     &\geq \int_t^\infty t f(x)dx &\text{($x \geq t$ in integral)} 
         \nonumber \\
     &= t \Pr\{X \geq t\}  &\text{($t$ constant in integral)}
         \label{eq: 3.1a QED}
 \end{eqnarray}
 The last equation \pref{eq: 3.1a QED} proves Markov's Inequality
-\pref{eq: markovs ineq}.
-
-\begin{flushright}
-    $\Box$
-\end{flushright}
+\pref{eq: markovs ineq}. $\Box$
 
 Let $X$ be a \emph{random variable} which has value zero with probability
 one.
 The expected value of $X$ is zero and thus, 
 \pref{eq: markovs ineq} is always an equality.
 
-\subsection*{(b)}
-
+$\mathbf{(b)}$
 (Chebychev's Inequality) Let $Y$ be a random variable with mean $\mu$ and
 variance $\sigma^2$. By letting $X = (Y-\mu)^2$, show that for
 $\varepsilon > 0$
@@ -66,9 +57,7 @@ $\varepsilon > 0$
     \Pr \{(Y-\mu)^2 > \varepsilon\} \leq \frac{\sigma^2}{\varepsilon^2}
     \label{eq: chebychevs ineq}
 \end{equation}
-
 \proof
-
 \begin{eqnarray}
     \Pr\{(Y-\mu)^2 > \varepsilon\} &\leq& \Pr\{(Y-\mu)^2 \geq \varepsilon^2\}
         \nonumber \\
@@ -81,13 +70,9 @@ The final inequality coming from an application of Markov's Inequality
 \pref{eq: markovs ineq} and the derived inequality \pref{eq: equate probs}.
 The numerator $E[(Y-\mu)^2]$ is equal to $\sigma^2$, from the definition
 of variance and the fact that $\mu = E[Y]$. Thus we are left with
-Chebyshev's inequality \pref{eq: chebychevs ineq}.
-\begin{flushright}
-    $\Box$
-\end{flushright}
+Chebyshev's inequality \pref{eq: chebychevs ineq}. $\Box$
 
-\subsection*{(c)}
-
+$\mathbf{(c)}$
 (The weak law of large numbers.) Let $Z_1,Z_2,\dots,Z_n$ be a sequence of
 i.i.d. random variables with mean $\mu$ and variance $\sigma^2$. Let
 $\overline{Z_n} = \frac{1}{n}\sum{i=1,2,\dots,n}Z_i$ be the sample mean.
@@ -97,31 +82,27 @@ Show
     \frac{\sigma^2}{n\varepsilon^2}
     \label{eq: weak loln}
 \end{equation}
-
 \proof
-
 $\overline{Z_n}$ is a random variable with mean $\mu$ and variance
 $\frac{\sigma^2}{n}$. This is easily computed because expectation
 distributes across linear combinations, 
-\begin{equation*}
-    E\bigg[\frac{1}{n}\sum_{i=1}^{n}Z_i\bigg] 
-    = \frac{1}{n} \sum_{i=0}^{n} E[Z_i] = \frac{n\mu}{n} = \mu
-\end{equation*}
+%\begin{equation*}
+%    E\bigg[\frac{1}{n}\sum_{i=1}^{n}Z_i\bigg] 
+%    = \frac{1}{n} \sum_{i=0}^{n} E[Z_i] = \frac{n\mu}{n} = \mu
+%\end{equation*}
 , and variance distributes across linear combinations, squaring the
 leading coefficients,
-\begin{equation*}
-    Var\bigg[\frac{1}{n}\sum_{i=1}^{n}Z_i\bigg]
-    = \frac{1}{n^2}\sum_{i=0}^{n} Var[Z_i] 
-    = \frac{n\sigma^2}{n^2} 
-    = \frac{\sigma^2}{n}
-\end{equation*}
+%\begin{equation*}
+%    Var\bigg[\frac{1}{n}\sum_{i=1}^{n}Z_i\bigg]
+%    = \frac{1}{n^2}\sum_{i=0}^{n} Var[Z_i] 
+%    = \frac{n\sigma^2}{n^2} 
+%    = \frac{\sigma^2}{n}
+%\end{equation*}
 . The weak law of large numbers \pref{eq: weak loln} comes from applying
 Chebychev's inequality \pref{eq: chebychevs ineq} to $\overline{Z_n}$.
-\begin{flushright}
-    $\Box$
-\end{flushright}
-\section*{3.2}
+$\Box$
 
+\section*{3.2}
 Let $(X_i,Y_i)$ be i.i.d. $\sim p(x,y)$. We form the log likelihood ratio
 of the hypothesis that $X$ and $Y$ are independent vs. the hypothesis that
 $X$ and $Y$ are dependent. What is the limit of
@@ -132,29 +113,23 @@ $X$ and $Y$ are dependent. What is the limit of
 $Solution$:
 \begin{eqnarray}
     \frac{1}{n}\log \frac{p(X^n)p(Y^n)}{p(X^n,Y^n)}
-    &=& \frac{1}{n} \log \prod_{i=1}^{n}\frac{p(X_i)p(Y_i)}{p(X_i,Y_i)}
-    \label{eq: expand probs} \\
     &=& \frac{1}{n} \sum_{i=1}^{n} \log \frac{p(X_i)p(Y_i)}{p(X_i,Y_i)}
     \label{eq: log of prods} \\
-    &\rightarrow& \E \log \frac{p(X_i)p(Y_i)}{p(X_i,Y_i)} 
-    \label{eq: sum convergence} \\
-    &=& -I(X;Y) 
-    \label{eq: from MI defn}\\
+    &\rightarrow& -I(X;Y) 
+    \label{eq: from MI defn}
 \end{eqnarray}
 
-The initial equality \pref{eq: expand probs} comes from the initial
-independence assumption.
-The convergence \pref{eq: sum convergence} comes from \pref{eq: log of
-prods} and the (strong?) law of large numbers. 
-The equality \pref{eq: from MI defn} comes from the
+The independence assumption makes \pref{eq: normalized llr} the log of a
+product, yielding the sum of logs in \pref{eq: log of prods}.
+The convergence in \pref{eq: from MI defn} comes from the convergence of
+\pref{eq: log of prods} to $\E \log \frac{p(X_i)p(Y_i)}{p(X_i,Y_i)}$ by
+the (strong?) law of large numbers. \pref{eq: from MI defn} comes from the
 definition of mutual information.
 
 This implies convergence of the likelihood ratio
 $\frac{p(X^n)p(Y^n)}{p(X^n,Y^n)} \rightarrow 2^{-nI(X;Y)}$ which is 1 iff
 $X$ and $Y$ are independent.
-
 \section*{3.6}
-
 Let $X_1,X_2,\dots$ be i.i.d. drawn according to probability mass function
 $p(x)$. Find the limit
 \begin{equation}
@@ -173,11 +148,8 @@ $Solution$:
     The convergence of the exponent in \pref{eq: limit of composition} to
     $-H(X)$ comes from the definition of the AEP.
     The above result assumes that $H(X)$ exists.
-
 \section*{3.11}
-
-\subsection*{(a)}
-
+\textbf{(a)}
 Given any two sets $A$, $B$ such that $\Pr{A} > 1-\varepsilon_1$ and
 $\Pr{B} > 1-\varepsilon_2$, show that $\Pr(A\cap B) > 1 - \varepsilon_1 -
 \varepsilon_2$. Hence
@@ -194,17 +166,27 @@ $Solution$:
     &>& 1 - \varepsilon_1 - \varepsilon_2
     \label{eq: 3.11a}
 \end{eqnarray}
+\textbf{(b)} Justify the steps in the chain of inequalities
+\begin{eqnarray}
+    1-\varepsilon-\delta &\leq& \Pr(A_\varepsilon^{(n)} \cap B_\delta^{(n)}) 
+        \label{eq: 3.34} \\
+    &=& \sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} p(x^n)
+        \label{eq: 3.35} \\
+    &\leq& \sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} 2^{-n(H-\varepsilon)}
+        \label{eq: 3.36} \\
+    &=& |A_\varepsilon^{(n)} \cap B_\delta^{(n)}|2^{-n(H-\varepsilon)}
+        \label{eq: 3.37} \\
+    &\leq& |B_\delta^{(n)}|2^{-n(H-\varepsilon)}
+        \label{eq: 3.38}
+\end{eqnarray}
 
-\subsection*{(b)}
-\begin{itemize}
-    \item (3.34): Inequality \ref{eq: 3.11(a) conclusion} from part (a).
-    \item (3.35): Definition of the probability of an event.
-    \item (3.36): By definition, for $x^n \in A_\varepsilon^{(n)}$
-        $p(x^n) \leq 2^{-n(H - \varepsilon)}$.
-    \item (3.37): Sum over a constant summand (not dependant on the
-        sequence $x^n$).
-    \item (3.38): The intersection's cardinality is no greater than the cardinality of either set individually.
-\end{itemize}
+\pref{eq: 3.34} follows from inequality \pref{eq: 3.11(a) conclusion}.
+\pref{eq: 3.35} comes from the definition of the probability of an event.
+\pref{eq: 3.36} is true by definition of AEP. 
+For $x^n \in A_\varepsilon^{(n)}$ $p(x^n) \leq 2^{-n(H - \varepsilon)}$.
+In \pref{eq: 3.37}, the sum is carried out over a constant summand 
+(not dependant on the sequence $x^n$).
+For \pref{eq: 3.38}, the intersection's cardinality is no greater than the cardinality of either set individually.
 
 \end{multicols}
 \end{document}
