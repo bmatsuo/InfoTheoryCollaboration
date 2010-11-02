@@ -54,12 +54,12 @@ $\mathbf{(b)}$
 variance $\sigma^2$. By letting $X = (Y-\mu)^2$, show that for
 $\varepsilon > 0$
 \begin{equation}
-    \Pr \{(Y-\mu)^2 > \varepsilon\} \leq \frac{\sigma^2}{\varepsilon^2}
+    \Pr \{(Y-\mu)^2 > \varepsilon^2\} \leq \frac{\sigma^2}{\varepsilon^2}
     \label{eq: chebychevs ineq}
 \end{equation}
 \proof
 \begin{eqnarray}
-    \Pr\{(Y-\mu)^2 > \varepsilon\} &\leq& \Pr\{(Y-\mu)^2 \geq \varepsilon^2\}
+    \Pr\{(Y-\mu)^2 > \varepsilon^2\} &\leq& \Pr\{(Y-\mu)^2 \geq \varepsilon^2\}
         \nonumber \\
         &=& \Pr\{|Y-\mu| \geq \varepsilon\}
         \label{eq: equate probs} \\
@@ -131,11 +131,8 @@ $\frac{p(X^n)p(Y^n)}{p(X^n,Y^n)} \rightarrow 2^{-nI(X;Y)}$ which is 1 iff
 $X$ and $Y$ are independent.
 \section*{3.6}
 Let $X_1,X_2,\dots$ be i.i.d. drawn according to probability mass function
-$p(x)$. Find the limit
-\begin{equation}
-    \lim_{n \to \infty} (p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}
-    \label{eq: aep like limit}
-\end{equation}
+$p(x)$. Find the limit $\lim_{n \to \infty}
+(p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}$.
 $Solution$:
 \begin{eqnarray}
     P_n &=& (p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}
@@ -157,7 +154,7 @@ $\Pr{B} > 1-\varepsilon_2$, show that $\Pr(A\cap B) > 1 - \varepsilon_1 -
     \Pr(A_\varepsilon^{(n)} \cap B_\delta^{(n)}) > 1 - \varepsilon - \delta
     \label{eq: 3.11(a) conclusion}
 \end{equation}
-$Solution$:
+\proof
 \begin{eqnarray}
     Pr(A\cap B) &=& Pr(A) + Pr(B) - Pr(A\cup B)
     \label{eq: pr A intersect B} \\
@@ -166,27 +163,19 @@ $Solution$:
     &>& 1 - \varepsilon_1 - \varepsilon_2
     \label{eq: 3.11a}
 \end{eqnarray}
-\textbf{(b)} Justify the steps in the chain of inequalities
-\begin{eqnarray}
-    1-\varepsilon-\delta &\leq& \Pr(A_\varepsilon^{(n)} \cap B_\delta^{(n)}) 
-        \label{eq: 3.34} \\
-    &=& \sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} p(x^n)
-        \label{eq: 3.35} \\
-    &\leq& \sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} 2^{-n(H-\varepsilon)}
-        \label{eq: 3.36} \\
-    &=& |A_\varepsilon^{(n)} \cap B_\delta^{(n)}|2^{-n(H-\varepsilon)}
-        \label{eq: 3.37} \\
-    &\leq& |B_\delta^{(n)}|2^{-n(H-\varepsilon)}
-        \label{eq: 3.38}
-\end{eqnarray}
-
-\pref{eq: 3.34} follows from inequality \pref{eq: 3.11(a) conclusion}.
-\pref{eq: 3.35} comes from the definition of the probability of an event.
-\pref{eq: 3.36} is true by definition of AEP. 
-For $x^n \in A_\varepsilon^{(n)}$ $p(x^n) \leq 2^{-n(H - \varepsilon)}$.
-In \pref{eq: 3.37}, the sum is carried out over a constant summand 
-(not dependant on the sequence $x^n$).
-For \pref{eq: 3.38}, the intersection's cardinality is no greater than the cardinality of either set individually.
+\textbf{(b)} 
+Inequality \pref{eq: 3.11(a) conclusion} gives $1-\varepsilon-\delta \leq \Pr(A_\varepsilon^{(n)} \cap B_\delta^{(n)})$. 
+The definition of the probability of an event makes the RHS equal to
+$\sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} p(x^n)$.
+This value is at most 
+$\sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} 2^{-n(H-\varepsilon)}$, 
+by the definition of AEP 
+(for $x^n \in A_\varepsilon^{(n)}$ $p(x^n) \leq 2^{-n(H - \varepsilon)}$).
+The sum in carried out over a constant summand, and is equal to
+$|A_\varepsilon^{(n)} \cap B_\delta^{(n)}|2^{-n(H-\varepsilon)}$, which is
+upperbounded by $|B_\delta^{(n)}|2^{-n(H-\varepsilon)}$, because the
+cardinality of a set intersection is at most the cardinality of either
+set.
 
 \end{multicols}
 \end{document}
