@@ -74,12 +74,20 @@ b) By stationarity we have $\forall 1 \le i \le n$,
 
 \section*{Entropy rates of Markov chains}
 [THIS PROBLEM NEEDS TABLES ADDED and questions!]
+
+P = $[ (1-p_{01}, p_{01}), (p_{10}, 1-p_{10}]$ 
 a) The stationary distribution is: $u_0=\frac{p_{10}}{p_{01}+p_{10}}$, $u_1=\frac{p_{01}}{p_{01}+p_{10}}$
 Therefore the entropy is: \( H(X_2 \mid X_1) = u_0H(p_{01})+u_1H(p_{10}) = \frac{p_{10}H(p_{01})+ p_{01}H(p_{10})}{p_{01}+p_{10}}. \)
 
 b) The entropy rate is at most 1 bit because process has only two states. This rate can be achieved iff \(p_{01}=p_{10}=1/2 \), in which case the process is i.i.d with \( \Pr(X_i = 0) =\Pr(X_i=1) = 1/2 \)
 
+P = $[ (1-p, p), (1, 0)]$ 
 c) special case if the general two-state Markov chain, the entropy rate is \( H(X_2 | X_1)=u_0H(p)+u_1H(1)=\frac{H(p)}{p+1} = \frac{-p\log(p)-(1-p)\log(1-p)}{1+p} \)
+
+e) \textbf{[fill in calc steps with cites to calc rules, maybe a few milestones (discuss in group)]}
+By calculus: \( p=\frac{(3-5^{1/2})}{2}=0.382.\) the max value is \(H(p)=H(1-p)=H(\frac{5^{1/2}-1}{2}) = 0.694bits\)
+note that \( \frac{(5^{1/2}-1)}{2} =.618\) is (the reciprocal of) the Golden Ratio.
+
 \section*{problem 9}
 Solution: initial conditions. For a Markov chain, by the data processing theorem we have 
 $I(X_0  \: X_{n-1}) \ge I(X_0 \ : X_n)$
@@ -87,6 +95,7 @@ $I(X_0  \: X_{n-1}) \ge I(X_0 \ : X_n)$
 Therefore $H(X_0) - H(X_0 | X_{n-1}) \ge H(X_0) - H(X_0 | X_n)$ or $H(X_0 | X_n)$  increases with n
 
 \section*{prob 11}
-Solution: stationary processes A) $H(x_n | X_0) = H(X_{-n} | X_0).$ True cause: $H(X_n | X_0) = H(X_n,X_0) - H(X_0)$ and $H(X_{-n} | X_0) = H(X_{-n},X_0) - H(X_0)$ 
+Solution: stationary processes A) $H(x_n | X_0) = H(X_{-n} | X_0).$ True cause: $H(X_n | X_0) = H(X_n,X_0) - H(X_0)$ and $H(X_{-n} | X_0) = H(X_{-n},X_0) - H(X_0)$ by stationarity.
+b) \(H(X_n\mid X_0) \ge H(X_{n-1} \mid X_0). \) \textbf{Not true} in general. Thous is true for first order markov chains. A simple counterexample is a periodic process with period n. Let $X_0,X_1,X_2,\cdots,X_{n-1}$ be i.i.d. uniformly distributed binary random variables and let \(X_k =X_{k-n}\) for \( k \ge n \) In this cases, $H(X_n \mid X_0)$ and $H(X_{n-1} \mid X_0) = 1$, contradicting the statement $H(X_n | X_0) \ge H(X_{n-1} \mid X_0)$. C) \(H(X_n \mid X_1^{n-1}, X_{n+1}) \) is non-increasing in n. \textbf{true}, since by stationarity \(H(X_n \mid X_1^{n-1}, X_{n+1}) \) = \(H(X_{n+1} \mid X_2^{n}, X_{n+2}) \)  \( \ge H(X_{n+1} \mid X_1^{n}, X_{n+2}) \) where the inequality follows from the fact that conditioning reduces entropy.
 
 \end{document}
