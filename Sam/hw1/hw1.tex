@@ -1,0 +1,307 @@
+\documentclass{report}
+% Change "report" to "article" to get a page number on title page
+\usepackage{fitch}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Homework 1}
+\newcommand{\hmwkDueDate}{Thurs., Oct. 7}
+\newcommand{\hmwkClass}{EE253}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Prof. Sadjadpour}
+\newcommand{\hmwkAuthorName}{Sam Wood}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section*{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection*{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}\vspace{3in}}
+\date{}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+\newpage
+\begin{homeworkProblem}[Problem 2.2: Entropy of Functions]
+  \begin{itemize}
+    \item[a.] $Y=2^{X}$. Since for every value of $X$, there is a unique value 
+	mapping to $Y$, we can conclude that $Y$ will have the same probability
+	mass function as $X$, thus \fbox{$H(X)=H(Y)$} (note that entropy does not
+	depend on the values of the random variable).
+    \item[b.] $Y=\cos(X)$. Depending on the range of $X$, there will either be $a)$
+	a one-one mapping, or $b)$ multiple $Y$ values for each $X$. If the case is $a)$
+	then we can use the conclusion from part $2.2a$ ($H(X)=H(Y)$). Otherwise, there 
+	will be fewer values that $Y$ takes, each with a higher probability. We can see
+	from the entropy definition $H(X)=\sum\limits_{x \in \chi} p(x)log(\frac{1}{p(x)})$
+	that the $log(\frac{1}{p(y)})$ factor will be smaller for $p(y) < p(x)$.
+	Additionally, the smaller factor will have more weight. Thus, $H(Y) < H(X)$ in
+	this case. Therefore, \fbox{$H(Y) \leq H(X)$}.
+  \end{itemize}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[Problem 2.4: Functions Reduce Entropy]
+  \begin{itemize}
+	  \item[a.] Theorem 2.2.1 (Chain Rule): $H(X,Y) = H(X) + H(Y|X)$.
+	  \item[b.] By knowing $X$, there is no uncertainty of $g(X)$. Therefore,
+              $H(g(X)|X) = 0$. Similarly, $H(X|X)=0$. 
+	  \item[c.] Symmetry of $p(x,y)=p(y,x)$ and Theorem 2.2.1 (Chain Rule).
+	  \item[d.] Entropy and conditional entropy must be non-negative, therefore
+              $H(X|g(x)) \geq 0$.
+  \end{itemize}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[Problem 2.10: Disjoint Random Variables]
+  \begin{itemize}
+    \item[a.] The distribution $\chi \sim \alpha p_{1} + (1 - \alpha)p_{2}$
+              where $\chi = \chi_{1} \amalg \chi_{2}$ (disjoint alphabets). Using the
+              definition of entropy,
+    \begin{align*}
+      H(X) & = -\sum\limits_{x \in \chi} (\alpha p_{1} + (1 - \alpha)p_{2})log(\alpha p_{1} + (1 - \alpha)p_{2}) \\
+     &= -\sum\limits_{x \in \chi} \alpha p_{1} log(\alpha p_{1} + (1-\alpha)p_{2})
+        -\sum\limits_{x \in \chi}(1-\alpha)p_{2}log(\alpha p_{1} + (1-\alpha)p_{2})
+    \end{align*}
+  Note that $p_{1} = 0$ for all $x \notin \chi_{1}$ and $p_{2} = 0$ for all $x \notin \chi_{2}$.
+  \begin{align*}
+    H(X) &= -\sum\limits_{x \in \chi_{1}} \alpha p_{1} log(\alpha p_{1})
+            -\sum\limits_{x \in \chi_{2}} (1-\alpha) p_{2} log((1-\alpha) p_{2}) \\
+         &= -\sum\limits_{x \in \chi_{1}}\alpha p_{1}log(\alpha)
+            -\sum\limits_{x \in \chi_{1}}\alpha p_{1}log(p_{1})
+            -\sum\limits_{x \in \chi_{2}} (1-\alpha) p_{2}log(1-\alpha)
+            -\sum\limits_{x \in \chi_{2}} (1-\alpha) p_{2}log(p2) \\
+         &= \alpha H(X_{1}) + (1-\alpha)H(X_{2}) - \alpha log(\alpha) - (1-\alpha)log(1-\alpha) \\
+         &= \textrm{\fbox{$\alpha H(X_{1}) + (1-\alpha)H(X_{2}) + H(\alpha)$}}
+  \end{align*}
+  \item[b.] Maximize over $\alpha$ to show $2^{H(X)}\leq2^{H(X_{1})}+2^{H(X_{2})}$. We note that $H(\alpha)$ is maximized 
+            when $\alpha = \frac{1}{2}$:
+  \begin{align*}
+    H(\frac{1}{2}) &= 1 \\
+    H(X)_{max} &= \frac{H(X_{1})+H(X_{2})}{2} + 1 \\
+  \end{align*}
+Note that if $H(X_{1}) = H(X_{2})$ then equality holds:
+
+\begin{align*}
+ 2^{H(X)_{max}} &= 2^{\frac{H(X_{1}+H(X_{1})}{2}+1} = 2^{H(X_{1})+1} \\
+ 2^{H(X_{1})} + 2^{H(X_{1})} &= 2^{H(X_{1})+1} \\
+ 2^{H(X)_{max}} &= 2^{H(X_{1})} + 2^{H(X_{1})} \\
+\end{align*}
+
+Unfortunately, I was unable to prove the other case (when $H(X_{1}) < H(X_{2})$ or $H(X_{2}) < H(X_{1})$), however intuitively it holds when plugging in non-negative values for $H(X_{1}), H(X_{2})$.
+
+  \end{itemize}
+\end{homeworkProblem}
+
+
+\begin{homeworkProblem}[Problem 2.12: Calculations]
+  Given the following probability mass functions: \\
+  \begin{align*}
+  p(X = 0) &= \frac{2}{3}, p(X = 1) = \frac{1}{3} \\
+  p(Y = 0) &= \frac{1}{3}, p(Y = 1) = \frac{2}{3} \\
+  p(X = 0, Y = 0) &= \frac{1}{3}, p(X = 0, Y = 1) = \frac{1}{3} \\
+  p(X = 1, Y = 0) &= 0, p(X = 1, Y = 1) = \frac{1}{3}
+  \end{align*}
+  \begin{itemize}
+  \item[a.] \begin{align*}H(X) &= H(\frac{2}{3}, \frac{1}{3}) = -\frac{2}{3}log(\frac{2}{3})-\frac{1}{3}log(\frac{1}{3}) \approx .92\textrm{ bits} \\
+      H(Y) &= H(\frac{1}{3}, \frac{2}{3}) \approx 0.92 \textrm{ bits}
+    \end{align*}
+  \item[b.]
+    \begin{align*}
+      H(X|Y) &= p(y=0)H(X|y=0) + p(y=1)H(X|y=1) \\
+             &= \frac{1}{3}H(1,0) + \frac{2}{3}H(\frac{1}{2},\frac{1}{2}) = \frac{2}{3} \textrm{ bits}\\
+      H(Y|X) &= p(x=0)H(Y|x=0) + p(x=1)H(Y|x=1) \\
+             &= \frac{2}{3}H(\frac{1}{2},\frac{1}{2}) + \frac{1}{3}H(0, 1) = \frac{2}{3} \textrm{ bits}\\
+    \end{align*}
+  \item[c.]
+    \begin{align*}
+      H(X,Y) &= -\sum\limits_{x \in \chi}\sum\limits_{y \in \gamma} p(x,y)log(p(x,y)) \\
+             &= -3(\frac{1}{3})log(\frac{1}{3}) = log(3) \approx 1.59 \textrm{ bits}
+    \end{align*}
+  \item[d.] 
+    \begin{align*}
+    H(Y)-H(Y|X) &\approx 0.92 \textrm{ bits} - 0.6\bar{6} \textrm{ bits} \approx 0.25 \textrm{ bits}
+    \end{align*}
+  \item[e.]
+    \begin{align*}
+      I(X;Y) &= \sum\limits_{x \in \chi}\sum\limits_{y \in \gamma}p(x,y)log\frac{p(x,y)}{p(x)p(y)} \\
+             &= p(0,0)log(\frac{p(0,0)}{p(X=0)p(Y=0)}) + p(0,1)log(\frac{p(0,1)}{p(X=0)p(Y=1)}) \\
+             &+ p(1,0)log(\frac{p(1,0)}{p(X=1)p(Y=0)}) + p(1,1)log(\frac{p(1,1)}{p(X=1)p(Y=1)}) \\
+             &= \frac{1}{3}log(\frac{1/3}{(2/3)(1/3)}) + \frac{1}{3}log(\frac{1/3}{(2/3)(2/3)}) 
+              + \frac{1}{3}log(\frac{1/3}{(1/3)(2/3)}) \\
+             &= \frac{2}{3}log(\frac{3}{2}) + \frac{1}{3}log(\frac{3}{4}) \approx 0.25 \textrm{ bits}
+    \end{align*}
+  \end{itemize}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[Problem 2.15: Mutual Information in Markov Chains]
+Given the Markov Chain $X_{1} \rightarrow X_{2} \rightarrow ... \rightarrow X_{n}$, reduce $I(X_{1}; X_{2}, ..., X_{n})$. 
+
+ \begin{align*}
+  p(x_{1}, x_{2}, ..., x_{n}) &= p(x_{1})p(x_{2}|x_{1})...p(x_{n}|x_{n-1}) \textrm{ (Markovity)} \\
+  p(x_{2},x_{3},...,x_{n}) &= p(x_{2})p(x_{3}|x_{2})...p(x_{n}|x_{n-1}) \textrm{ (Markovity)} \\
+  p(x_{2}|x_{1}) &= \frac{p(x_{1},x_{2})}{p(x_{1})} \\
+  I(X_{1};X_{2},X_{3},...,X_{n}) &= \sum\limits_{x_{1}, x_{2}, ..., x_{n} \in \chi_{1},\chi_{2}...\chi_{n}}
+      p(x_{1}, x_{2}, ..., x_{n}) log(\frac{p(x_{1}, x_{2}, ..., x_{n})}
+                                      {p(x_{1})p(x_{2},x_{3},...,x_{n})}) \\
+  &= \sum\limits_{x_{1}, x_{2}, ..., x_{n} \in \chi_{1},\chi_{2}...\chi_{n}}  p(x_{1}, x_{2}, ..., x_{n})
+            log(\frac{p(x_{1})p(x_{2}|x_{1})...p(x_{n}|x_{n-1})}
+                {p(x_{1})p(x_{2})p(x_{3}|x_{2})...p(x_{n}|x_{n-1})}) \\
+  &= \sum\limits_{x_{1}, x_{2}, ..., x_{n} \in \chi_{1},\chi_{2}...\chi_{n}}  p(x_{1}, x_{2}, ..., x_{n})
+            log(\frac{p(x_{2}|x_{1})}
+                {p(x_{2})}) \\
+  &= \sum\limits_{x_{1}, x_{2}, ..., x_{n} \in \chi_{1},\chi_{2}...\chi_{n}}  p(x_{1}, x_{2}, ..., x_{n})
+            log(\frac{p(x_{1},x_{2})}
+                {p(x_{1}),p(x_{2})}) \\
+  &= \textrm{\fbox{$I(X_{1}; X_{2})$}}
+  \end{align*}
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[Problem 2.26: Relative Entropy]
+\begin{itemize}
+\item[a.] Show $ln(x) \leq x-1$ for $0 < x < \infty$
+\begin{align*}
+\underbrace{e+e+...+e}_{x} &\leq \underbrace{e*e*..*e}_{x} \textrm{ for all $x>0$}\\
+ex &\leq e^{x} \\
+x &\leq e^{x-1} \\
+ln(x) & \leq ln(e^{x-1}) \\
+ln(x) & \leq x - 1 \textrm{ for all $x > 0$}
+\end{align*}
+\item[b.]
+  \begin{itemize}
+    \item[2.176] 
+      \begin{align*}
+        D(p||q) &= \sum\limits_{x \in \chi}p(x)ln(\frac{p(x)}{q(x)}) \\
+        -D(p||q) &= -\sum\limits_{x \in \chi}p(x)ln(\frac{p(x)}{q(x)}) \\
+                 &= \sum\limits_{x \in \chi}p(x)ln(\frac{p(x)}{q(x)})^{-1} \\
+                 &= \sum\limits_{x \in \chi}p(x)ln(\frac{q(x)}{p(x)}) \\
+      \end{align*} 
+      \item[2.177] From part a) we know $ln(\frac{q(x)}{p(x)}) \leq \frac{q(x)}{p(x)}-1$, by setting $x=\frac{q(x)}{p(x)}$ (note $x \geq 0$). Thus,
+      \begin{align*}
+        \sum\limits_{x \in \chi}p(x)ln(\frac{q(x)}{p(x)}) \leq 
+        \sum\limits_{x \in \chi}p(x)(\frac{q(x)}{p(x)} - 1) \\
+      \end{align*}
+      \item[2.178] 
+      \begin{align*}
+        \sum\limits_{x \in \chi}p(x)(\frac{q(x)}{p(x)} - 1) &= \sum\limits_{x \in \chi}p(x)(\frac{q(x)-p(x)}{p(x)}) = \sum\limits_{x \in \chi}q(x) - \sum\limits_{x \in \chi}p(x) = 0\\ 
+        -D(p||q) &\leq 0 \textrm{ (using 2.176, 2.177)}\\
+        D(p||q) &\geq 0
+      \end{align*}
+  \end{itemize}
+\item[c.] $D(p||q) = 0$ when $\frac{q(x)}{p(x)}=1$ for all $x$ (as seen from 2.177); in other words $q(x)$ and $p(x)$ are the same probability mass distribution.
+\end{itemize}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[Problem 2.32: Fano]
+Given $X\rightarrow Y\rightarrow \hat{X}$.
+\begin{align*}
+H(X|Y) &= p(Y=a)H(X|Y=a)+p(Y=b)H(X|Y=b)+p(Y=c)H(X|Y=c) \\
+       &= \frac{1}{3}H(\frac{2}{3}, \frac{1}{3}, \frac{1}{3}) + \frac{1}{3}H(\frac{2}{3}, \frac{1}{3}, \frac{1}{3}) + \frac{1}{3}H(\frac{2}{3}, \frac{1}{3}, \frac{1}{3}) \\
+       &= -\frac{2}{3}log(\frac{2}{3})-\frac{2}{3}log(\frac{1}{3}) = \frac{2}{3}(log(\frac{3}{2}) + log(3)) 
+        = \frac{2}{3}log(\frac{9}{2}) \approx \textrm{1.45 bits}
+\end{align*}
+\begin{itemize}
+\item[a.] Given $P_{e} = Pr\{\hat{X} \neq X\}$, the minimum error estimator $\hat{X}$ will be a function of $Y$ such that $I(X;Y)=I(X;\hat{X})$. Unfortunately, I was unable to calculate this value.
+\item[b.] Note $|\chi|$ = 3, using Fano's weak inequality:
+  \begin{align*}
+    P_{e} &\geq \frac{\frac{2}{3}log(\frac{9}{2}) - 1}{log(3)} = 0.28
+  \end{align*}
+\end{itemize}
+\end{homeworkProblem}
+
+\end{spacing}
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
