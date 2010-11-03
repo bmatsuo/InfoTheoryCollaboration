@@ -1,10 +1,12 @@
 \documentclass[10pt]{article}
-\usepackage{fullpage,latexsym,amsthm,amsmath,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
 
+\usepackage{fullpage,latexsym,amsthm,amsmath,amsfonts,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
+\pagestyle{empty}
 % Define new commands.
+\DeclareMathOperator*{\E}{\mbox{\text{E}}}
 
 \newcommand{\pref}[1]{{(\ref{#1})}}
-\newcommand{\annotate}[1]{{\color{red}{#1}}}
+\newcommand{\bmat}[1]{{\color{red}{#1}}}
 
 \newtheorem{defn}{Definition}[section]
 \newtheorem{lemma}{Lemma}[section]
@@ -13,60 +15,268 @@
 \newtheorem{proposition}{Proposition}[section]
 \usepackage{multicol}
 \usepackage{savetrees}
+
+
 % Begin the actual document content here.
-
 \begin{document}
+\begin{scriptsize}
+\begin{multicols}{3}
 
-% Setup document header/footer and adjust spacing accordingly.
-\pagestyle{fancy}
-\lhead{Cheatsheet - EE 253 Fall 2010}
-\rhead{Bryan Matsuo (bryan.matsuo@gmail.com)}
-\rfoot{\today}
-\renewcommand\headheight{15pt}
-\renewcommand\footrulewidth{0.4pt}
-\setlength{\parskip}{0pt}
-\setlength{\parsep}{0pt}
-\setlength{\headsep}{0pt}
-\setlength{\topskip}{15pt}
-\setlength{\topmargin}{0pt}
-\setlength{\topsep}{0pt}
-\setlength{\partopsep}{0pt}
-%end the header thing.
+\section*{Entropy, Relative Entropy and Mutual Information}
+Definitions, alternate expressions, and properties.
+\begin{align}
+\underbrace{H(X)}_\text{entropy}&= -\sum_{x\in X} p(x) \log\ p(x) \label{eq:entropy}\\
+H(X)& \geq 0\\
+H_b(X)&= (\log_b a)H_a(X)\\
+H(X|Y)& \leq  H(X)\text{ eq iff ind} \label{eq:conditioning}\\
+X^n&=[X_1,\ldots,X_n]\\
+H(X^n)& \leq \sum_{i=1}^n H(X_i)\text{ eq iff ind} \label{eq:jointsum}\\
+H(X)&\leq  \log |\chi|  \text{ eq iff iid}\label{eq:alphabetentropy}\\
+H(p)&\text{ is concave in $p$}\\
+\underbrace{D(p||q)}_\text{rel ent} & = \sum_x p(x) \log \frac{p(x)}{q(x)}\\
+\underbrace{I(X;Y)}_\text{mut inf} & = \sum_{x\in X} \sum_{y \in Y} p(x,y) \log \frac{p(x,y)}{p(x)p(y)}\\
+H(X)&=E_p \log \frac{1}{p(X)}\\
+H(X,Y)&=E_p\log \frac{1}{p(x,y)}\\
+H(X|Y)&=E_p\log \frac{p(X,Y)}{p(X)p(Y)}\\
+D(p||q)&=E_p\log \frac{p(X)}{q(X)}\\
+I(X;Y)&=H(X)-H(X|Y)\\
+&=H(Y)-H(Y|X)\\
+&=H(X)+H(Y)-H(X,Y)\\
+D(p||q)&\geq 0 \text{ eq iff $p=q$}\\
+I(X;Y)&=D(p(x,y)||p(x)p(y))\\
+	&\geq 0 \text{ eq iff $p(x,y)=p(x)p(y)$}
+\end{align}
+Given $|\chi|=m$ and $u$ is the uniform distribution over $\chi$, we get equation~\ref{eq:chimu}.
+\begin{align}
+D(p||u)&=\log m - H(p)\label{eq:chimu}\\
+D(p||q)&\text{ is convex in the pair }(p,q)
+\end{align}
+Following are chain rules:
+\begin{align}
+H(X^n)&=\sum_{i=1}^n H(X_i|X^{i-1})\\
+I(X^n;Y)&=\sum_{i=1}^n I(X_i;Y|X^{i-1})\\
+D(p(x,y)||q(x,y))&=D(p(x)||q(x))\\
+&+D(p(y|x)||q(y|x))
+\end{align}
+{\bf Jensen's Inequality:} if $f$ is a convex function, then
+\begin{equation}
+Ef(x) \geq f(EX)
+\end{equation}
+{\bf Log sum inequality:} for n positive numbers $a_1,\ldots,a_n$ and $b_1,\ldots,b_n$,
+\begin{equation}
+\sum_{i=1}^n a_i \log \frac{a_i}{b_i} \geq \left( \sum_{i=1}^n a_i \right) \log \frac{\sum_{i=1}^n a_i}{\sum_{i=1}^n b_i}
+\end{equation}
+with equality only if $\frac{a_i}{b_i}$ is constant. 
 
-\begin{multicols}{2}
+{\bf Data processing inequality:} given some Markov processes $X\rightarrow Y\rightarrow Z$ we know $I(X;Y)\geq I(X;Z)$
 
-    Blah blah blah. This is from lemma \pref{lem: a} (or lemma \ref{lem: a}) and simple stuff.
-    \lemma[Some lemma]
-    
-    This is a lemma about something mathematical.
+{\bf Sufficient Statistic:} $T(X)$ is sufficient relative to $\{f_\theta (x)\}$ iff $I(\theta;X)=I(\theta;T(X))$ for all distributions on $\theta$.
 
-    \lemma{Some lemma}\label{lem: a}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
+{\bf Fano's inequality:} Let $P_e=Pr\{\hat{X}(Y)\neq X\}$. Then $H(P_e)+P_e \log |\chi| \geq H(X|Y)$.
 
-% Add a bibliography.
-% \bibliographystyle{plain}
-% \bibliography{brlen}
+{\bf Inequality.} If $X$ and $X'$ are independent and identically distributed then $Pr(X=X') \geq 2^{-H(X)}$
+
+
+\section*{Asymptotic Equipartition Property (AEP)}
+``Almost all events are almost equally surprising''. Specifically if $X_1,\ldots,X_n$ are iid with respect to $p(x)$ then :
+\begin{equation}
+-\frac{1}{n}\log p(X_1,\ldots,X_n)\rightarrow H(X) \text{in probability}
+\end{equation}
+
+A typical set $A_\epsilon^{(n)}$ is the set of sequences $x_1,\ldots, x_n$ that follow:
+\begin{equation}
+2^{-n(H(X)+\epsilon)}\leq p(X^n)\leq 2^{-n(H(X)-\epsilon)}
+\end{equation}
+
+Some properties of a typical set:
+\begin{enumerate}
+\item if $(x_1,\ldots,x_n) \in A_\epsilon^{(n)}$ then $p(x_1,\ldots,x_n) = 2^{-n(H\pm \epsilon)}$
+\item Pr$\left\{A_\epsilon^{(n)}\right\}>1-\epsilon$ for sufficiently large $\epsilon$
+\item $|A_\epsilon^{(n)}| \leq 2^{n(H(X)+\epsilon}$
+\end{enumerate}
+
+Definition of $a_n \doteq b_n$ means that $\frac{1}{n}\log \frac{a_n}{b_n} \rightarrow 0$ as $n\rightarrow \infty$.
+
+Smallest probable set: Let $X_1,\ldots, X_n$ be iid with respect to $p(x)$ and for $\gamma < \frac{1}{2}$, let $B_\gamma^{(n)} \subset \chi^n$ be the smallest set such that $Pr\{ B_\gamma^{(n)} \} \geq 1-\gamma $ Then we have $|B_\gamma^{(n)}| \doteq 2^{nH}$
+
+\section*{Other useful laws and properties}
+{\bf General Statistical things} Expected value $E(x)=\sum_{i=1}^n x_i p(x_i)$
+
+Variance: $\sigma^2 = E\left[ \left(X-\mu\right)^2\right]$
+
+{\bf Law of Large Numbers} Weak law:
+\begin{eqnarray*}
+\bar{X}_n\overset{p}\rightarrow \mu \text{ when } n \rightarrow \infty\\
+\lim_{n\rightarrow \infty} Pr\left(|\bar{X}_n-\mu| < \epsilon \right) = 1
+\end{eqnarray*}
+Strong law:
+\begin{equation}
+Pr\left(\lim_{n\rightarrow \infty} \bar{X}_n = \mu \right) = 1
+\end{equation}
+
+{\bf Derivation Rules} Chain rule: $(f \circ g)'(x)=f'(g(x))g'(x)$
+
+Product Rule: $(f\cdot g)' = f' \cdot g + f \cdot g'$
+
+Quotient Rule: \[f(x)=\frac{g(x)}{h(x)}\text{ and }f'(x)=\frac{g'(x)h(x)-g(x)h'(x)}{\left(h(x)\right)^2}\]
+
+
+\section*{3.1}
+$\mathbf{(a)}$
+(Markov's Inequality) For non-negative random variable $X$ and  $t>0$,
+Show
+\begin{equation}
+    \Pr\{X \geq t\} \leq \frac{\E X}{t} \label{eq: markovs ineq}
+\end{equation}
+And provide an example random variable for with the above condition is met
+with equality.
+\proof
+\begin{eqnarray}
+    \E X %&= \int_{-\infty}^\infty x f(x)dx &\text{(Defn of expectation.)}
+        %\nonumber \\
+    &\geq \int_t^\infty x f(x)dx &\text{(Integral over subdomain)} 
+    \nonumber \\
+    &\geq \int_t^\infty t f(x)dx &\text{($x \geq t$ in integral)} 
+        \nonumber \\
+    &= t \Pr\{X \geq t\}  &\text{($t$ constant in integral)}
+        \label{eq: 3.1a QED}
+\end{eqnarray}
+The last equation \pref{eq: 3.1a QED} proves Markov's Inequality
+\pref{eq: markovs ineq}. $\Box$
+
+Let $X$ be a \emph{random variable} which has value zero with probability
+one.
+The expected value of $X$ is zero and thus, 
+\pref{eq: markovs ineq} is always an equality.
+
+$\mathbf{(b)}$
+(Chebychev's Inequality) Let $Y$ be a random variable with mean $\mu$ and
+variance $\sigma^2$. By letting $X = (Y-\mu)^2$, show that for
+$\varepsilon > 0$
+\begin{equation}
+    \Pr \{(Y-\mu)^2 > \varepsilon^2\} \leq \frac{\sigma^2}{\varepsilon^2}
+    \label{eq: chebychevs ineq}
+\end{equation}
+\proof
+\begin{eqnarray}
+    \Pr\{(Y-\mu)^2 > \varepsilon^2\} &\leq& \Pr\{(Y-\mu)^2 \geq \varepsilon^2\}
+        \nonumber \\
+        &=& \Pr\{|Y-\mu| \geq \varepsilon\}
+        \label{eq: equate probs} \\
+    \Pr \{(Y-\mu)^2 > \varepsilon^2\} &\leq& \frac{\E \big[(Y-\mu)^2\big]}{\varepsilon^2}
+        \label{eq:instatiate 3.1a}
+\end{eqnarray}
+The final inequality coming from an application of Markov's Inequality
+\pref{eq: markovs ineq} and the derived inequality \pref{eq: equate probs}.
+The numerator $E[(Y-\mu)^2]$ is equal to $\sigma^2$, from the definition
+of variance and the fact that $\mu = E[Y]$. Thus we are left with
+Chebyshev's inequality \pref{eq: chebychevs ineq}. $\Box$
+
+$\mathbf{(c)}$
+(The weak law of large numbers.) Let $Z_1,Z_2,\dots,Z_n$ be a sequence of
+i.i.d. random variables with mean $\mu$ and variance $\sigma^2$. Let
+$\overline{Z_n} = \frac{1}{n}\sum{i=1,2,\dots,n}Z_i$ be the sample mean.
+Show 
+\begin{equation}
+    \Pr \{|\overline{Z_n} - \mu| > \varepsilon\} \leq
+    \frac{\sigma^2}{n\varepsilon^2}
+    \label{eq: weak loln}
+\end{equation}
+\proof
+$\overline{Z_n}$ is a random variable with mean $\mu$ and variance
+$\frac{\sigma^2}{n}$. This is easily computed because expectation
+distributes across linear combinations, 
+%\begin{equation*}
+%    E\bigg[\frac{1}{n}\sum_{i=1}^{n}Z_i\bigg] 
+%    = \frac{1}{n} \sum_{i=0}^{n} E[Z_i] = \frac{n\mu}{n} = \mu
+%\end{equation*}
+, and variance distributes across linear combinations, squaring the
+leading coefficients,
+%\begin{equation*}
+%    Var\bigg[\frac{1}{n}\sum_{i=1}^{n}Z_i\bigg]
+%    = \frac{1}{n^2}\sum_{i=0}^{n} Var[Z_i] 
+%    = \frac{n\sigma^2}{n^2} 
+%    = \frac{\sigma^2}{n}
+%\end{equation*}
+. The weak law of large numbers \pref{eq: weak loln} comes from applying
+Chebychev's inequality \pref{eq: chebychevs ineq} to $\overline{Z_n}$.
+$\Box$
+
+\section*{3.2}
+Let $(X_i,Y_i)$ be i.i.d. $\sim p(x,y)$. We form the log likelihood ratio
+of the hypothesis that $X$ and $Y$ are independent vs. the hypothesis that
+$X$ and $Y$ are dependent. What is the limit of
+\begin{equation}
+    \frac{1}{n}\log \frac{p(X^n)p(Y^n)}p(X^n,Y^n)
+    \label{eq: normalized llr}
+\end{equation}
+$Solution$:
+\begin{eqnarray}
+    \frac{1}{n}\log \frac{p(X^n)p(Y^n)}{p(X^n,Y^n)}
+    &=& \frac{1}{n} \sum_{i=1}^{n} \log \frac{p(X_i)p(Y_i)}{p(X_i,Y_i)}
+    \label{eq: log of prods} \\
+    &\rightarrow& -I(X;Y) 
+    \label{eq: from MI defn}
+\end{eqnarray}
+
+The independence assumption makes \pref{eq: normalized llr} the log of a
+product, yielding the sum of logs in \pref{eq: log of prods}.
+The convergence in \pref{eq: from MI defn} comes from the convergence of
+\pref{eq: log of prods} to $\E \log \frac{p(X_i)p(Y_i)}{p(X_i,Y_i)}$ by
+the (strong?) law of large numbers. \pref{eq: from MI defn} comes from the
+definition of mutual information.
+
+This implies convergence of the likelihood ratio
+$\frac{p(X^n)p(Y^n)}{p(X^n,Y^n)} \rightarrow 2^{-nI(X;Y)}$ which is 1 iff
+$X$ and $Y$ are independent.
+\section*{3.6}
+Let $X_1,X_2,\dots$ be i.i.d. drawn according to probability mass function
+$p(x)$. Find the limit $\lim_{n \to \infty}
+(p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}$.
+$Solution$:
+\begin{eqnarray}
+    P_n &=& (p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}
+        \label{eq: defn P_n} \\
+    \lim_{n\to \infty} P_n &=& 2^{lim_{n\to\infty}log\ P_n}
+        \label{eq: limit of composition} \\
+    &=& 2^{-H(X)},
+        \label{eq: P_n limit} 
+    \end{eqnarray} 
+    The convergence of the exponent in \pref{eq: limit of composition} to
+    $-H(X)$ comes from the definition of the AEP.
+    The above result assumes that $H(X)$ exists.
+\section*{3.11}
+\textbf{(a)}
+Given any two sets $A$, $B$ such that $\Pr{A} > 1-\varepsilon_1$ and
+$\Pr{B} > 1-\varepsilon_2$, show that $\Pr(A\cap B) > 1 - \varepsilon_1 -
+\varepsilon_2$. Hence
+\begin{equation}
+    \Pr(A_\varepsilon^{(n)} \cap B_\delta^{(n)}) > 1 - \varepsilon - \delta
+    \label{eq: 3.11(a) conclusion}
+\end{equation}
+\proof
+\begin{eqnarray}
+    Pr(A\cap B) &=& Pr(A) + Pr(B) - Pr(A\cup B)
+    \label{eq: pr A intersect B} \\
+    &>& 2 - \varepsilon_1 - \varepsilon_2 - Pr(A\cup B)
+    \label{eq: sub hypotheses} \\
+    &>& 1 - \varepsilon_1 - \varepsilon_2
+    \label{eq: 3.11a}
+\end{eqnarray}
+\textbf{(b)} 
+Inequality \pref{eq: 3.11(a) conclusion} gives $1-\varepsilon-\delta \leq \Pr(A_\varepsilon^{(n)} \cap B_\delta^{(n)})$. 
+The definition of the probability of an event makes the RHS equal to
+$\sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} p(x^n)$.
+This value is at most 
+$\sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} 2^{-n(H-\varepsilon)}$, 
+by the definition of AEP 
+(for $x^n \in A_\varepsilon^{(n)}$ $p(x^n) \leq 2^{-n(H - \varepsilon)}$).
+The sum in carried out over a constant summand, and is equal to
+$|A_\varepsilon^{(n)} \cap B_\delta^{(n)}|2^{-n(H-\varepsilon)}$, which is
+upperbounded by $|B_\delta^{(n)}|2^{-n(H-\varepsilon)}$, because the
+cardinality of a set intersection is at most the cardinality of either
+set.
+
 \end{multicols}
+\end{scriptsize}
 \end{document}
