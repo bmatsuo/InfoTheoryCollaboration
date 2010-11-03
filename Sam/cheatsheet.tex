@@ -1,0 +1,48 @@
+\documentclass[10pt]{article}
+\usepackage{fullpage,latexsym,amsthm,amsmath,algorithmic,graphicx,subfigure,verbatim,epsfig,fancyhdr}
+
+% Define new commands.
+
+\newcommand{\pref}[1]{{(\ref{#1})}}
+\newcommand{\annotate}[1]{{\color{red}{#1}}}
+
+\newtheorem{defn}{Definition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{question}{Question}[section]
+\newtheorem{proposition}{Proposition}[section]
+\usepackage{multicol}
+\usepackage{savetrees}
+% Begin the actual document content here.
+
+\begin{document}
+
+% Setup document header/footer and adjust spacing accordingly.
+\pagestyle{fancy}
+\lhead{Cheatsheet - EE 253 Fall 2010}
+\rhead{Sam Wood (iamsamwood@gmail.com)}
+\rfoot{\today}
+\renewcommand\headheight{15pt}
+\renewcommand\footrulewidth{0.4pt}
+\setlength{\parskip}{0pt}
+\setlength{\parsep}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topskip}{15pt}
+\setlength{\topmargin}{0pt}
+\setlength{\topsep}{0pt}
+\setlength{\partopsep}{0pt}
+%end the header thing.
+\noindent
+\textit{Entropy Rate of Typewriter:} All letters are equally likely. $m$ letters, sequence has length $n$, $m^n$ sequences with equal probability ($p(x^n) = \frac{1}{m^n}$): $H(X^n) = \sum_{x^n} p(x^n) log(\frac{1}{p(x^n)}) =  \frac{m^n}{m^n}log(m^n) = n*log(m)$; $H(\chi) lim_{n \to \infty} \frac{1}{n} H(X^n) = lim_{n \to \infty} log(m) = log(m)$ bits per symbol.
+\\\\
+\textit{Entropy Rate of i.i.d. RVs:} $X_i$ is i.i.d: $H(\chi) = lim_{n \to \infty} \frac{1}{n} H(X^n) = lim_{n \to \infty} \frac{nH(X_1)}{n} = H(X_1)$
+\\\\
+\textit{Entropy Rate of Independent RVs:} $X_i$s independent $\implies H(X^n) = \sum_i^n H(X_i)$; $H(\chi) = lim_{n \to \infty} \frac{1}{n} \sum_i^n H(X_i) $; Since $H(X_i)$s are different, this entropy does not exist (and may not converge), i.e. $P(X_i = 1) = r_i, P(X_i = 0) = 1 - r_i$, where $r_i$ is not a constant value and is a function of $i$. $r_i = 0.5$ if $2k < log(log(i)) \leq 2k + 1$, $r_i = 0$ if $2k + 1 < log(log(i)) \leq 2k +2 $ for some constant $k$. $H(X_i)$ switches between 1 and 0, $H(\chi)$ changes with $n$.
+\\\\
+\textit{Shuffling Does Not Decrease Entropy} Let $X =$ location of cards, $T =$ shuffle operation of the cards, where $X$ and $T$ are independent. Show $H(TX) \geq H(X)$: $H(TX) \geq H(TX|T)$ (conditioning reduces entropy) $= H(T^{-1}TX|T)$ (if shuffle operation is known, so is inverse) = $H(X|T) = H(X)$ (since $X$ and $T$ are independent).
+\\\\
+
+% Add a bibliography.
+% \bibliographystyle{plain}
+% \bibliography{brlen}
+\end{document}

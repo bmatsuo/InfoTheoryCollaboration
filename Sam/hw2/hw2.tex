@@ -1,0 +1,235 @@
+\documentclass{report}
+% Change "report" to "article" to get a page number on title page
+\usepackage{fitch}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Homework 2}
+\newcommand{\hmwkDueDate}{Thurs., Oct. 14}
+\newcommand{\hmwkClass}{EE253}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Prof. Sadjadpour}
+\newcommand{\hmwkAuthorName}{Sam Wood}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section*{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection*{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}\vspace{3in}}
+\date{}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+\newpage
+\begin{homeworkProblem}[Problem 3.1: Inequalities]
+  \begin{itemize}
+    \item[a.] \textit{Markov's Inequality}. Show that $Pr\{X \geq \epsilon \} \leq \frac{EX}{\epsilon}:$
+	\begin{align*}
+\sum_{\substack{x \in \chi \\ x > \epsilon}} p(x)\epsilon &\leq \sum_{\substack{x \in \chi \\ x > \epsilon}} p(x)x  & \textrm{for $t > 0$} \\ 
+p(x)t + \sum_{\substack{x \in \chi \\ x > \epsilon}} p(x)\epsilon &\leq p(x)t + \sum_{\substack{x \in \chi \\ x > \epsilon}} p(x)x  & \textrm{for $t > 0$, $p(x) \geq 0$, $x \geq 0$} \\ 
+\sum_{\substack{x \in \chi \\ x \geq \epsilon}} p(x)\epsilon &\leq \sum_{\substack{x \in \chi \\ x \geq \epsilon}} p(x)x \\ 
+\sum_{\substack{x \in \chi \\ x \geq \epsilon}} p(x)\epsilon &\leq \sum_{\substack{x \in \chi \\ x \geq \epsilon}} p(x)x + \sum_{\substack{x \in \chi \\ x < \epsilon}} p(x)x & \textrm{for $p(x) \geq 0$, $x \geq 0$} \\
+\sum_{\substack{x \in \chi \\ x \geq \epsilon}} p(x)\epsilon &\leq \sum_{\substack{x \in \chi}} p(x)x \\
+\sum_{\substack{x \in \chi \\ x \geq \epsilon}} p(x)\epsilon &\leq EX  & \textrm{definition of expected value}\\
+\epsilon\sum_{\substack{x \in \chi \\ x \geq \epsilon}} p(x) &\leq EX & \textrm{$\epsilon$ does not occur in sum} \\
+\sum_{\substack{x \in \chi \\ x \geq \epsilon}} p(x) &\leq \frac{EX}{\epsilon} & \textrm{for $\epsilon > 0$} \\
+	Pr\{X \geq \epsilon\} &\leq \frac{EX}{\epsilon} & \textrm{definition of probability mass function} \\
+	\end{align*}
+With equality when $Pr\{X > \epsilon\} = 0, Pr\{X < \epsilon\} = 0$---when $Pr\{X = \epsilon\} = 1$.
+	
+    \item[b.] \textit{Chebyshev's Inequality}.
+	Let $Y$ be a random variable with mean $\mu$ and variance $\sigma^{2}$. For $\epsilon > 0$, show $Pr\{|Y-\mu| > \epsilon\} \leq \frac{\sigma^{2}}{\epsilon^{2}}$:
+	\begin{align*}
+	\textrm{Let } X &= (Y-\mu)^{2} \\
+	Pr\{X \geq \epsilon^{2}\} &\leq \frac{EX}{\epsilon^{2}} & \textrm{Markov's Inequality (part $a$)} \\
+	Pr\{X \geq \epsilon^{2}\} &\leq \frac{\sigma^{2}}{\epsilon^{2}} & \textrm{definition of variance} \\
+	Pr\{\sqrt{X} \geq \sqrt{\epsilon^{2}}\} &\leq \frac{\sigma^{2}}{\epsilon^{2}} & \textrm{$g(x)=\sqrt{x}$ is increasing} \\
+	Pr\{|Y-\mu| \geq \epsilon\} &\leq \frac{\sigma^{2}}{\epsilon^{2}} \\
+	Pr\{|Y-\mu| > \epsilon\} &\leq Pr\{|Y-\mu| \geq \epsilon\} \\
+	Pr\{|Y-\mu| > \epsilon\}  &\leq \frac{\sigma^{2}}{\epsilon^{2}} & \textrm{transitivity of inequalities}
+	\end{align*}
+	
+    \item[c.] \textit{Weak law of large numbers}.
+	\begin{align*}
+	\textrm{Let } Y &= \bar{Z}_{n} \\
+	Pr\{|Y-\mu| > \epsilon\}  &\leq \frac{\sigma_{Y}^{2}}{\epsilon^{2}} & \textrm{Chebyshev's Inequality}\\
+	\sigma_{Y}^{2} &= Var(Y) = Var(\frac{1}{n}\sum_{i=1}^{n}Z_{i}) = \frac{1}{n^2}Var(\sum_{i=1}^{n}Z_{i}) & \textrm{property of variance} \\
+	\sigma_{Y}^{2} &= \frac{1}{n^2}\sum_{i=1}^{n}Var(Z_{i}) & \textrm{Bienaym\'{e} formula}\\
+	\sigma_{Y}^{2} &= \frac{n\sigma^2}{n^2} = \frac{\sigma^2}{n} & \textrm{Z is i.i.d.} \\
+	Pr\{|Y-\mu| > \epsilon\}  &\leq \frac{\sigma^2}{n\epsilon^{2}}  \\
+	Pr\{|\bar{Z}_n-\mu| > \epsilon\}  &\leq \frac{\sigma^2}{n\epsilon^{2}}  \\
+	%\sigma_{Y}^{2} &= E(Y - \mu_{Y})^{2} = E(\bar{Z}_{n} - \mu_{Y})^{2} = E(\frac{1}{n}\sum_{i = 1}^{n} Z_{i} - \mu_{Y})^{2}& \textrm{definition of variance} \\
+	%\sum_{i = 1}^{n} \frac{1}{n}\mu_{Y} &= \mu_{Y} \\
+	%\sigma_{Y}^{2} &=  \frac{1}{n^2}E(\sum_{i = 1}^{n} (Z_{i} - \mu_{Y}))^{2}\\
+	%\mu_{Y} &= E(Y) = E(\frac{1}{n}\sum_{i=1}^n Z_i) = \frac{1}{n}E(\sum_{i=1}^n Z_i)\\
+	%\mu_{Y} &= \frac{1}{n}(E(Z_1)+E(Z_2)+...+E(Z_n)) & \textrm{property of expected value} \\
+    %E(Z_1) &=E(Z_2)=...=E(Z_n) =\mu & \textrm{ property of i.i.d. $Z_{i}$}\\
+	%E(Z_1) &+E(Z_2)+...+E(Z_n) = n\mu \\
+	%\mu_{Y} &= \mu \\
+	%\sigma_{Y}^{2} &=  \frac{1}{n^2}E(\sum_{i = 1}^{n} (Z_{i} - \mu))^{2}\\
+	\end{align*}
+	
+  \end{itemize}
+
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[Problem 3.2: AEP \& Mutual Information]
+	Let $(X_{i}, Y_{i}) \sim p(x,y)$ be i.i.d. What is the limit of $\frac{1}{n}log(\frac{p(X^{n})p(Y^{n})}{p(X^{n}, Y^{n})})$.
+	\begin{align*}
+ \lim_{n \to \infty}\frac{1}{n}log(\frac{p(X^{n})p(Y^{n})}{p(X^{n}, Y^{n})}) &= \lim_{n \to \infty}(\frac{1}{n}log(p(X^{n})) + \frac{1}{n}log(p(Y^{n})) - \frac{1}{n}log(p(X^{n}, Y^{n}))) \\
+ &= \lim_{n \to \infty}\frac{1}{n}log(p(X^{n})) + \lim_{n \to \infty}\frac{1}{n}log(p(Y^{n})) + H(X,Y) & \textrm{AEP $(X_{i},Y_{i})$ i.i.d.}\\
+%	-\lim_{n \to \infty}\frac{1}{n}log(p(X^{n})) &\leq H(X) & \textrm{with equality when $X_{i}$ is i.i.d.} \\
+%\lim_{n \to \infty}\frac{1}{n}log(p(X^{n})) & \geq -H(X) &  \textrm{see footnote} \\
+%\lim_{n \to \infty}\frac{1}{n}log(p(Y^{n})) & \geq -H(Y) \\
+% \lim_{n \to \infty}\frac{1}{n}log(\frac{p(X^{n})p(Y^{n})}{p(X^{n}, Y^{n})}) &\geq -H(X) - H(Y) + H(X,Y) = -I(X,Y) \\
+%-\lim_{n \to \infty}\frac{1}{n}log(\frac{p(X^{n})p(Y^{n})}{p(X^{n}, Y^{n})}) &\leq I(X,Y) \\
+`
+	\end{align*}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[Problem 3.6: AEP-like Limit]
+	Let $X_{1}, X_{2} \sim p(x)$ ... be i.i.d. Find $\lim_{n \to \infty}(p(X_{1}, X_{2}, ..., X_{n}))^{\frac{1}{n}}$:
+	\begin{align*}
+\lim_{n \to \infty}(p(X_{1}, X_{2}, ..., X_{n}))^{\frac{1}{n}} &= \lim_{n \to \infty} 2^{\frac{1}{n}lg(p(X_{1}, X_{2}, ..., X_{n})} \\
+\lim_{n \to \infty} 2^{\frac{1}{n}lg(p(X_{1}, X_{2}, ..., X_{n})} &= 2^{\lim_{n \to \infty}\frac{1}{n}lg(p(X_{1}, X_{2}, ..., X_{n})}\\
+\lim_{n \to \infty}-\frac{1}{n}lg(p(X_{1}, X_{2}, ..., X_{n}) &= H(X) & \textrm{AEP (converges in probability)} \\
+\lim_{n \to \infty}\frac{1}{n}lg(p(X_{1}, X_{2}, ..., X_{n}) &= -H(X) \\
+ 2^{\lim_{n \to \infty}\frac{1}{n}lg(p(X_{1}, X_{2}, ..., X_{n})} &= 2^{-H(X)} \\
+\lim_{n \to \infty}(p(X_{1}, X_{2}, ..., X_{n}))^{\frac{1}{n}}  &= 2^{-H(X)} & \textrm{in probability}\\
+	\end{align*}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[Problem 3.11: Proof of Theorem 3.3.1]
+  \begin{itemize}
+    \item[a.] Given any two sets $A$, $B$ such that $Pr(A) > 1 - \epsilon_{1}$ and $Pr(B) > 1 - \epsilon_{2}$, show $Pr(A\cap B) > 1 - \epsilon_{1} - \epsilon_{2}$:
+	\begin{align*}
+	P(A\cap B) &= P(A) + P(B) - P(A\cup B) & \textrm{property of sets} \\
+	P(A \cup B) &\leq 1 & \textrm{property of sets} \\
+	P(A \cap B) &\geq P(A) + P(B) - 1 & \textrm{probability is non-negative} \\
+	P(A \cap B) &> 1-\epsilon_{1} + 1 - \epsilon_{2} - 1  & \\
+	P(A \cap B) &> 1- \epsilon_{1} - \epsilon_{2} \\
+	\end{align*}
+    \item[b.] Justify the following steps:
+	\begin{itemize}
+		\item[3.34] $1-\epsilon-\delta \leq Pr(A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)})$ : follows immediately from part $a$.
+		\item[3.35] $= \sum\limits_{A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)}}p(x^{n})$: follows from the definition of probability.
+
+		\item[3.36] $\leq \sum\limits_{A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)}} 2^{-n(H-\epsilon)}$:
+		\begin{align*}
+\sum\limits_{A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)}} p(x^n)&\leq \sum\limits_{A_{\epsilon}^{(n)}} p(x^n)& \textrm{conjunction reduces set size (and probability)} \\
+\sum\limits_{A_{\epsilon}^{(n)}} p(x^n) &\leq 2^{-n(H-\epsilon)} & \textrm{definition of typical set} \\
+		\sum\limits_{A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)}} p(x^n) &\leq \sum\limits_{A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)}} 2^{-n(H-\epsilon)} & \textrm{transitivity of inequalities}\\
+		\end{align*}
+		\item[3.37] $= |A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)}|2^{-n(H-\epsilon)}$:
+		\begin{align*}
+ \sum\limits_{A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)}} 2^{-n(H-\epsilon)} &= 2^{-n(H-\epsilon)}\sum\limits_{A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)}} 1 & \textrm{factor does not contain summation variable} \\
+		&= 2^{-n(H-\epsilon)} |A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)}| & \textrm{summation of 1 for every element in the set} \\ 
+		\end{align*}
+		\item[3.38] $\leq |B_{\delta}^{(n)}|2^{-n(H-\epsilon)}$:
+	\begin{align*}
+ |A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)}| &\leq |B_{\delta}^{(n)}|  & \textrm{conjunction reduces set size} \\
+|A_{\epsilon}^{(n)} \cap B_{\delta}^{(n)}|2^{-n(H-\epsilon)} &\leq |B_{\delta}^{(n)}|2^{-n(H-\epsilon)}  & \textrm{$2^{x}$ is positive for all $x$}\\
+	\end{align*}
+	\end{itemize}
+  \end{itemize}
+\end{homeworkProblem}
+
+\end{spacing}
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

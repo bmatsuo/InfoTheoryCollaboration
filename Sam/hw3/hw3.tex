@@ -1,0 +1,299 @@
+\documentclass{report}
+% Change "report" to "article" to get a page number on title page
+\usepackage{fitch}
+\usepackage{amsmath,amsfonts,amsthm,amssymb}
+\usepackage{setspace}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{extramarks}
+\usepackage{chngpage}
+\usepackage{soul,color}
+\usepackage{graphicx,float,wrapfig}
+
+% Homework Specific Information
+\newcommand{\hmwkTitle}{Homework 3}
+\newcommand{\hmwkDueDate}{Tues., Oct. 26}
+\newcommand{\hmwkClass}{EE253}
+\newcommand{\hmwkClassTime}{}
+\newcommand{\hmwkClassInstructor}{Prof. Sadjadpour}
+\newcommand{\hmwkAuthorName}{Sam Wood}
+
+% In case you need to adjust margins:
+\topmargin=-0.45in      %
+\evensidemargin=0in     %
+\oddsidemargin=0in      %
+\textwidth=6.5in        %
+\textheight=9.0in       %
+\headsep=0.25in         %
+
+% Setup the header and footer
+\pagestyle{fancy}                                                       %
+\lhead{\hmwkAuthorName}                                                 %
+\rhead{\firstxmark}                                                     %
+\lfoot{\lastxmark}                                                      %
+\cfoot{}                                                                %
+\rfoot{Page\ \thepage\ of\ \protect\pageref{LastPage}}                          %
+\renewcommand\headrulewidth{0.4pt}                                      %
+\renewcommand\footrulewidth{0.4pt}                                      %
+
+% This is used to trace down (pin point) problems
+% in latexing a document:
+%\tracingall
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Some tools
+\newcommand{\enterProblemHeader}[1]{\nobreak\extramarks{#1}{#1 continued on next page\ldots}\nobreak%
+                                    \nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak}%
+\newcommand{\exitProblemHeader}[1]{\nobreak\extramarks{#1 (continued)}{#1 continued on next page\ldots}\nobreak%
+                                   \nobreak\extramarks{#1}{}\nobreak}%
+
+\newlength{\labelLength}
+\newcommand{\labelAnswer}[2]
+  {\settowidth{\labelLength}{#1}%
+   \addtolength{\labelLength}{0.25in}%
+   \changetext{}{-\labelLength}{}{}{}%
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#2\end{minipage}}%
+   \marginpar{\fbox{#1}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   \changetext{}{+\labelLength}{}{}{}}%
+
+\newcommand{\homeworkProblemName}{}%
+\newcounter{homeworkProblemCounter}%
+\newenvironment{homeworkProblem}[1][Problem \arabic{homeworkProblemCounter}]%
+  {\stepcounter{homeworkProblemCounter}%
+   \renewcommand{\homeworkProblemName}{#1}%
+   \section*{\homeworkProblemName}%
+   \enterProblemHeader{\homeworkProblemName}}%
+  {\exitProblemHeader{\homeworkProblemName}}%
+
+\newcommand{\problemAnswer}[1]
+  {\noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}}%
+
+\newcommand{\problemLAnswer}[1]
+  {\labelAnswer{\homeworkProblemName}{#1}}
+
+\newcommand{\homeworkSectionName}{}%
+\newlength{\homeworkSectionLabelLength}{}%
+\newenvironment{homeworkSection}[1]%
+  {% We put this space here to make sure we're not connected to the above.
+   % Otherwise the changetext can do funny things to the other margin
+
+   \renewcommand{\homeworkSectionName}{#1}%
+   \settowidth{\homeworkSectionLabelLength}{\homeworkSectionName}%
+   \addtolength{\homeworkSectionLabelLength}{0.25in}%
+   \changetext{}{-\homeworkSectionLabelLength}{}{}{}%
+   \subsection*{\homeworkSectionName}%
+   \enterProblemHeader{\homeworkProblemName\ [\homeworkSectionName]}}%
+  {\enterProblemHeader{\homeworkProblemName}%
+
+   % We put the blank space above in order to make sure this margin
+   % change doesn't happen too soon (otherwise \sectionAnswer's can
+   % get ugly about their \marginpar placement.
+   \changetext{}{+\homeworkSectionLabelLength}{}{}{}}%
+
+\newcommand{\sectionAnswer}[1]
+  {% We put this space here to make sure we're disconnected from the previous
+   % passage
+
+   \noindent\fbox{\begin{minipage}[c]{\columnwidth}#1\end{minipage}}%
+   \enterProblemHeader{\homeworkProblemName}\exitProblemHeader{\homeworkProblemName}%
+   \marginpar{\fbox{\homeworkSectionName}}%
+
+   % We put the blank space above in order to make sure this
+   % \marginpar gets correctly placed.
+   }%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Make title
+\title{\vspace{2in}\textmd{\textbf{\hmwkClass:\ \hmwkTitle}}\\\normalsize\vspace{0.1in}\small{Due\ on\ \hmwkDueDate}\\\vspace{0.1in}\large{\textit{\hmwkClassInstructor\ \hmwkClassTime}}\vspace{3in}}
+\date{}
+\author{\textbf{\hmwkAuthorName}}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\begin{spacing}{1.1}
+\maketitle
+\newpage
+Note: a \textbf{$\star$} symbol indicates problems I had trouble solving. 
+\begin{homeworkProblem}[Problem 4.1: Doubly Stochastic]
+\begin{itemize}
+\item[\textbf{$\star$}a.] I could not prove formally this statement, however intuitively $b$ can be represented as the sum of several permutations of $a$, each permutation with a weight $\alpha_i$. This transformation has the effect of making $b$ have a more uniform distribution, and thus greater entropy than $a$.
+\item[\textbf{$\star$}b.] I could not prove formally that a stochastic $n$ by $n$ matrix implies a uniform stationary distribution, but intuitively since $b$ can be represented as the sum of several permutations of $a$, each permutation with a weight $\alpha_i$, then the only distribution that is independent of all weights $\alpha_i$ is a uniform distribution (since every permutation of the uniform distribution is the same, and the only distribution with all permutations the same is the uniform distribution).
+\item[c.] Prove that if the uniform distribution is a stationary distribution for a Markov transition matrix $P$, then $P$ is doubly stochastic: \\
+\begin{equation*}
+\left[\begin{array}{cccc} \frac{1}{n} & \frac{1}{n} & ... & \frac{1}{n}  \end{array}\right] \left[\begin{array}{cccc}
+P_{11} & P_{12} & ... & P_{1n}\\ 
+P_{21} & . & & \\
+...      &   & . & \\
+P_{n1} &   &  & P_{nn} \\
+\end{array}\right] =  \left[\begin{array}{cccc} \frac{1}{n} & \frac{1}{n} & ... & \frac{1}{n}  \end{array}\right] \implies \frac{1}{n}(P_{1j} + P_{2j} + ... + P_{nj}) = \frac{1}{n} \textrm{, for $j=1,2,...,n$}
+\end{equation*}
+\begin{equation*}
+\textrm{Therefore: } P_{1j} + P_{2j} + ... + P_{nj} = 1 \textrm{, for $j=1,2,...,n$}
+\end{equation*}
+Note that $P_{i1} + P_{i2} + ... + P_{in} = 1$  for $i=1,2,...,n$ by Markovity. Therefore, $P$ is doubly stochastic (the rows and columns of the $n$ by $n$ matrix sum to 1). 
+\end{itemize}
+\end{homeworkProblem} 
+
+\begin{homeworkProblem}[Problem 4.6: Monotonicity]
+\begin{itemize}
+\item[a.] Show $\frac{H(X_1,X_2,...,X_n)}{n} \leq \frac{H(X_1,X_2,...,X_{n-1})}{n-1}$:
+\begin{align*}
+\sum_{i=1}^n H(X_i|X_{i-1},...,X_1) &= \sum_{i=1}^{n-1} H(X_i|X_{i-1},...,X_1) + H(X_n | X_{n-1},...,X_1) & \textrm{math} \\
+H(X_1, X_2, ..., X_n) &= H(X_1, X_2,...,X_{n-1}) + H(X_n | X_{n-1},..., X_1) & \textrm{chain rule} \\
+nH(X_1, X_2, ..., X_n) &= nH(X_1, X_2,...,X_{n-1}) + nH(X_n | X_{n-1},..., X_1) & \textrm{math} \\
+nH(X_1, X_2, ..., X_n) &- nH(X_n | X_{n-1},..., X_1) = nH(X_1, X_2,...,X_{n-1}) & \textrm{math} \\
+\sum_{i=1}^n H(X_i|\underbrace{X_{i-1},...,X_{i-n+1}}_n) &\leq \sum_{i=1}^n H(X_i|\underbrace{X_{i-1}, ..., X_1)}_i & \textrm{conditioning reduces entropy}  \\
+\sum_{i=1}^n H(X_i|X_{i-1},...,X_{i-n+1}) &= \sum_{i=1}^n H(X_n|X_{n-1},...,X_{1}) & \textrm{stationarity} \\
+\sum_{i=1}^n H(X_n|X_{n-1},...,X_{1}) &= nH(X_n|X_{n-1},...,X_{1}) & \textrm{no summation variable in sum} \\
+nH(X_n|X_{n-1},...,X_{1}) &\leq  \sum_{i=1}^n H(X_i|X_{i-1}, ..., X_1) & \textrm{substitution} \\
+nH(X_n|X_{n-1},...,X_{1}) &\leq  H(X_1, X_2, ..., X_n) & \textrm{chain rule} \\
+nH(X_1, X_2, ..., X_n) &- H(X_1, X_2, ..., X_n)  \leq nH(X_1, X_2,...,X_{n-1}) & \textrm{substitution} \\
+(n-1)H(X_1, X_2, ..., X_n) &\leq nH(X_1, X_2,...,X_{n-1}) & \textrm{math} \\
+\frac{H(X_1, X_2, ..., X_n)}{n} &\leq \frac{H(X_1, X_2,...,X_{n-1})}{n-1} & \textrm{for $n > 1$} \\
+\end{align*}
+
+\item[b.] Show $\frac{H(X_1,X_2,...,X_n)}{n} \geq H(X_n|X_{n-1},...,X_1)$:
+\begin{align*}
+\sum_{i=1}^n H(X_i|\underbrace{X_{i-1}, ..., X_1)}_i &\geq \sum_{i=1}^n H(X_i|\underbrace{X_{i-1},...,X_{i-n+1}}_n) & \textrm{conditioning reduces entropy} \\
+\sum_{i=1}^n H(X_i|X_{i-1}, ..., X_1) &= H(X_1, X_2,...,X_n) & \textrm{chain rule} \\
+\sum_{i=1}^n H(X_i|X_{i-1},...,X_{i-n+1}) &= \sum_{i=1}^n H(X_n|X_{n-1},...,X_{1}) & \textrm{stationarity} \\
+\sum_{i=1}^n H(X_n|X_{n-1},...,X_{1}) &= nH(X_n|X_{n-1},...,X_{1}) & \textrm{no summation variable in sum} \\
+ H(X_1, X_2,...,X_n)  &\geq nH(X_n|X_{n-1},...,X_{1})  & \textrm{substitution} \\
+ \frac{H(X_1, X_2,...,X_n)}{n} &\geq H(X_n|X_{n-1},...,X_{1}) & \textrm{for $n > 0$} \\
+ \end{align*}
+\end{itemize}
+\end{homeworkProblem} 
+
+\begin{homeworkProblem}[Problem 4.7: Rate of Entropy]
+\begin{itemize}
+\item[a.] Find the entropy rate for the two-state Markov chain with transition matrix: $P = \left[
+	\begin{array}{cc}
+		1 - P_{01} & P_{01} \\
+		P_{10}     & 1 - P_{10} \\
+	\end{array} \right] 
+	$. Using the stationary formula for a two-state Markov chain and noting that the Markov chain is irreducible and aperiodic, we find 
+$\mu = \left[\begin{array}{cc} 
+\frac{P_{10}}{P_{01} + P_{10}} & \frac{P_{01}}{P_{01} + P_{10}}
+\end{array}\right]$. Using $H(\chi) = -\sum_{ij}\mu_i P_{ij}log P_{ij}$,
+
+\begin{align*}
+ H(\chi) &= -\mu_1P_{11}log P_{11} - \mu_1P_{12}log P_{12} - \mu_2P_{21} log P_{21} - \mu_2 P_{22}log P_{22} \\
+	&= -\frac{P_{10}}{P_{01}+P_{10}}(1-P_{01})log(1-P_{01})-\frac{P_{10}}{P_{01}+P_{10}}(P_{01})log(P_{01}) \\
+	&  -\frac{P_{01}}{P_{01}+P_{10}}(P_{10})log(P_{10})  -\frac{P_{01}}{P_{01}+P_{10}}(1-P_{10})log(1-P_{10}) 
+\end{align*}
+
+\item[b.] Maximize $H(\chi)$ from part $a$. Note that the rate is maximized when the stationary distribution is uniform and the transition matrix is doubly stochastic. Thus, $P_{01}=P_{10}=\frac{1}{2}$ with entropy rate $-4*\frac{1}{2}*\frac{1}{2}log(\frac{1}{2})=\fbox{1}$ bit per time unit.
+\item[c.]
+
+Find the entropy rate for the two-state Markov chain with transition matrix: $P = \left[
+	\begin{array}{cc}
+		1 - p & p \\
+		1     & 0 \\
+	\end{array} \right] 
+	$. Using the stationary formula for a two-state Markov chain and noting that the Markov chain is irreducible and aperiodic, we find 
+$\mu = \left[\begin{array}{cc} 
+\frac{1}{p + 1} & \frac{p}{p + 1}
+\end{array}\right]$. Using $H(\chi) = -\sum_{ij}\mu_i P_{ij}log P_{ij}$,
+
+\begin{align*}
+ H(\chi) &= -\mu_1P_{11}log P_{11} - \mu_1P_{12}log P_{12} - \mu_2P_{21} log P_{21} - \mu_2 P_{22}log P_{22} \\
+	&=  -\mu_1P_{11}log P_{11} - \mu_1P_{12}log P_{12}  \textrm{, where $0log0 = 0$ and $log(1) = 0$}\\
+	&= -\frac{1}{p+1}[(1-p)log(1-p) + plog(p)] \\ 
+	&= \frac{H(p)}{p+1}.
+\end{align*}
+\item[\textbf{$\star$}d.] I could not successfully maximize $f(p) = \frac{-plog(p) - (1-p)log(1-p)}{p+1}$ for $0 \leq p \leq 1$.
+\item[e.] Let $N(t)$ be the number of allowable state sequences of length $t$, Find $N(t)$ and calculate $H_0 = \lim_{t \to \infty} \frac{1}{t} log N(t)$.
+\begin{itemize}
+\item[1)] Note that each new sequence adds 1 additional state sequence for each previous sequence that ends in $0$, and adds 0 additional states for each previous sequence that ends in $1$:
+\begin{align*}
+N(1) &= 2, \{0, 1\} \\
+N(2) &= 3, \{00, 01, 10\} \\
+N(3) &= 5, \{000, 001, 010, 100, 101\} \\
+N(4) &= 8, \{0000, 0001, 0010, 0100, 0101, 1000, 1001, 1010\} \\
+\end{align*}
+Using this idea, we find the relation:
+\begin{equation*}
+N(t) = N(t-1) + N(t-2) \textrm{, where } N(1) = 2, N(2) = 3
+\end{equation*}
+Or, the Fibonacci sequence.
+\item[\textbf{$\star$}2)] It is known that the Fibonacci sequence has the closed form expression (one can prove this using induction): $N(t) = \frac{\gamma^t - (1-\gamma)^t}{\sqrt{5}}$, where $\gamma = \frac{1 + \sqrt(5)}{2}$.
+\begin{align*}
+H_0 &= \lim_{t \to \infty} \frac{1}{t} log N(t) \\
+	&= \lim_{t \to \infty} \frac{1}{t} log[\frac{\gamma^t - (1-\gamma)^t}{\sqrt{5}}] \\
+	&= \lim_{t \to \infty} \frac{1}{t} log[\gamma^t - (1-\gamma)^t] - \lim_{t \to \infty} \frac{1}{t} log\sqrt{5} \\
+	&= \lim_{t \to \infty} \frac{1}{t} log[\gamma^t - (1-\gamma)^t] \\
+	&= \lim_{t \to \infty} \frac{1}{t} log[\frac{(1+\sqrt{5})^t - (1-\sqrt{5})^t}{2^t}] \\
+	&= \lim_{t \to \infty} \frac{1}{t} log[(1+\sqrt{5})^t - (1-\sqrt{5})^t] -  \lim_{t \to \infty} \frac{1}{t}log(2^t)\\
+   &= \lim_{t \to \infty} \frac{1}{t} log[(1+\sqrt{5})^t - (1-\sqrt{5})^t] - 1\\
+H_0 &\leq \lim_{t \to \infty} \frac{1}{t} log(1+\sqrt{5})^t - 1 = log(1+\sqrt(5)) - 1 \approx 0.694 \\
+\end{align*} 
+Using the binomial theorem, $(x+y)^n = \sum_{k=0}^n {n\choose k} x^{n-k}y^k$:
+\begin{align*}
+(1+\sqrt{5})^t &= \sum_{k=0}^t {t\choose k} 1^{t-k} \sqrt{5}^k = \sum_{k=0}^t {t\choose k} \sqrt{5}^k  \\
+(1-\sqrt{5})^t &= \sum_{k=0}^t {t\choose k} 1^{t-k} (-\sqrt{5})^k = \sum_{k=0}^t {t\choose k} (-\sqrt{5})^k =   \sum_{k=0}^t {t\choose k} (-1)^k \sqrt{5}^k \\
+(1+\sqrt{5})^t &- (1-\sqrt{5})^t = \sum_{k=0}^t {t\choose k} \sqrt{5}^k  - \sum_{k=0}^t {t\choose k} (-1)^k\sqrt{5}^k \\
+&= \sum_{k=0}^t {t\choose k} \sqrt{5}^k (1 - (-1)^k) \\
+&= 2 \sum_{k=1, \textrm{$k$ is odd}}^t {t\choose k} \sqrt{5}^k \\
+%&= \frac{(1+\sqrt{5})^{t}}{2}
+\end{align*}
+I could not successfully find the limit. However, intuitively $H_0$ is the upper bound on the entropy rate as it represents the entropy of the Markov chain when each possible sequence has an equal probability (the stationary distribution), and the probability of being in a specific sequence is the most uncertain. 
+\end{itemize}
+
+\end{itemize}
+\end{homeworkProblem} 
+
+\begin{homeworkProblem}[Problem 4.9: Initial State from the Future]
+Show $H(X_0 | X_n) \geq H(X_0 | X_{n-1})$:
+	\begin{align*}
+	I(X_0;X_n) &\leq I(X_0;X_{n-1}) & \textrm{data processing inequality, $X_0\to ... \to X_n$ forms a Markov chain}\\
+	-I(X_0;X_n)&\geq -I(X_0;X_{n-1}) & \textrm{math} \\
+	H(X_0)-I(X_0;X_n)&\geq H(X_0)-I(X_0;X_{n-1}) & \textrm{math (non-negative entropy)} \\
+	H(X_0 | X_n) &\geq H(X_0 | X_{n-1}) & \textrm{property of entropy}
+	\end{align*}
+\end{homeworkProblem}
+
+\begin{homeworkProblem}[Problem 4.11: Prove or Disprove]
+\begin{itemize}
+\item[a.] $H(X_n | X_0) = H(X_{-n} | X_0)$. \fbox{True} :
+\begin{align*}
+H(X_n) &= H(X_0) & \textrm{stationarity ($l=-n$)} \\
+H(X_n | X_0) &= H(X_n) - I(X_n ; X_0) & \textrm{property of entropy} \\
+H(X_0 | X_n) &= H(X_0) - I(X_0 ; X_n) & \textrm{property of entropy} \\
+I(X_0;X_n) &= I(X_n;X_0) & \textrm{property of mutual information} \\ 
+H(X_n | X_0) &= H(X_0 | X_n) & \textrm{substitution} \\
+H(X_n | X_0) &= H(X_{-n} | X_0) & \textrm{stationarity ($l=-n$)} \\
+\end{align*}
+\item[b.]
+
+$H(X_n | X_0) \geq H(X_{n-1} | X_0)$. \fbox{True} :
+\begin{align*}
+\textrm{Proof by contradiction:} \\
+\textrm{Suppose } H(X_n|X_0) &< H(X_{n-1} | X_0) & \textrm{for all $n$} \\
+\textrm{Let } n &= 1: \\
+H(X_1 | X_0) &< H(X_{0} | X_{0}) \\ 
+H(X_{i} | X_{i})  &= 0 & \textrm{property of conditional entropy} \\ 
+H(X_1 | X_0) &< 0 & \textrm{substitution} \\ 
+H(.) &\geq 0 & \textrm{entropy is non-negative} \\ 
+0 \leq H(X_1 | X_0) &< 0 & \textrm{contradiction} \\
+\textrm{Therefore, } H(X_n | X_0) &\geq H(X_{n-1} | X_0)\\
+\end{align*}
+
+
+\item[c.]
+$H(X_{n}| X_1, X_2, ..., X_{n-1}, X_{n+1})$ is a non-increasing function. \fbox{True}:
+\begin{align*}
+H(X_{n-1} | X_1,..., X_{n-2}, X_n) &\geq H(X_{n-1}| X_0, X_1, ..., X_{n-2}, X_n) & \textrm{conditioning reduces entropy}\\
+H(X_{n-1}| X_0, X_1, ..., X_{n-2}, X_n) &= H(X_{n}| X_1, X_2, ..., X_{n-1}, X_{n+1}) & \textrm{stationarity, $l=1$}\\ 
+H(X_{n-1} | X_1,..., X_{n-2}, X_n) &\geq  H(X_{n}| X_1, X_2, ..., X_{n-1}, X_{n+1}) & \textrm{transitivity}\\ 
+\end{align*}
+Thus, $H(X_{n}| X_1, X_2, ..., X_{n-1}, X_{n+1})$ is a non-increasing function. 
+\end{itemize}
+\end{homeworkProblem}
+
+\end{spacing}
+\end{document}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
