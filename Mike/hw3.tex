@@ -40,20 +40,20 @@
   \vskip 1.5em}
 \makeatother
 
-
+\usepackage{txfonts}
 
 \author{Michael P. Cutter}
 \title{{\LaTeX} math mode exercise, BME 200}
 \date{September 20, 2005}
 
 \begin{document}
+\fontsize{12pt}{2pt}
 \begin{multicols}{2}
-
 Doubly stochastic (square) matrices are when rows and columns each sum to one. \textbf{(a)}  Let b = aP show H(b) $\ge$ H(a). \textbf{(b)} Show that a stationary distribution $\mu$ for a doubly stochastic matrix P is the uniform distribution. \textbf{(c)} Conversely, prove that if the uniform distribution is a stationary distribution for a Markov transition matrix P , then P is doubly stochastic.
 
-\[H(b) - H(a) = \sum_t a_i \log (a_i) \]
-\[ - \sum_j \sum_i a_iP_{ij} \log(\sum_k a_kP_{kj})+\sum_t a_i \log (a_i) \]	
-\[ \sum_{ij}a_iP_{ij} \log(\frac{ a_i }{\sum_{k} a_kP_{kj}}) (cite mult by 1)\]	
+\[H(b) - H(a) = -\sum_j b_i \log (b_i) + \sum_i a_i \log (a_i)  \]
+\[= - \sum_j \sum_i a_iP_{ij} \log(\sum_k a_kP_{kj})+\sum_t a_i \log (a_i) \]	
+\[= \sum_{ij}a_iP_{ij} \log(\frac{ a_i }{\sum_{k} a_kP_{kj}}) (cite mult by 1)\]	
 \[ \ge (\sum_{ij}a_iP_{ij}) \log(\frac{\sum_{ij} a_i }{\sum_{ij} b_j }) (cite log sum)\]	
 
 b) If the matrix is doubly stochastic, the substituting $u_i$ = $1\over{m}$, we can easily see it satisfies $u=uP$
@@ -66,7 +66,7 @@ For a stationary stochastic process $X_1, X_2, \cdots , X_n$, show that
 \[ \frac{(H(X_n | X^{n-1}) + \sum_{i=1}^{n-1} H(X_i |X^{i-1}) } {n} \]
 \[ (cite??) \frac{H(X_n | X^{n-1}) + H(X_1,X_2,\cdots,X_{n-1}) } {n} \]
 From stationarity it follows that for all $1\le i \le n$ $->$ $H(X_n | X^{n-1}) \le H(X_i | X^{i-1}) $
-which further implies, by averaging both sides, that,
+which further implies, by averaging over all the i`s, that,
 \[ H(X_n | X^{n-1}) \le \frac{ \sum_{i=1}^{n-1} H(X_i | X^{i-1})} {n-1} \]
 \[ \frac{ H(X_i,X_2,\cdots,X_{n-1})} {n-1} \]
 combining past two results yeilds, 
