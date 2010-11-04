@@ -1,66 +1,7 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%        Annotated example of a homework submission in LaTeX         %%
-%%               (note: LaTeX comments begin with a %)                %%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[10pt]{article}
 
-%% Build this document with
-%%
-%%   pdflatex annotated_homework_example.tex
-%%
-%% or
-%%
-%%   latex annotated_homework_example.tex
-%%   dvips annotated_homework_example.dvi
-%%   ps2pdf annotated_homework_example.ps
-%%
-%% The result will be annotated_homework_example.pdf.
-%%
-%% IMPORTANT NOTE: Because this sample uses cross references, you must
-%% build it *TWICE*. LaTeX finds all of the cross reference TARGETS first
-%% and then, on the second run, plugs them all in to the appropriate
-%% places.
-%%
-%% (note: any good LaTeX-friendly text editor will have these build
-%%  lines built into it)
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% PREAMBLE %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%% Every LaTeX document starts with a \documentclass line. The
-%% document class sets up the most prominent features of the document
-%% style (e.g., page styles, font, etc.).
-%%
-%% Standard document classes include article, book, and report.
-%%
-%%   *) The article document class is the most commonly used for short
-%%      documents. It provides sectioning commands and flexible titling
-%%      options.
-%%
-%%   *) The report document class gives you chapters and puts the title
-%%      information centered on a separate unnumbered page.
-%%
-%%   *) The book document class gives you the ability to make parts and
-%%      chapters and is usually used in two-sided printing mode (e.g.,
-%%      page numbering alternates from being on the top left to top
-%%      right of the page rather than in the bottom center).
-%%
-%% More advanced document classes include memoir, which is a drop-in
-%% replacement for the standard classes that has many other features as
-%% well. It folds in a rich feature set from some of the most popular
-%% packages (packages are explained below).
-%%
-%% Optional arguments to LaTeX macros come in square brackets. In this
-%% case, [10pt] tells the article class that we want 10 point font.
-\documentclass[9pt]{article}
+\usepackage{fullpage,latexsym,amsthm,amsmath,amsfonts,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr }
 \pagestyle{empty}
-
-%% The default margins for article may seem large to you. They are
-%% designed to look pleasant on a page. To use 1 inch margins instead,
-%% call the geometry package with this line:
-\usepackage{savetrees}
-
-%redundant but w.e
-\usepackage{fullpage,latexsym,amsthm,amsmath,amsfonts,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr,}
-
 % Define new commands.
 \DeclareMathOperator*{\E}{\mbox{\text{E}}}
 
@@ -72,28 +13,8 @@
 \newtheorem{corollary}{Corollary}[section]
 \newtheorem{question}{Question}[section]
 \newtheorem{proposition}{Proposition}[section]
-
-
-%\oddsidemargin=-.1in
-%\evensidemargin=0in
-%\topmargin=-.75in
-
-
-% The graphicx package lets us include images with \includegraphics
-\usepackage{graphicx}
-\usepackage{epstopdf}
-% The caption package lets us customize captions when we want to make
-% formal figures and tables
 \usepackage{multicol}
-\usepackage{amsmath, amsthm, amssymb}
-
-%%%%%%%%%%%%%%%%%%%%%%%% MAIN DOCUMENT CONTENT %%%%%%%%%%%%%%%%%%%%%%%%%
-
-% We surround our main content with a ``document'' ``environment.'' This
-% marks the end of our LaTeX setup and the start of our document output.
-%
-% All ``environments'' are identified by \begin{...} and \end{...}
-% macros.
+\usepackage{savetrees}
 \begin{document}
 \begin{multicols}{3}
 \begin{tiny}
@@ -274,7 +195,6 @@
         	\) bits. 
         	Our estimator of error $P_e\geq \frac{1.5-1}{log\ 3}=0.316$ is not very close to Fano's bound in this form. Since $\hat{X}\in \chi$ we can use the stronger form of Fano's inequality 
         	\( P_e \geq \frac{H(X|Y)-1}{log(|\chi|-1)}  \) to get \( P_e \geq \frac{1.5-1}{log\ 2}=\frac{1}{2} \) which is a great bound on our actual $P_e$.
-
 
 \section*{3.1}
 
@@ -462,34 +382,6 @@ $Solution$:
 \end{itemize}
 
 
-Doubly stochastic (square) matrices are when rows and columns each sum to one. \textbf{(a)}  Let b = aP show H(b) $\ge$ H(a). \textbf{(b)} Show that a stationary distribution $\mu$ for a doubly stochastic matrix P is the uniform distribution. \textbf{(c)} Conversely, prove that if the uniform distribution is a stationary distribution for a Markov transition matrix P , then P is doubly stochastic.
-
-\[H(b) - H(a) = -\sum_j b_i \log (b_i) + \sum_i a_i \log (a_i)  \]
-\[= - \sum_j \sum_i a_iP_{ij} \log(\sum_k a_kP_{kj})+\sum_t a_i \log (a_i) \]	
-\[= \sum_{ij}a_iP_{ij} \log(\frac{ a_i }{\sum_{k} a_kP_{kj}}) (cite mult by 1)\]	
-\[ \ge (\sum_{ij}a_iP_{ij}) \log(\frac{\sum_{ij} a_i }{\sum_{ij} b_j }) (cite log sum)\]	
-
-b) If the matrix is doubly stochastic, the substituting $u_i$ = $1\over{m}$, we can easily see it satisfies $u=uP$
-c) if the uniform is a stationary distribution, then $\frac{1}{m} = u_i = \sum_{j}u_{j}P_{ij}$ = $ \frac{1}{m}\sum_jP{ji}$ or $\sum_jP{ji}=1$ or that the matrix is doubly stochastic.
-
-
-\section*{monotonicity of entropy per element}
-For a stationary stochastic process $X_1, X_2, \cdots , X_n$, show that
-\[ (chainRule)  \frac{H(X_1,X_2,\cdots,X_n)}{n} = \frac{\sum_{i=1}^n H(X_i | X^{i-1})}{n} \]
-\[ \frac{(H(X_n | X^{n-1}) + \sum_{i=1}^{n-1} H(X_i |X^{i-1}) } {n} \]
-\[ (cite??) \frac{H(X_n | X^{n-1}) + H(X_1,X_2,\cdots,X_{n-1}) } {n} \]
-From stationarity it follows that for all $1\le i \le n$ $->$ $H(X_n | X^{n-1}) \le H(X_i | X^{i-1}) $
-which further implies, by averaging over all the i`s, that,
-\[ H(X_n | X^{n-1}) \le \frac{ \sum_{i=1}^{n-1} H(X_i | X^{i-1})} {n-1} \]
-\[ \frac{ H(X_i,X_2,\cdots,X_{n-1})} {n-1} \]
-combining past two results yeilds, 
-\[ \frac{H(X_1,X_2,\cdots,X_n)}{n} \le \frac{1}{n} [ \frac{ H(X_1,X_2,\cdots,X_n) } {n-1}\]
-\[ + H(X_1,X_2,\cdots,X_{n-1}) ]  = \frac{H(X_1,X_2,\cdots,X_{n-1})}{n-1} \]
-\\
-b) By stationarity we have $\forall 1 \le i \le n$,
-\[ H(X_n | X^{n-1} ) \le H(X_i | X^{i-1}) (whichimplies)\]
-\[H(X_n | X^{n-1} = \frac{\sum_{i=1}^n H(X_n | X^{n-1} } {n} \]
-\[ \frac{\sum_{i=1}^n H(X_i | X^{i-1} } {n} = \frac{H(X_1,X_2,\cdots,X_n)}{n}\]
 
 \section*{Entropy rates of Markov chains}
 
