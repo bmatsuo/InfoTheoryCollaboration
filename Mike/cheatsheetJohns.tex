@@ -383,12 +383,12 @@ $Solution$:
 
 %% CHAPTER 4
 \section{  Let b = aP Doubly Stochastic}
-Doubly stochastic (square) matrices are when rows and columns each sum to one. \textbf{(a)}  Let b = aP show H(b) $\ge$ H(a). \textbf{(b)} Show that a stationary distribution $\mu$ for a doubly stochastic matrix P is the uniform distribution. \textbf{(c)} Conversely, prove that if the uniform distribution is a stationary distribution for a Markov transition matrix P , then P is doubly stochastic.
-
+Doubly stochastic (square) matrices are when rows and columns each sum to one. \textbf{(a)}  Let b = aP show H(b) $\ge$ H(a).  \textbf{(b)} Show that a stationary distribution $\mu$ for a doubly stochastic matrix P is the uniform distribution. \textbf{(c)} Conversely, prove that if the uniform distribution is a stationary distribution for a Markov transition matrix P , then P is doubly stochastic.
+\[b_j = \sum_j b_jP_{ij} \]
 \[H(b) - H(a) = -\sum_j b_i \log (b_i) + \sum_i a_i \log (a_i)  \]
 \[= - \sum_j \sum_i a_iP_{ij} \log(\sum_k a_kP_{kj})+\sum_t a_i \log (a_i) \]	
-\[= \sum_{ij}a_iP_{ij} \log(\frac{ a_i }{\sum_{k} a_kP_{kj}}) (cite mult by 1)\]	
-\[ \ge (\sum_{ij}a_iP_{ij}) \log(\frac{\sum_{ij} a_i }{\sum_{ij} b_j }) (cite log sum)\]	
+\[= \sum_{ij}a_iP_{ij} \log(\frac{ a_i }{\sum_{k} a_kP_{kj}}) \hspace{5 mm} \mbox{since} \sum_t a_i \log (a_i) = \sum_i  \sum_j a_iP_{ij} \log(a_i))\]	
+\[ \ge (\sum_{ij}a_iP_{ij}) \log(\frac{\sum_{ij} a_i }{\sum_{ij} b_j }) (\mbox{ \textbf{q.e.d,}page 2 eq:} \ref{eq:logSum} \mbox{since H(b) - H(a) is} \le \mbox{than 0} )\]	
 
 b) If the matrix is doubly stochastic, the substituting $u_i$ = $1\over{m}$, we can easily see it satisfies $u=uP$
 c) if the uniform is a stationary distribution, then $\frac{1}{m} = u_i = \sum_{j}u_{j}P_{ij}$ = $ \frac{1}{m}\sum_jP{ji}$ or $\sum_jP{ji}=1$ or that the matrix is doubly stochastic.
@@ -485,7 +485,7 @@ D(p(x,y)||q(x,y))&=D(p(x)||q(x))\\
 Ef(x) \geq f(EX)
 \end{equation}
 {\bf Log sum inequality:} for n positive numbers $a_1,\ldots,a_n$ and $b_1,\ldots,b_n$,
-\begin{equation}
+\begin{equation} \label{eq:logSum}
 \sum_{i=1}^n a_i \log \frac{a_i}{b_i} \geq \left( \sum_{i=1}^n a_i \right) \log \frac{\sum_{i=1}^n a_i}{\sum_{i=1}^n b_i}
 \end{equation}
 with equality only if $\frac{a_i}{b_i}$ is constant. 
