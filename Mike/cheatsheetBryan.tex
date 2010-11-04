@@ -1,0 +1,573 @@
+\documentclass[10pt]{article}
+
+\usepackage{fullpage,latexsym,amsthm,amsmath,amsfonts,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
+\pagestyle{empty}
+% Define new commands.
+\DeclareMathOperator*{\E}{\mbox{\text{E}}}
+
+\newcommand{\pref}[1]{{(\ref{#1})}}
+\newcommand{\bmat}[1]{{\color{red}{#1}}}
+
+\newtheorem{defn}{Definition}[section]
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{question}{Question}[section] \newtheorem{proposition}{Proposition}[section] \usepackage{multicol}
+\usepackage{savetrees}
+
+
+% Begin the actual document content here.
+\begin{document}
+\begin{tiny}
+\begin{multicols}{3}
+
+\begin{align*}
+\chi &= \text{State space } (X_i \in \chi) \\
+X^n &=(X_1,\ldots,X_n) \\
+\end{align*}
+
+\section*{Entropy, Relative Entropy and Mutual Information}
+Definitions, alternate expressions, and properties.
+\begin{align}
+    \underbrace{H(X)}_\text{entropy}&= \sum_{x\in X} p(x) \log\ \frac{1}{p(x)}
+    = \E_X \log p(x) \label{defn: entropy}\\
+H(X)& \geq 0 \\
+H_b(X)&= (\log_b a)H_a(X) \\
+H(X|Y)& \leq  H(X)\text{ (eq iff $X,Y$ ind)} \label{eq: H cond}\\
+H(X^n)& \leq \sum_{i=1}^n H(X_i)\text{ (eq iff all $X_i$ ind)} \label{eq:jointsum}\\
+H(X)&\leq  \log |\chi|  \text{ (eq iff iid) }\label{eq:alphabetentropy}\\
+H(p)&\text{ is concave in $p$.}\\
+\underbrace{D(p||q)}_\text{rel ent} & = \sum_x p(x) \log \frac{p(x)}{q(x)}=\E_p\log \frac{p(X)}{q(X)}\\
+\underbrace{I(X;Y)}_\text{mut inf} & = \sum_{x,)} p(x,y) \log \frac{p(x,y)}{p(x)p(y)} = \E_p \log \frac{p(X,Y)}{p(X)p(Y)}\\
+I(X;Y)&=H(X)-H(X|Y)\\
+&=H(Y)-H(Y|X)\\
+&=H(X)+H(Y)-H(X,Y)\\
+D(p||q)&\geq 0 \text{ (eq iff $p=q$)}\\
+I(X;Y)&=D(p(x,y)||p(x)p(y))\\
+	&\geq 0 \text{ (eq iff $p(x,y)=p(x)p(y)$)}
+\end{align}
+Given $|\chi|=m$ and $u$ is the uniform distribution over $\chi$, we get equation~\ref{eq:chimu}.
+\begin{align}
+D(p||u)&=\log m - H(p)\label{eq:chimu}\\
+D(p||q)&\text{ is convex in the pair }(p,q)
+\end{align}
+Following are chain rules:
+\begin{align}
+H(X^n)&=\sum_{i=1}^n H(X_i|X^{i-1})\\
+I(X^n;Y)&=\sum_{i=1}^n I(X_i;Y|X^{i-1})\\
+D(p(x,y)||q(x,y))&=D(p(x)||q(x))\\
+&+D(p(y|x)||q(y|x))
+\end{align}
+\thm[Jensen's Inequality] \label{thm: jensen}
+if $f$ is a convex function, then
+\begin{equation}
+Ef(x) \geq f(EX)
+\end{equation}
+\thm[Log sum inequality] \label{thm: log sum}
+for n positive numbers $a_1,\ldots,a_n$ and $b_1,\ldots,b_n$,
+\begin{equation}
+\sum_{i=1}^n a_i \log \frac{a_i}{b_i} \geq \left( \sum_{i=1}^n a_i \right) \log \frac{\sum_{i=1}^n a_i}{\sum_{i=1}^n b_i}
+\end{equation}
+with equality only if $\frac{a_i}{b_i}$ is constant. 
+
+\thm[Data processing inequality] \label{thm: data processing} 
+given some Markov processes $X\rightarrow Y\rightarrow Z$ we know
+\( I(X;Y) \geq I(X;Z) \)
+
+\thm[Sufficient Statistics] \label{thm: suff stats}
+$T(X)$ is sufficient relative to $\{f_\theta (x)\}$ iff $I(\theta;X)=I(\theta;T(X))$ for all distributions on $\theta$.
+
+\thm[Fano's inequality] \label{thm: fano}
+Let $P_e=Pr\{\hat{X}(Y)\neq X\}$. Then $H(P_e)+P_e \log |\chi| \geq H(X|Y)$.
+
+\thm[Inequality] \label{thm: Ineq}
+If $X$ and $X'$ are independent and identically distributed then $Pr(X=X') \geq 2^{-H(X)}$
+
+
+\section*{Asymptotic Equipartition Property (AEP)}
+``Almost all events are almost equally surprising''. Specifically if $X_1,\ldots,X_n$ are iid with respect to $p(x)$ then :
+\begin{equation}
+-\frac{1}{n}\log p(X_1,\ldots,X_n)\rightarrow H(X) \text{in probability}
+\end{equation}
+
+A typical set $A_\epsilon^{(n)}$ is the set of sequences $x_1,\ldots, x_n$ that follow:
+\begin{equation}
+2^{-n(H(X)+\epsilon)}\leq p(X^n)\leq 2^{-n(H(X)-\epsilon)}
+\end{equation}
+
+Some properties of a typical set:
+\begin{enumerate}
+\item if $(x_1,\ldots,x_n) \in A_\epsilon^{(n)}$ then $p(x_1,\ldots,x_n) = 2^{-n(H\pm \epsilon)}$
+\item Pr$\left\{A_\epsilon^{(n)}\right\}>1-\epsilon$ for sufficiently large $\epsilon$
+\item $|A_\epsilon^{(n)}| \leq 2^{n(H(X)+\epsilon}$
+\end{enumerate}
+
+Definition of $a_n \doteq b_n$ means that $\frac{1}{n}\log \frac{a_n}{b_n} \rightarrow 0$ as $n\rightarrow \infty$.
+
+Smallest probable set: Let $X_1,\ldots, X_n$ be iid with respect to $p(x)$ and for $\gamma < \frac{1}{2}$, let $B_\gamma^{(n)} \subset \chi^n$ be the smallest set such that $Pr\{ B_\gamma^{(n)} \} \geq 1-\gamma $ Then we have $|B_\gamma^{(n)}| \doteq 2^{nH}$
+
+\section*{Other useful laws and properties}
+{\bf General Statistical things} Expected value $E(x)=\sum_{i=1}^n x_i p(x_i)$
+
+Variance: $\sigma^2 = E\left[ \left(X-\mu\right)^2\right]$
+
+{\bf Law of Large Numbers} Weak law:
+\begin{eqnarray*}
+\bar{X}_n\overset{p}\rightarrow \mu \text{ when } n \rightarrow \infty\\
+\lim_{n\rightarrow \infty} Pr\left(|\bar{X}_n-\mu| < \epsilon \right) = 1
+\end{eqnarray*}
+Strong law:
+\begin{equation}
+Pr\left(\lim_{n\rightarrow \infty} \bar{X}_n = \mu \right) = 1
+\end{equation}
+
+{\bf Derivation Rules} Chain rule: $(f \circ g)'(x)=f'(g(x))g'(x)$
+
+Product Rule: $(f\cdot g)' = f' \cdot g + f \cdot g'$
+
+Quotient Rule: \[f(x)=\frac{g(x)}{h(x)}\text{ and }f'(x)=\frac{g'(x)h(x)-g(x)h'(x)}{\left(h(x)\right)^2}\]
+
+
+% HW1
+\section* {2.2 Entropy of functions.}
+Let $Y=g(X)$. The distribution for $Y$ is  $p(y)=\sum_{\{x|y=g(x)\}}p(x)$.  It is pretty clear that if there is a 1-1 mapping then $p(x)=p(g(x))$. 
+                          
+Consider the situation where multiple values of $X$ that map to a single value of $Y$.
+For this set $\sum_{\{x|y=g(x)\}}p(x)\ log\ p(x) \leq \sum_{\{x|y=g(x)\}}p(x)\ log\ p(y) = p(y)\ log\ p(y)$ since $p(y)\geq p(x)$. Now extending the argument to the entire range of $X$ and $Y$ we obtain:
+\(
+p(x)\leq \sum_{\{x|y=g(x)\}}p(x)=p(y)\) and \(
+H(X)=-\sum_{x}p(x)\ log\ p(x)
+=-\sum_{y}\sum_{\{x|y=g(x)\}}p(x)\ log\ p(x)
+\geq -\sum_{y}p(y)\ log\ p(y)
+=H(Y)
+\)
+
+\textbf{(a)} $H(X)$ vs $H(Y=2^{X})$\\
+$Y$ and $X$ are 1-1 so we have the special case of equality.
+
+\textbf{(b)} $H(X)$ vs $H(Y=cos(X))$ \\
+There can be multiple values of $X$ that map to single values of $Y$ with this function. Thus we can only guarentee the general case where $H(X) \geq H(Y)$
+
+\section*{2.4 Entropy of functions of a random variable.}
+Justify the steps showing that a function $g$ of a random variable $X$ has no
+more entropy than the $X$ itself.
+\begin{eqnarray}
+H(X,g(X))  &=& H(X) + H(g(X) | X) \label{eq: 2.4a} \\
+    &=& H(X) \label{eq: 2.4b} \\
+    H(X,g(X)) &=& H(g(X))+H(X|g(X)) \label{eq: 2.4c} \\
+    &\geq& H(g(X)) \label{eq: 2.4d}.
+\end{eqnarray}
+\pref{eq: 2.4a} is justified by the chain rule.
+\pref{eq: 2.4b} is justified because $g(X)$ is known for any value of $X$,
+and hence $H(g(X)|X)=0$ . 
+\pref{eq: 2.4c} is just a differently ordered application of the chain rule.
+\pref{eq: 2.4d} is justified because entropy (including conditional entropy) is always greater
+than zero.
+
+\section*{2.10 Entropy of disjoint mixture}
+\begin{equation*}
+X=\begin{cases} 
+    X_1 & \text{ with probability } \alpha \\
+    X_2 & \text{ with probability } (1-\alpha) 
+\end{cases} 
+\end{equation*}
+\textbf{(a)} What is $H(X)$ in term of $H(X_1), H(X_2), \alpha$? 
+\begin{equation}
+    \theta = \theta(X) = 
+        \begin{cases}
+            1 & \text{ when } X=X_{1}\\ 
+            2 & \text{ when }  X = X_{2} \end{cases}
+    \label{eq: theta of X}
+\end{equation}
+\(
+	H(X) = H(X_\theta,\theta) = H(\theta) + H(X|\theta) \\
+	= H(\theta)+p(\theta = 1)\ H(X|\theta=1)+p(\theta=2)\ H(X|\theta=2) \\
+	= H(\alpha) + \alpha\ H(X_{1}) + (1-\alpha)\ H(X_{2}) \)
+
+where 
+\(H(\alpha) = -\alpha\ log\ \alpha - (1 - \alpha )\ log\ (1-\alpha)\)
+             
+\section*{2.12 Example of joint entropy.}
+We are given that  \( p(x,y)=\left[ \frac{1}{3},\frac{1}{3};0,\frac{1}{3} \right] \) Find the following:
+
+\textbf{(a)}Compute  \(H(X)\) and \( H(Y)\):~~
+\(
+H(X) = H(\frac{2}{3},\frac{1}{3})
+= \frac{2}{3} log(\frac{3}{2}) + \frac{1}{3}log(3)\\
+\approx 0.9183 bits \) and \(
+H(Y) =  H(\frac{2}{3},\frac{1}{3})\
+\approx 0.9183 bits
+\)
+              
+\textbf{(b)} Compute \(H(X|Y)\) and \(H(Y|X)\):~~
+\(
+H(X|Y) = \frac{1}{3}H(X|Y=0) + \frac{2}{3}H(X|Y=1)
+=\frac{1}{3}H(\frac{1}{2},\frac {1}{2})+\frac{2}{3}H(0,1)
+=\frac{1}{3}1+\frac{2}{3}0 
+= \frac{1}{3} bits \) 
+                
+\(
+H(Y|X) = \frac{2}{3}H(Y|X=0)+\frac{1}{3}H(Y|X=1)
+=\frac{2}{3}H(\frac{1}{2},\frac{1}{2}) + \frac{1}{3}H(0,1)
+=\frac{2}{3} bits
+\)
+              
+\textbf{(c)}
+\(
+H(X,Y)=H(X)+H(Y|X)
+\approx 1.585 bits
+\)
+          	  
+\textbf{(d)} \(H(Y) - H(Y|X) \approx 0.251 bits\)
+            	
+\textbf{(e)} \( I(X;Y) =H(Y) - H(Y|X) \approx 0.251 bits
+\)
+		
+\textbf{(f)}  Imagine a two circle venn. $H(X,Y)$ represents the overlapped portion plus the two independent portions. $H(X)$ is one circle and $H(Y)$ is the other. The overlapped portion is represented by either $I(X;Y)$ or $H(Y)-H(Y|X)$.
+          
+\section*{2.15 Data processing} Markov chains: $X_{1}\rightarrow X_{2}\rightarrow \cdots \rightarrow X_{n}$, have joint probabilities of the following form: 
+\(
+p(x_{1},x_{2},\ldots,x_{n})=p(x_{1})p(x_{2}|x_{1})\cdots p(x_{n}|x_{n-1})
+\)
+This means that for mutual information we can do some nice reduction.
+first let \( X_{3},\ldots,X_{n} = Y\) then you get \(
+I(X_{1};X_{2},Y) = I(X_{1};X_{2})+I(X_{1};Y|X_{2})  \)
+Now since this is a markov chain, and we know that $X_{1}$ and $Y$ are completely independent
+we can say that $I(X_{1};Y|X_{2})=0$ because $X_1$ and $Y$ are conditionally independent given $X_2$. 
+Thus the whole equation simplifies to $I(X_{1};X_{2})$
+
+\section*{2.26 Proof of nonnegativity of relative entropy.}
+\textbf{(a)} $ln(x) \leq x-1$ for $0\leq x \leq \infty$\\
+If the second derivative of a function is positive along its whole domain, 
+then that function is convex. 
+If it is zero anywhere, then we can't make this claim, 
+and the converse isn't necessarily true.
+Let \(f(x)=x-1-ln\ x \) then 
+\(
+f'(x)= 1-\frac{1}{x}\) and \(
+f''(x)=\frac{1}{x^2} > 0
+\)
+so we can say that $f(x)$ is strictly convex and a local minimum is also a global minimum. 
+To find the local minimum we just set $f'(x)=0$ and get $x=1$. 
+So $f(x) \geq f(1)$ which means that $x-1-ln\ x \geq 1-1-ln\ 1 = 0$. 
+Showing that $x-1 \geq ln\ x$ on the interval $(0,\infty)$.
+				 
+\textbf{(b)} Justify the following steps. 
+Let A be the set of $x$ such that $p(x) > 0$
+\(
+-D_e(p||q)=\sum_{x\in A} p(x) ln \frac{q(x)}{p(x)}
+\leq \sum_{x\in A} p(x)\left( \frac{q(x)}{p(x)}-1\right)
+=\sum_{x\in A} q(x) - \sum_{x\in A} p(x)
+\leq 0
+\)
+The first step follows from the definition of D, the second step follows from the inequality $ln\ t \leq t - 1$, the third from expanding the sum, and the last step from the fact that the $q(A) \leq 1$ and $p(A)=1$.
+				
+\textbf{(c)} Conditions for equality?
+We have the inequality $ln\ t \leq t-1$ from a previous problem, and showed equality iff $t=1$. Therefore we have equality if $\frac{q(x)}{p(x)}=1$ for all $x\in A$. This implies that $p(x)=q(x)$ for all $x$ and then we'll have equality in the last step as well. 	
+          
+\section*{2.32 Fano}
+\(P(X,Y) = \left( \begin{array}{ccc}
+\frac{1}{6} & \frac{1}{12} & \frac{1}{12} \\
+\frac{1}{12} & \frac{1}{6} & \frac{1}{12} \\
+\frac{1}{12} & \frac{1}{12} & \frac{1}{6} \end{array} \right)\)
+ where $X$ is indexed $[a,b,c]$ and $Y$ is indexed $[1,2,3]$. Let $\hat{X}(Y)$  be an estimator for $X$ based on $Y$ and let $P_e=Pr\{\hat{X}(Y)\neq X\}$
+
+\textbf{(a)}
+From inspection we see that 
+\(\hat{X}(y)=\left\{ \begin{array}{cc}
+1 & y=a\\
+2 & y=b\\
+3 & y=c \end{array}\right. \)
+and the associated $P_e$ is the sum of 
+\[
+P(1,b),  P(1,c), P(2,a),
+P(2,c), P(3,a), P(3,b) \] Therefore $P_e=\frac{1}{2}$
+
+\textbf{(b)}
+From Fano's inequality we know \(P_e \geq \frac{H(X|Y)-1}{log\ |\chi|}\). \(
+H(X|Y)= H(X|Y=a)Pr\{y=a\}+H(X|Y=b)Pr\{y=b\}+H(X|Y=c)Pr\{y=c\}
+=H\left(\frac{1}{2},\frac{1}{4},\frac{1}{4}\right)Pr\{y=a\}+H\left(\frac{1}{2},\frac{1}{4},\frac{1}{4}\right)Pr\{y=b\}+H\left(\frac{1}{2},\frac{1}{4},\frac{1}{4}\right)Pr\{y=c\}
+=H\left(\frac{1}{2},\frac{1}{4},\frac{1}{4}\right)\left( Pr\{y=a\}+Pr\{y=b\}+Pr\{y=c\}\right)
+=H\left(\frac{1}{2},\frac{1}{4},\frac{1}{4}\right)
+=1.5 \) bits. 
+
+Our estimator of error $P_e\geq \frac{1.5-1}{log\ 3}=0.316$ is not very close to Fano's bound in this form. Since $\hat{X}\in \chi$ we can use the stronger form of Fano's inequality 
+\( P_e \geq \frac{H(X|Y)-1}{log(|\chi|-1)}  \) to get \( P_e \geq \frac{1.5-1}{log\ 2}=\frac{1}{2} \) which is a great bound on our actual $P_e$.
+
+\section*{3.1} % HW2
+$\mathbf{(a)}$
+(Markov's Inequality) For non-negative random variable $X$ and  $t>0$,
+Show
+\begin{equation}
+    \Pr\{X \geq t\} \leq \frac{\E X}{t} \label{eq: markovs ineq}
+\end{equation}
+And provide an example random variable for with the above condition is met
+with equality.
+\proof
+\begin{eqnarray}
+    \E X %&= \int_{-\infty}^\infty x f(x)dx &\text{(Defn of expectation.)}
+        %\nonumber \\
+    &\geq \int_t^\infty x f(x)dx &\text{(Integral over subdomain)} 
+    \nonumber \\
+    &\geq \int_t^\infty t f(x)dx &\text{($x \geq t$ in integral)} 
+        \nonumber \\
+    &= t \Pr\{X \geq t\}  &\text{($t$ constant in integral)}
+        \label{eq: 3.1a QED}
+\end{eqnarray}
+The last equation \pref{eq: 3.1a QED} proves Markov's Inequality
+\pref{eq: markovs ineq}. $\Box$
+
+Let $X$ be a \emph{random variable} which has value zero with probability
+one.
+The expected value of $X$ is zero and thus, 
+\pref{eq: markovs ineq} is always an equality.
+
+$\mathbf{(b)}$
+(Chebychev's Inequality) Let $Y$ be a random variable with mean $\mu$ and
+variance $\sigma^2$. By letting $X = (Y-\mu)^2$, show that for
+$\varepsilon > 0$
+\begin{equation}
+    \Pr \{(Y-\mu)^2 > \varepsilon^2\} \leq \frac{\sigma^2}{\varepsilon^2}
+    \label{eq: chebychevs ineq}
+\end{equation}
+\proof
+\begin{eqnarray}
+    \Pr\{(Y-\mu)^2 > \varepsilon^2\} &\leq& \Pr\{(Y-\mu)^2 \geq \varepsilon^2\}
+        \nonumber \\
+        &=& \Pr\{|Y-\mu| \geq \varepsilon\}
+        \label{eq: equate probs} \\
+    \Pr \{(Y-\mu)^2 > \varepsilon^2\} &\leq& \frac{\E \big[(Y-\mu)^2\big]}{\varepsilon^2}
+        \label{eq:instatiate 3.1a}
+\end{eqnarray}
+The final inequality coming from an application of Markov's Inequality
+\pref{eq: markovs ineq} and the derived inequality \pref{eq: equate probs}.
+The numerator $E[(Y-\mu)^2]$ is equal to $\sigma^2$, from the definition
+of variance and the fact that $\mu = E[Y]$. Thus we are left with
+Chebyshev's inequality \pref{eq: chebychevs ineq}. $\Box$
+
+$\mathbf{(c)}$
+(The weak law of large numbers.) Let $Z_1,Z_2,\dots,Z_n$ be a sequence of
+i.i.d. random variables with mean $\mu$ and variance $\sigma^2$. Let
+$\overline{Z_n} = \frac{1}{n}\sum{i=1,2,\dots,n}Z_i$ be the sample mean.
+Show 
+\begin{equation}
+    \Pr \{|\overline{Z_n} - \mu| > \varepsilon\} \leq
+    \frac{\sigma^2}{n\varepsilon^2}
+    \label{eq: weak loln}
+\end{equation}
+\proof
+$\overline{Z_n}$ is a random variable with mean $\mu$ and variance
+$\frac{\sigma^2}{n}$. This is easily computed because expectation
+distributes across linear combinations, 
+%\begin{equation*}
+%    E\bigg[\frac{1}{n}\sum_{i=1}^{n}Z_i\bigg] 
+%    = \frac{1}{n} \sum_{i=0}^{n} E[Z_i] = \frac{n\mu}{n} = \mu
+%\end{equation*}
+, and variance distributes across linear combinations, squaring the
+leading coefficients,
+%\begin{equation*}
+%    Var\bigg[\frac{1}{n}\sum_{i=1}^{n}Z_i\bigg]
+%    = \frac{1}{n^2}\sum_{i=0}^{n} Var[Z_i] 
+%    = \frac{n\sigma^2}{n^2} 
+%    = \frac{\sigma^2}{n}
+%\end{equation*}
+. The weak law of large numbers \pref{eq: weak loln} comes from applying
+Chebychev's inequality \pref{eq: chebychevs ineq} to $\overline{Z_n}$.
+$\Box$
+
+\section*{3.2}
+Let $(X_i,Y_i)$ be i.i.d. $\sim p(x,y)$. We form the log likelihood ratio
+of the hypothesis that $X$ and $Y$ are independent vs. the hypothesis that
+$X$ and $Y$ are dependent. What is the limit of
+\begin{equation}
+    \frac{1}{n}\log \frac{p(X^n)p(Y^n)}p(X^n,Y^n)
+    \label{eq: normalized llr}
+\end{equation}
+$Solution$:
+\begin{eqnarray}
+    \frac{1}{n}\log \frac{p(X^n)p(Y^n)}{p(X^n,Y^n)}
+    &=& \frac{1}{n} \sum_{i=1}^{n} \log \frac{p(X_i)p(Y_i)}{p(X_i,Y_i)}
+    \label{eq: log of prods} \\
+    &\rightarrow& -I(X;Y) 
+    \label{eq: from MI defn}
+\end{eqnarray}
+
+The independence assumption makes \pref{eq: normalized llr} the log of a
+product, yielding the sum of logs in \pref{eq: log of prods}.
+The convergence in \pref{eq: from MI defn} comes from the convergence of
+\pref{eq: log of prods} to $\E \log \frac{p(X_i)p(Y_i)}{p(X_i,Y_i)}$ by
+the (strong?) law of large numbers. \pref{eq: from MI defn} comes from the
+definition of mutual information.
+
+This implies convergence of the likelihood ratio
+$\frac{p(X^n)p(Y^n)}{p(X^n,Y^n)} \rightarrow 2^{-nI(X;Y)}$ which is 1 iff
+$X$ and $Y$ are independent.
+\section*{3.6}
+Let $X_1,X_2,\dots$ be i.i.d. drawn according to probability mass function
+$p(x)$. Find the limit $\lim_{n \to \infty}
+(p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}$.
+$Solution$:
+\begin{eqnarray}
+    P_n &=& (p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}
+        \label{eq: defn P_n} \\
+    \lim_{n\to \infty} P_n &=& 2^{lim_{n\to\infty}log\ P_n}
+        \label{eq: limit of composition} \\
+    &=& 2^{-H(X)},
+        \label{eq: P_n limit} 
+    \end{eqnarray} 
+    The convergence of the exponent in \pref{eq: limit of composition} to
+    $-H(X)$ comes from the definition of the AEP.
+    The above result assumes that $H(X)$ exists.
+\section*{3.11}
+\textbf{(a)}
+Given any two sets $A$, $B$ such that $\Pr{A} > 1-\varepsilon_1$ and
+$\Pr{B} > 1-\varepsilon_2$, show that $\Pr(A\cap B) > 1 - \varepsilon_1 -
+\varepsilon_2$. Hence
+\begin{equation}
+    \Pr(A_\varepsilon^{(n)} \cap B_\delta^{(n)}) > 1 - \varepsilon - \delta
+    \label{eq: 3.11(a) conclusion}
+\end{equation}
+\proof
+\begin{eqnarray}
+    Pr(A\cap B) &=& Pr(A) + Pr(B) - Pr(A\cup B)
+    \label{eq: pr A intersect B} \\
+    &>& 2 - \varepsilon_1 - \varepsilon_2 - Pr(A\cup B)
+    \label{eq: sub hypotheses} \\
+    &>& 1 - \varepsilon_1 - \varepsilon_2
+    \label{eq: 3.11a}
+\end{eqnarray}
+\textbf{(b)} 
+Inequality \pref{eq: 3.11(a) conclusion} gives $1-\varepsilon-\delta \leq \Pr(A_\varepsilon^{(n)} \cap B_\delta^{(n)})$. 
+The definition of the probability of an event makes the RHS equal to
+$\sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} p(x^n)$.
+This value is at most 
+$\sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} 2^{-n(H-\varepsilon)}$, 
+by the definition of AEP 
+(for $x^n \in A_\varepsilon^{(n)}$ $p(x^n) \leq 2^{-n(H - \varepsilon)}$).
+The sum in carried out over a constant summand, and is equal to
+$|A_\varepsilon^{(n)} \cap B_\delta^{(n)}|2^{-n(H-\varepsilon)}$, which is
+upperbounded by $|B_\delta^{(n)}|2^{-n(H-\varepsilon)}$, because the
+cardinality of a set intersection is at most the cardinality of either
+set.
+
+
+\section*{4.1 Doubly stochastic matrices.} % HW3
+A \emph{doubly stochastic matrix} $P$ is square with entries in $[0,1]$ where the columns sum to one as well as the rows. 
+\textbf{(a)}  Let b = aP, show H(b) $\ge$ H(a). 
+\textbf{(b)} Show that the stationary distribution $\mu$ for a doubly stochastic matrix P is the uniform distribution. 
+\textbf{(c)} Conversely, prove that if the uniform distribution is a stationary distribution for a Markov transition matrix P , then P is doubly stochastic.
+$Solutions$:
+\textbf{(a)}
+\begin{eqnarray*}
+H(b) - H(a) 
+= -\sum_j b_j \log (b_j) + \sum_i a_i \log (a_i) \\
+= - \sum_j \sum_i a_iP_{ij} \log(b_j)+\sum_i a_i \log (a_i) \\
+= \sum_{ij}a_iP_{ij} \log(\frac{ a_i }{ b_j }) 
+\text{ (mult by $\sum_j P_{ij} = 1$)} \\
+\ge (\sum_{ij}a_iP_{ij}) \log(\frac{\sum_{ij} a_i }{\sum_{ij} b_j })
+\text{ (by log sum ineq\pref{thm: log sum})} \\
+\end{eqnarray*}
+
+\textbf{(b)} If the matrix is doubly stochastic, the substituting $u_i$ = $1\over{n}$, we can easily see it satisfies $u=uP$
+\textbf{(c)} if the uniform is a stationary distribution, then
+$\frac{1}{n} = u_i = \sum_{j}u_{j}P_{ij}$ = $ \frac{1}{n}\sum_jP{ji}$ or $\sum_jP{ij}=1$ or that the matrix is doubly stochastic.
+
+
+\section*{4.6 Monotonicity of entropy per element}
+For a stationary stochastic process $X_1, X_2, \cdots , X_n$, show that
+\\ \textbf{(a)} $\frac{H(X_1,X_2,\cdots,X_n)}{n} \le \frac{H(X_1,X_2,\cdots,X_{n - 1})}{ n - 1} $
+\\ \textbf{(b)} $\frac{H(X_1,X_2,\cdots,X_n)}{n} \ge H(X_1,X_2,\cdots,X_n)$
+
+$Solutions$:
+\begin{eqnarray*}
+\frac{H(X_1,X_2,\cdots,X_n)}{n} = \frac{\sum_{i=1}^n H(X_i | X^{i-1})}{n} \\ 
+= \frac{(H(X_n | X^{n-1}) + \sum_{i=1}^{n-1} H(X_i |X^{i-1}) } {n} \\ 
+= \frac{H(X_n | X^{n-1}) + H(X_1,X_2,\cdots,X_{n-1}) } {n} \\
+\end{eqnarray*}
+Sationarity implies for $1\le i \le n$, $H(X_n | X^{n-1}) \le H(X_i | X^{i-1}) $
+which further implies.
+\begin{eqnarray*}
+H(X_n | X^{n-1}) &\le& \frac{ \sum_{i=1}^{n-1} H(X_i | X^{i-1})} {n-1} \\
+&=& \frac{ H(X_i,X_2,\cdots,X_{n-1})} {n-1}
+\end{eqnarray*}
+combining past two results yeilds, 
+\begin{eqnarray*}
+\frac{H(X^n)}{n} \leq \frac{H(X^{n-1})}{n} \bigg[ \frac{ 1 } {n-1}  + 1 \bigg]
+= \frac{H(X^{n-1})}{n-1}
+\end{eqnarray*}
+\\
+\textbf{(b)} Stationarity implies $\forall 1 \leq i \leq n$, $H(X_n |
+X^{n-1} ) \leq H(X_i | X^{i-1})$. Thus,
+\begin{eqnarray*}
+H(X_n | X^{n-1}) \leq \frac{\sum_{i=1}^n H(X_n | X^{n-1}) } {n}
+= \frac{H(X^n)}{n}.
+\end{eqnarray*}
+
+
+\section*{Entropy rates of Markov chains}
+
+Let matrix P = $[ (1-p_{01}, p_{01}), (p_{10}, 1-p_{10}]$ 
+\textbf{(a)} The stationary distribution is: $u_0=\frac{p_{10}}{p_{01}+p_{10}}$, $u_1=\frac{p_{01}}{p_{01}+p_{10}}$
+Therefore the entropy is: \( H(X_2 \mid X_1) = u_0H(p_{01})+u_1H(p_{10}) = \frac{p_{10}H(p_{01})+ p_{01}H(p_{10})}{p_{01}+p_{10}}. \)
+
+\textbf{(b)} The entropy rate is at most 1 bit because process has only two states. This rate can be achieved iff \(p_{01}=p_{10}=1/2 \), in which case the process is i.i.d with \( \Pr(X_i = 0) =\Pr(X_i=1) = 1/2 \)
+
+Let matrix P = $[ (1-p, p), (1, 0)]$ 
+\textbf{(c)} special case if the general two-state Markov chain, the entropy rate is \( H(X_2 | X_1)=u_0H(p)+u_1H(1)=\frac{H(p)}{p+1} = \frac{-p\log(p)-(1-p)\log(1-p)}{1+p} \)
+\textbf{(e)} By calculus: \( p=\frac{(3-5^{1/2})}{2}=0.382.\) the max value is \(H(p)=H(1-p)=H(\frac{5^{1/2}-1}{2}) = 0.694bits\)
+note that \( \frac{(5^{1/2}-1)}{2} =.618\) is (the reciprocal of) the Golden Ratio.
+
+\section*{Show for markov chain become more difficult to recover as the future $X_n$ unfolds. $H (X_0|Xn_) \ge H (X_0|X_{n?1})$.}
+Solution: initial conditions. For a Markov chain, by the data processing theorem we have $I(X_0  \: X_{n-1}) \ge I(X_0 \ : X_n)$ Therefore $H(X_0) - H(X_0 | X_{n-1}) \ge H(X_0) - H(X_0 | X_n)$ or $H(X_0 | X_n)$  increases with n
+
+\section*{Let	. . . ,$ X_{-1}, X_0, X_1$, . . . be	a stationary (not necessarily Markov) stochastic process.}
+Solution: stationary processes A) $H(x_n | X_0) = H(X_{-n} | X_0).$ True cause: $H(X_n | X_0) = H(X_n,X_0) - H(X_0)$ and $H(X_{-n} | X_0) = H(X_{-n},X_0) - H(X_0)$ by stationarity.
+b) \(H(X_n\mid X_0) \ge H(X_{n-1} \mid X_0). \) \textbf{Not true} in general. Thous is true for first order markov chains. A simple counterexample is a periodic process with period n. Let $X_0,X_1,X_2,\cdots,X_{n-1}$ be i.i.d. uniformly distributed binary random variables and let \(X_k =X_{k-n}\) for \( k \ge n \) In this cases, $H(X_n \mid X_0)$ and $H(X_{n-1} \mid X_0) = 1$, contradicting the statement $H(X_n | X_0) \ge H(X_{n-1} \mid X_0)$. C) \(H(X_n \mid X_1^{n-1}, X_{n+1}) \) is non-increasing in n. \textbf{true}, since by stationarity \(H(X_n \mid X_1^{n-1}, X_{n+1}) \) = \(H(X_{n+1} \mid X_2^{n}, X_{n+2}) \)  \( \ge H(X_{n+1} \mid X_1^{n}, X_{n+2}) \) where the inequality follows from the fact that conditioning reduces entropy.
+
+bonus!
+$I(X;Y|Z) = H(X|Z) - H(X|Y,Z)$ \\
+$I(X;Y,Z) = I(X;Z) + I(X;Y|Z) $\\
+$            = I(X;Y) + I(X;Z|Y) $\\
+$I(X;Y|Z) \geq 0$ \text{ eq iff X,Y cond. ind Z}
+
+Also,
+Fano's weak inequality:
+Weak: $P_e \geq \frac{H(X|Y)-1}{log(|X|)}$
+
+and a quick proof sketch for the Pr{X=X'} Inequality:
+$2^{Elog(p(X))} \leq E2^{log(p(X))}, 2^{-H(X)} \leq \sum p(x)^2$
+
+\section*{Example problems}
+
+\textit{Entropy Rate of Typewriter:} 
+All letters are equally likely. 
+$m$ letters, sequence has length $n$, 
+$m^n$ sequences with equal probability ($p(x^n) = \frac{1}{m^n}$): 
+$H(X^n) = \sum_{x^n} p(x^n) log(\frac{1}{p(x^n)}) =  \frac{m^n}{m^n}log(m^n) = n*log(m)$; $H(\chi) lim_{n \to \infty} \frac{1}{n} H(X^n) = lim_{n \to \infty} log(m) = log(m)$ bits per symbol.
+
+\textit{Entropy Rate of i.i.d. RVs:} 
+$X_i$ is i.i.d: 
+$H(\chi) = lim_{n \to \infty} \frac{1}{n} H(X^n) = lim_{n \to \infty} \frac{nH(X_1)}{n} = H(X_1)$
+
+\textit{Entropy Rate of Independent RVs:} 
+$X_i$s independent implies $H(X^n) = \sum_i^n H(X_i)$; 
+$H(\chi) = lim_{n \to \infty} \frac{1}{n} \sum_i^n H(X_i) $; 
+Since $H(X_i)$s are different, 
+this entropy does not exist (and may not converge), 
+i.e. $P(X_i = 1) = r_i, P(X_i = 0) = 1 - r_i$, 
+where $r_i$ is not a constant value and is a function of $i$. 
+$r_i = 0.5$ if $2k < log(log(i)) \leq 2k + 1$, $r_i = 0$ if $2k + 1 < log(log(i)) \leq 2k +2 $ for some constant $k$. $H(X_i)$ switches between 1 and 0, $H(\chi)$ changes with $n$.
+
+\textit{Shuffling Does Not Decrease Entropy:} 
+Let $X =$ location of cards, $T =$ shuffle operation of the cards, 
+where $X$ and $T$ are independent. Show $H(TX) \geq H(X)$: $H(TX) \geq H(TX|T)$ (conditioning reduces entropy) $= H(T^{-1}TX|T)$ (if shuffle operation is known, so is inverse) = $H(X|T) = H(X)$ (since $X$ and $T$ are independent).
+
+\textit{Source Entropy per Unit Time} 
+Given a discrete memoryless source with alphabet $1 \gets p_1, 2 \gets p_2$ with symbol duration $1 \gets 1$, $2 \gets 2$. 
+Maximize the source entropy per nit time: $f(p_1) = \frac{H(p_1)}{E(l(x))}$ (where $l$ is duration), $E(l(x)) = T(p_1) = 1*p_1 + 2*p_2 = 1*p_1 + 2(1-p_1) = 2 - p_1$, $\frac{H(p_1)}{T(p_1)} = \frac{-p_1 log(p_1) - (1-p_1)log(1-p_1)}{2-p_1}$. Note if $p_1 = 1 \to f(p_1) = 0$, $p_1 = 2 \to f(p_1) = 0$ 
+(therefore take derivative): $\frac{\partial f(p_1)}{\partial p_1} = \frac{ T(p_1)\frac{\partial H(p_1)}{\partial p_1} - H(p_1)\frac{\partial T(p_1)}{\partial p_1}}{(T(p_1))^2} = \frac{(2-p_1)[-log(p_1) -1 + log(1-p_1) - 1] - H(p_1)(-1)}{(T(p_1))^2}=0$; $ln(1-p_1) - 2ln(p_1) = 0 \to ln(1-p_1) = 2ln(p_1) = ln(p_1^2)$, $1-p_1 = p_1^2 \to p_1^2 + p_1 - 1 = 0 \to p_1 = \frac{1}{2}(\sqrt(5) - 1), p_2 = 1 - p_1 = (\frac{3}{2} - \frac{1}{2}\sqrt(5))$; $\frac{H(p_1)}{T(p_1)} = 0.69424$ bits. 
+
+
+\end{multicols}
+\end{tiny}
+\end{document}
