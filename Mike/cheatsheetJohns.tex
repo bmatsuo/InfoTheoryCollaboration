@@ -467,6 +467,10 @@ I(X;Y)&=H(X)-H(X|Y)\\
 D(p||q)&\geq 0 \text{ eq iff $p=q$}\\
 I(X;Y)&=D(p(x,y)||p(x)p(y))\\
 	&\geq 0 \text{ eq iff $p(x,y)=p(x)p(y)$}
+I(X;Y|Z) &= H(X|Z) - H(X|Y,Z) \\ 
+I(X;Y,Z) &= I(X;Z) + I(X;Y|Z) \\ 
+             &= I(X;Y) + I(X;Z|Y) \\ 
+I(X;Y|Z) &\geq 0 \text{ eq iff X,Y cond. ind Z} 
 \end{align}
 Given $|\chi|=m$ and $u$ is the uniform distribution over $\chi$, we get equation~\ref{eq:chimu}.
 \begin{align}
@@ -494,9 +498,9 @@ with equality only if $\frac{a_i}{b_i}$ is constant.
 
 {\bf Sufficient Statistic:} $T(X)$ is sufficient relative to $\{f_\theta (x)\}$ iff $I(\theta;X)=I(\theta;T(X))$ for all distributions on $\theta$.
 
-{\bf Fano's inequality:} Let $P_e=Pr\{\hat{X}(Y)\neq X\}$. Then $H(P_e)+P_e \log |\chi| \geq H(X|Y)$.
+{\bf Fano's inequality:} Let $P_e=Pr\{\hat{X}(Y)\neq X\}$. Then $H(P_e)+P_e \log |\chi| \geq H(X|Y)$. Weak: $P_e \geq \frac{H(X|Y)-1}{log(|X|)}$
 
-{\bf Inequality.} If $X$ and $X'$ are independent and identically distributed then $Pr(X=X') \geq 2^{-H(X)}$
+{\bf Inequality.} If $X$ and $X'$ are independent and identically distributed then $Pr(X=X') \geq 2^{-H(X)}$. $2^{Elog(p(X))} \leq E2^{log(p(X))}, 2^{-H(X)} \leq \sum p(x)^2$ 
 
 
 \section*{Asymptotic Equipartition Property (AEP)}
