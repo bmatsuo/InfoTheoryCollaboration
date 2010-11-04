@@ -105,6 +105,24 @@ Some properties of a typical set:
 Definition of $a_n \doteq b_n$ means that $\frac{1}{n}\log \frac{a_n}{b_n} \rightarrow 0$ as $n\rightarrow \infty$.
 
 Smallest probable set: Let $X_1,\ldots, X_n$ be iid with respect to $p(x)$ and for $\gamma < \frac{1}{2}$, let $B_\gamma^{(n)} \subset \chi^n$ be the smallest set such that $Pr\{ B_\gamma^{(n)} \} \geq 1-\gamma $ Then we have $|B_\gamma^{(n)}| \doteq 2^{nH}$
+\textbf{entropy rate}
+
+\begin{equation}
+H(\chi) = lim_{n \to \infty} \frac{1}{n} H(X^n) \\
+\end{equation}
+\begin{equation}
+H^\prime(\chi) = lim_{n \to \infty} H(X_n | X^{n-1})
+\end{equation}
+
+\noindent If stationary and stochastic:
+\begin{equation}
+H(\chi) = H^\prime(\chi)
+\end{equation}
+
+\noindent Entropy rate of stationary Markov chain (transition matrix $P$) :
+\begin{equation}
+H(\chi) = H(X_2|X_1) = -\sum_{i,j} \mu_i P_{ij}log(P_ij)
+\end{equation}
 
 \section*{Other useful laws and properties}
 {\bf General Statistical things} Expected value $E(x)=\sum_{i=1}^n x_i p(x_i)$
@@ -523,8 +541,8 @@ Solution: initial conditions. For a Markov chain, by the data processing theorem
 \section*{Let	. . . ,$ X_{-1}, X_0, X_1$, . . . be	a stationary (not necessarily Markov) stochastic process.}
 Solution: stationary processes A) $H(x_n | X_0) = H(X_{-n} | X_0).$ True cause: $H(X_n | X_0) = H(X_n,X_0) - H(X_0)$ and $H(X_{-n} | X_0) = H(X_{-n},X_0) - H(X_0)$ by stationarity.
 b) \(H(X_n\mid X_0) \ge H(X_{n-1} \mid X_0). \) \textbf{Not true} in general. Thous is true for first order markov chains. A simple counterexample is a periodic process with period n. Let $X_0,X_1,X_2,\cdots,X_{n-1}$ be i.i.d. uniformly distributed binary random variables and let \(X_k =X_{k-n}\) for \( k \ge n \) In this cases, $H(X_n \mid X_0)$ and $H(X_{n-1} \mid X_0) = 1$, contradicting the statement $H(X_n | X_0) \ge H(X_{n-1} \mid X_0)$. C) \(H(X_n \mid X_1^{n-1}, X_{n+1}) \) is non-increasing in n. \textbf{true}, since by stationarity \(H(X_n \mid X_1^{n-1}, X_{n+1}) \) = \(H(X_{n+1} \mid X_2^{n}, X_{n+2}) \)  \( \ge H(X_{n+1} \mid X_1^{n}, X_{n+2}) \) where the inequality follows from the fact that conditioning reduces entropy.
-
-bonus!
+\\
+\textbf{bonus!}
 $I(X;Y|Z) = H(X|Z) - H(X|Y,Z)$ \\
 $I(X;Y,Z) = I(X;Z) + I(X;Y|Z) $\\
 $            = I(X;Y) + I(X;Z|Y) $\\
@@ -537,7 +555,9 @@ Weak: $P_e \geq \frac{H(X|Y)-1}{log(|X|)}$
 and a quick proof sketch for the Pr{X=X'} Inequality:
 $2^{Elog(p(X))} \leq E2^{log(p(X))}, 2^{-H(X)} \leq \sum p(x)^2$
 
+
 \section*{Example problems}
+
 
 \textit{Entropy Rate of Typewriter:} 
 All letters are equally likely. 
