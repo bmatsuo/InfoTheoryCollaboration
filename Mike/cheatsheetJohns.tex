@@ -17,11 +17,14 @@
 \usepackage{savetrees}
 
 \usepackage{times}
+\usepackage{txfonts}
 
 % Begin the actual document content here.
 \begin{document}
 \begin{tiny}
 \begin{multicols}{3}
+
+\fontsize{6pt}{2pt}
 
 %\section{Chapter 2 Problems}
 
@@ -191,19 +194,19 @@
         	Our estimator of error $P_e\geq \frac{1.5-1}{log\ 3}=0.316$ is not very close to Fano's bound in this form. Since $\hat{X}\in \chi$ we can use the stronger form of Fano's inequality 
         	\( P_e \geq \frac{H(X|Y)-1}{log(|\chi|-1)}  \) to get \( P_e \geq \frac{1.5-1}{log\ 2}=\frac{1}{2} \) which is a great bound on our actual $P_e$.
 
-\section*{3.1}
+%% END CHAPTER TWO
 
-\subsection*{(a)}
+%% START CHAPTER THREE
 
-(Markov's Inequality) For non-negative random variable $X$ and  $t>0$,
+\section{(Markov's Inequality)}
+
+ For non-negative random variable $X$ and  $t>0$,
 Show
 \begin{equation}
     \Pr\{X \geq t\} \leq \frac{\E X}{t} \label{eq: markovs ineq}
 \end{equation}
 And provide an example random variable for with the above condition is met
-with equality.
-
-\proof
+with equality. \proof
 
 \begin{eqnarray}
     \E X &= \int_{-\infty}^\infty x f(x)dx &\text{(Defn of expectation.)}
@@ -227,9 +230,9 @@ one.
 The expected value of $X$ is zero and thus, 
 \pref{eq: markovs ineq} is always an equality.
 
-\subsection*{(b)}
+%\subsection*{(b)}
 
-(Chebychev's Inequality) Let $Y$ be a random variable with mean $\mu$ and
+\textbf{B}(Chebychev's Inequality) Let $Y$ be a random variable with mean $\mu$ and
 variance $\sigma^2$. By letting $X = (Y-\mu)^2$, show that for
 $\varepsilon > 0$
 \begin{equation}
@@ -376,7 +379,38 @@ $Solution$:
     \item (3.38): The intersection's cardinality is no greater than the cardinality of either set individually.
 \end{itemize}
 
+%% END CHAPTER THREE
 
+%% CHAPTER 4
+\section{  Let b = aP Doubly Stochastic}
+Doubly stochastic (square) matrices are when rows and columns each sum to one. \textbf{(a)}  Let b = aP show H(b) $\ge$ H(a). \textbf{(b)} Show that a stationary distribution $\mu$ for a doubly stochastic matrix P is the uniform distribution. \textbf{(c)} Conversely, prove that if the uniform distribution is a stationary distribution for a Markov transition matrix P , then P is doubly stochastic.
+
+\[H(b) - H(a) = -\sum_j b_i \log (b_i) + \sum_i a_i \log (a_i)  \]
+\[= - \sum_j \sum_i a_iP_{ij} \log(\sum_k a_kP_{kj})+\sum_t a_i \log (a_i) \]	
+\[= \sum_{ij}a_iP_{ij} \log(\frac{ a_i }{\sum_{k} a_kP_{kj}}) (cite mult by 1)\]	
+\[ \ge (\sum_{ij}a_iP_{ij}) \log(\frac{\sum_{ij} a_i }{\sum_{ij} b_j }) (cite log sum)\]	
+
+b) If the matrix is doubly stochastic, the substituting $u_i$ = $1\over{m}$, we can easily see it satisfies $u=uP$
+c) if the uniform is a stationary distribution, then $\frac{1}{m} = u_i = \sum_{j}u_{j}P_{ij}$ = $ \frac{1}{m}\sum_jP{ji}$ or $\sum_jP{ji}=1$ or that the matrix is doubly stochastic.
+
+
+\section*{monotonicity of entropy per element}
+For a stationary stochastic process $X_1, X_2, \cdots , X_n$, show that
+\[ (chainRule)  \frac{H(X_1,X_2,\cdots,X_n)}{n} = \frac{\sum_{i=1}^n H(X_i | X^{i-1})}{n} \]
+\[ \frac{(H(X_n | X^{n-1}) + \sum_{i=1}^{n-1} H(X_i |X^{i-1}) } {n} \]
+\[ (cite??) \frac{H(X_n | X^{n-1}) + H(X_1,X_2,\cdots,X_{n-1}) } {n} \]
+From stationarity it follows that for all $1\le i \le n$ $->$ $H(X_n | X^{n-1}) \le H(X_i | X^{i-1}) $
+which further implies, by averaging over all the i`s, that,
+\[ H(X_n | X^{n-1}) \le \frac{ \sum_{i=1}^{n-1} H(X_i | X^{i-1})} {n-1} \]
+\[ \frac{ H(X_i,X_2,\cdots,X_{n-1})} {n-1} \]
+combining past two results yeilds, 
+\[ \frac{H(X_1,X_2,\cdots,X_n)}{n} \le \frac{1}{n} [ \frac{ H(X_1,X_2,\cdots,X_n) } {n-1}\]
+\[ + H(X_1,X_2,\cdots,X_{n-1}) ]  = \frac{H(X_1,X_2,\cdots,X_{n-1})}{n-1} \]
+\\
+b) By stationarity we have $\forall 1 \le i \le n$,
+\[ H(X_n | X^{n-1} ) \le H(X_i | X^{i-1}) (whichimplies)\]
+\[H(X_n | X^{n-1} = \frac{\sum_{i=1}^n H(X_n | X^{n-1} } {n} \]
+\[ \frac{\sum_{i=1}^n H(X_i | X^{i-1} } {n} = \frac{H(X_1,X_2,\cdots,X_n)}{n}\]
 
 \section*{Entropy rates of Markov chains}
 
@@ -397,6 +431,13 @@ Solution: initial conditions. For a Markov chain, by the data processing theorem
 \section*{Let	. . . ,$ X_{-1}, X_0, X_1$, . . . be	a stationary (not necessarily Markov) stochastic process.}
 Solution: stationary processes A) $H(x_n | X_0) = H(X_{-n} | X_0).$ True cause: $H(X_n | X_0) = H(X_n,X_0) - H(X_0)$ and $H(X_{-n} | X_0) = H(X_{-n},X_0) - H(X_0)$ by stationarity.
 b) \(H(X_n\mid X_0) \ge H(X_{n-1} \mid X_0). \) \textbf{Not true} in general. Thous is true for first order markov chains. A simple counterexample is a periodic process with period n. Let $X_0,X_1,X_2,\cdots,X_{n-1}$ be i.i.d. uniformly distributed binary random variables and let \(X_k =X_{k-n}\) for \( k \ge n \) In this cases, $H(X_n \mid X_0)$ and $H(X_{n-1} \mid X_0) = 1$, contradicting the statement $H(X_n | X_0) \ge H(X_{n-1} \mid X_0)$. C) \(H(X_n \mid X_1^{n-1}, X_{n+1}) \) is non-increasing in n. \textbf{true}, since by stationarity \(H(X_n \mid X_1^{n-1}, X_{n+1}) \) = \(H(X_{n+1} \mid X_2^{n}, X_{n+2}) \)  \( \ge H(X_{n+1} \mid X_1^{n}, X_{n+2}) \) where the inequality follows from the fact that conditioning reduces entropy.
+
+
+%% END CHAPTER 4
+
+%% BEGIN JON IDENT
+
+
 
 \section*{Entropy, Relative Entropy and Mutual Information}
 Definitions, alternate expressions, and properties.
@@ -497,162 +538,15 @@ Product Rule: $(f\cdot g)' = f' \cdot g + f \cdot g'$
 Quotient Rule: \[f(x)=\frac{g(x)}{h(x)}\text{ and }f'(x)=\frac{g'(x)h(x)-g(x)h'(x)}{\left(h(x)\right)^2}\]
 
 
-\section*{3.1}
-$\mathbf{(a)}$
-(Markov's Inequality) For non-negative random variable $X$ and  $t>0$,
-Show
-\begin{equation}
-    \Pr\{X \geq t\} \leq \frac{\E X}{t} \label{eq: markovs ineq}
-\end{equation}
-And provide an example random variable for with the above condition is met
-with equality.
-\proof
-\begin{eqnarray}
-    \E X %&= \int_{-\infty}^\infty x f(x)dx &\text{(Defn of expectation.)}
-        %\nonumber \\
-    &\geq \int_t^\infty x f(x)dx &\text{(Integral over subdomain)} 
-    \nonumber \\
-    &\geq \int_t^\infty t f(x)dx &\text{($x \geq t$ in integral)} 
-        \nonumber \\
-    &= t \Pr\{X \geq t\}  &\text{($t$ constant in integral)}
-        \label{eq: 3.1a QED}
-\end{eqnarray}
-The last equation \pref{eq: 3.1a QED} proves Markov's Inequality
-\pref{eq: markovs ineq}. $\Box$
+%% END JON IDENT
 
-Let $X$ be a \emph{random variable} which has value zero with probability
-one.
-The expected value of $X$ is zero and thus, 
-\pref{eq: markovs ineq} is always an equality.
+%% BEGIN SAM INDENT
 
-$\mathbf{(b)}$
-(Chebychev's Inequality) Let $Y$ be a random variable with mean $\mu$ and
-variance $\sigma^2$. By letting $X = (Y-\mu)^2$, show that for
-$\varepsilon > 0$
-\begin{equation}
-    \Pr \{(Y-\mu)^2 > \varepsilon^2\} \leq \frac{\sigma^2}{\varepsilon^2}
-    \label{eq: chebychevs ineq}
-\end{equation}
-\proof
-\begin{eqnarray}
-    \Pr\{(Y-\mu)^2 > \varepsilon^2\} &\leq& \Pr\{(Y-\mu)^2 \geq \varepsilon^2\}
-        \nonumber \\
-        &=& \Pr\{|Y-\mu| \geq \varepsilon\}
-        \label{eq: equate probs} \\
-    \Pr \{(Y-\mu)^2 > \varepsilon^2\} &\leq& \frac{\E \big[(Y-\mu)^2\big]}{\varepsilon^2}
-        \label{eq:instatiate 3.1a}
-\end{eqnarray}
-The final inequality coming from an application of Markov's Inequality
-\pref{eq: markovs ineq} and the derived inequality \pref{eq: equate probs}.
-The numerator $E[(Y-\mu)^2]$ is equal to $\sigma^2$, from the definition
-of variance and the fact that $\mu = E[Y]$. Thus we are left with
-Chebyshev's inequality \pref{eq: chebychevs ineq}. $\Box$
+%% END SAM INDENT
 
-$\mathbf{(c)}$
-(The weak law of large numbers.) Let $Z_1,Z_2,\dots,Z_n$ be a sequence of
-i.i.d. random variables with mean $\mu$ and variance $\sigma^2$. Let
-$\overline{Z_n} = \frac{1}{n}\sum{i=1,2,\dots,n}Z_i$ be the sample mean.
-Show 
-\begin{equation}
-    \Pr \{|\overline{Z_n} - \mu| > \varepsilon\} \leq
-    \frac{\sigma^2}{n\varepsilon^2}
-    \label{eq: weak loln}
-\end{equation}
-\proof
-$\overline{Z_n}$ is a random variable with mean $\mu$ and variance
-$\frac{\sigma^2}{n}$. This is easily computed because expectation
-distributes across linear combinations, 
-%\begin{equation*}
-%    E\bigg[\frac{1}{n}\sum_{i=1}^{n}Z_i\bigg] 
-%    = \frac{1}{n} \sum_{i=0}^{n} E[Z_i] = \frac{n\mu}{n} = \mu
-%\end{equation*}
-, and variance distributes across linear combinations, squaring the
-leading coefficients,
-%\begin{equation*}
-%    Var\bigg[\frac{1}{n}\sum_{i=1}^{n}Z_i\bigg]
-%    = \frac{1}{n^2}\sum_{i=0}^{n} Var[Z_i] 
-%    = \frac{n\sigma^2}{n^2} 
-%    = \frac{\sigma^2}{n}
-%\end{equation*}
-. The weak law of large numbers \pref{eq: weak loln} comes from applying
-Chebychev's inequality \pref{eq: chebychevs ineq} to $\overline{Z_n}$.
-$\Box$
+%% begin bonus problems
 
-\section*{3.2}
-Let $(X_i,Y_i)$ be i.i.d. $\sim p(x,y)$. We form the log likelihood ratio
-of the hypothesis that $X$ and $Y$ are independent vs. the hypothesis that
-$X$ and $Y$ are dependent. What is the limit of
-\begin{equation}
-    \frac{1}{n}\log \frac{p(X^n)p(Y^n)}p(X^n,Y^n)
-    \label{eq: normalized llr}
-\end{equation}
-$Solution$:
-\begin{eqnarray}
-    \frac{1}{n}\log \frac{p(X^n)p(Y^n)}{p(X^n,Y^n)}
-    &=& \frac{1}{n} \sum_{i=1}^{n} \log \frac{p(X_i)p(Y_i)}{p(X_i,Y_i)}
-    \label{eq: log of prods} \\
-    &\rightarrow& -I(X;Y) 
-    \label{eq: from MI defn}
-\end{eqnarray}
-
-The independence assumption makes \pref{eq: normalized llr} the log of a
-product, yielding the sum of logs in \pref{eq: log of prods}.
-The convergence in \pref{eq: from MI defn} comes from the convergence of
-\pref{eq: log of prods} to $\E \log \frac{p(X_i)p(Y_i)}{p(X_i,Y_i)}$ by
-the (strong?) law of large numbers. \pref{eq: from MI defn} comes from the
-definition of mutual information.
-
-This implies convergence of the likelihood ratio
-$\frac{p(X^n)p(Y^n)}{p(X^n,Y^n)} \rightarrow 2^{-nI(X;Y)}$ which is 1 iff
-$X$ and $Y$ are independent.
-\section*{3.6}
-Let $X_1,X_2,\dots$ be i.i.d. drawn according to probability mass function
-$p(x)$. Find the limit $\lim_{n \to \infty}
-(p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}$.
-$Solution$:
-\begin{eqnarray}
-    P_n &=& (p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}
-        \label{eq: defn P_n} \\
-    \lim_{n\to \infty} P_n &=& 2^{lim_{n\to\infty}log\ P_n}
-        \label{eq: limit of composition} \\
-    &=& 2^{-H(X)},
-        \label{eq: P_n limit} 
-    \end{eqnarray} 
-    The convergence of the exponent in \pref{eq: limit of composition} to
-    $-H(X)$ comes from the definition of the AEP.
-    The above result assumes that $H(X)$ exists.
-\section*{3.11}
-\textbf{(a)}
-Given any two sets $A$, $B$ such that $\Pr{A} > 1-\varepsilon_1$ and
-$\Pr{B} > 1-\varepsilon_2$, show that $\Pr(A\cap B) > 1 - \varepsilon_1 -
-\varepsilon_2$. Hence
-\begin{equation}
-    \Pr(A_\varepsilon^{(n)} \cap B_\delta^{(n)}) > 1 - \varepsilon - \delta
-    \label{eq: 3.11(a) conclusion}
-\end{equation}
-\proof
-\begin{eqnarray}
-    Pr(A\cap B) &=& Pr(A) + Pr(B) - Pr(A\cup B)
-    \label{eq: pr A intersect B} \\
-    &>& 2 - \varepsilon_1 - \varepsilon_2 - Pr(A\cup B)
-    \label{eq: sub hypotheses} \\
-    &>& 1 - \varepsilon_1 - \varepsilon_2
-    \label{eq: 3.11a}
-\end{eqnarray}
-\textbf{(b)} 
-Inequality \pref{eq: 3.11(a) conclusion} gives $1-\varepsilon-\delta \leq \Pr(A_\varepsilon^{(n)} \cap B_\delta^{(n)})$. 
-The definition of the probability of an event makes the RHS equal to
-$\sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} p(x^n)$.
-This value is at most 
-$\sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} 2^{-n(H-\varepsilon)}$, 
-by the definition of AEP 
-(for $x^n \in A_\varepsilon^{(n)}$ $p(x^n) \leq 2^{-n(H - \varepsilon)}$).
-The sum in carried out over a constant summand, and is equal to
-$|A_\varepsilon^{(n)} \cap B_\delta^{(n)}|2^{-n(H-\varepsilon)}$, which is
-upperbounded by $|B_\delta^{(n)}|2^{-n(H-\varepsilon)}$, because the
-cardinality of a set intersection is at most the cardinality of either
-set.
-
+%% end bonus problems
 
 \section*{Entropy Rate}
 \begin{equation}
@@ -691,15 +585,15 @@ lim_{n \to \infty}H(Y_n|Y^{n-1},X_1) = H(\gamma) \\
 
 \noindent
 \textit{Entropy Rate of Typewriter:} All letters are equally likely. $m$ letters, sequence has length $n$, $m^n$ sequences with equal probability ($p(x^n) = \frac{1}{m^n}$): $H(X^n) = \sum_{x^n} p(x^n) log(\frac{1}{p(x^n)}) =  \frac{m^n}{m^n}log(m^n) = n*log(m)$; $H(\chi) lim_{n \to \infty} \frac{1}{n} H(X^n) = lim_{n \to \infty} log(m) = log(m)$ bits per symbol.
-\\\\
+
 \textit{Entropy Rate of i.i.d. RVs:} $X_i$ is i.i.d: $H(\chi) = lim_{n \to \infty} \frac{1}{n} H(X^n) = lim_{n \to \infty} \frac{nH(X_1)}{n} = H(X_1)$
-\\\\
+
 \textit{Entropy Rate of Independent RVs:} $X_i$s independent $\implies H(X^n) = \sum_i^n H(X_i)$; $H(\chi) = lim_{n \to \infty} \frac{1}{n} \sum_i^n H(X_i) $; Since $H(X_i)$s are different, this entropy does not exist (and may not converge), i.e. $P(X_i = 1) = r_i, P(X_i = 0) = 1 - r_i$, where $r_i$ is not a constant value and is a function of $i$. $r_i = 0.5$ if $2k < log(log(i)) \leq 2k + 1$, $r_i = 0$ if $2k + 1 < log(log(i)) \leq 2k +2 $ for some constant $k$. $H(X_i)$ switches between 1 and 0, $H(\chi)$ changes with $n$.
-\\\\
+
 \textit{Shuffling Does Not Decrease Entropy} Let $X =$ location of cards, $T =$ shuffle operation of the cards, where $X$ and $T$ are independent. Show $H(TX) \geq H(X)$: $H(TX) \geq H(TX|T)$ (conditioning reduces entropy) $= H(T^{-1}TX|T)$ (if shuffle operation is known, so is inverse) = $H(X|T) = H(X)$ (since $X$ and $T$ are independent).
-\\\\
+
 \textit{Source Entropy per Unit Time} Given a discrete memoryless source with alphabet $1 \gets p_1, 2 \gets p_2$ with symbol duration $1 \gets 1$, $2 \gets 2$. Maximize the source entropy per nit time: $f(p_1) = \frac{H(p_1)}{E(l(x))}$ (where $l$ is duration), $E(l(x)) = T(p_1) = 1*p_1 + 2*p_2 = 1*p_1 + 2(1-p_1) = 2 - p_1$, $\frac{H(p_1)}{T(p_1)} = \frac{-p_1 log(p_1) - (1-p_1)log(1-p_1)}{2-p_1}$. Note if $p_1 = 1 \to f(p_1) = 0$, $p_1 = 2 \to f(p_1) = 0$ (therefore take derivative): $\frac{\partial f(p_1)}{\partial p_1} = \frac{ T(p_1)\frac{\partial H(p_1)}{\partial p_1} - H(p_1)\frac{\partial T(p_1)}{\partial p_1}}{(T(p_1))^2} = \frac{(2-p_1)[-log(p_1) -1 + log(1-p_1) - 1] - H(p_1)(-1)}{(T(p_1))^2}=0$; $ln(1-p_1) - 2ln(p_1) = 0 \to ln(1-p_1) = 2ln(p_1) = ln(p_1^2)$, $1-p_1 = p_1^2 \to p_1^2 + p_1 - 1 = 0 \to p_1 = \frac{1}{2}(\sqrt(5) - 1), p_2 = 1 - p_1 = (\frac{3}{2} - \frac{1}{2}\sqrt(5))$; $\frac{H(p_1)}{T(p_1)} = 0.69424$ bits. 
-\\\\§
+
 
 \end{multicols}
 \end{tiny}
