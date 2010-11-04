@@ -393,7 +393,7 @@ Doubly stochastic (square) matrices are when rows and columns each sum to one. \
 b) If the matrix is doubly stochastic, the substituting $u_i$ = $1\over{m}$, we can easily see it satisfies $u=uP$
 c) if the uniform is a stationary distribution, then $\frac{1}{m} = u_i = \sum_{j}u_{j}P_{ij}$ = $ \frac{1}{m}\sum_jP{ji}$ or $\sum_jP{ji}=1$ or that the matrix is doubly stochastic.
 
-
+%4.6
 \section*{monotonicity of entropy per element}
 For a stationary stochastic process $X_1, X_2, \cdots , X_n$, show that
 \\ \textbf{(a)} $\frac{H(X_1,X_2,\cdots,X_n)}{n} \le \frac{H(X_1,X_2,\cdots,X_{n - 1})}{ n - 1} $
@@ -404,15 +404,18 @@ From stationarity it follows that for all $1\le i \le n$ $->$ $H(X_n | X^{n-1}) 
 which further implies, by averaging over all the i`s, that,
 \[ H(X_n | X^{n-1}) \le \frac{ \sum_{i=1}^{n-1} H(X_i | X^{i-1})} {n-1} \]
 \[ \frac{ H(X_i,X_2,\cdots,X_{n-1})} {n-1} \]
-combining past two results yeilds, 
+combining past two results yields, 
 \[ \frac{H(X_1,X_2,\cdots,X_n)}{n} \le \frac{1}{n} [ \frac{ H(X_1,X_2,\cdots,X_n) } {n-1}  + H(X_1,X_2,\cdots,X_{n-1}) ] \]
 \[ \le \frac{H(X_1,X_2,\cdots,X_{n-1})}{n-1} \]
 \\
+
+
+
 b) By stationarity we have $\forall 1 \le i \le n$,
-\\ \textbf{(b)} $\frac{H(X_1,X_2,\cdots,X_n)}{n} \ge H(X_1,X_2,\cdots,X_n)$
+\\ \textbf{(b)} $\frac{H(X_1,X_2,\cdots,X_n)}{n} \ge H(X_n, \mid X_{n -1}, \cdots, X_{n - 1}) )$
 \[ H(X_n | X^{n-1} ) \le H(X_i | X^{i-1}) (whichimplies)\]
-\[H(X_n | X^{n-1}) = \frac{\sum_{i=1}^n H(X_n | X^{n-1}) } {n} \]
-\[ \frac{\sum_{i=1}^n H(X_i | X^{i-1}) } {n} = \frac{H(X_1,X_2,\cdots,X_n)}{n}\]
+\[H(X_n | X^{n-1}) \le \frac{\sum_{i=1}^n H(X_n | X^{n-1}) } {n} \]
+\[ \frac{\sum_{i=1}^n H(X_i | X^{i-1}) } {n} \le \frac{H(X_1,X_2,\cdots,X_n)}{n}\]
 
 \section*{Entropy rates of Markov chains}
 
