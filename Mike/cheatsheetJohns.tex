@@ -396,6 +396,7 @@ c) if the uniform is a stationary distribution, then $\frac{1}{m} = u_i = \sum_{
 
 \section*{monotonicity of entropy per element}
 For a stationary stochastic process $X_1, X_2, \cdots , X_n$, show that
+\\ \textbf{(a)} $\frac{H(X_1,X_2,\cdots,X_n)}{n} \le \frac{H(X_1,X_2,\cdots,X_{n - 1})}{ n - 1} $
 \[ (chainRule)  \frac{H(X_1,X_2,\cdots,X_n)}{n} = \frac{\sum_{i=1}^n H(X_i | X^{i-1})}{n} \]
 \[ \frac{(H(X_n | X^{n-1}) + \sum_{i=1}^{n-1} H(X_i |X^{i-1}) } {n} \]
 \[ (cite??) \frac{H(X_n | X^{n-1}) + H(X_1,X_2,\cdots,X_{n-1}) } {n} \]
@@ -404,17 +405,18 @@ which further implies, by averaging over all the i`s, that,
 \[ H(X_n | X^{n-1}) \le \frac{ \sum_{i=1}^{n-1} H(X_i | X^{i-1})} {n-1} \]
 \[ \frac{ H(X_i,X_2,\cdots,X_{n-1})} {n-1} \]
 combining past two results yeilds, 
-\[ \frac{H(X_1,X_2,\cdots,X_n)}{n} \le \frac{1}{n} [ \frac{ H(X_1,X_2,\cdots,X_n) } {n-1}\]
-\[ + H(X_1,X_2,\cdots,X_{n-1}) ]  = \frac{H(X_1,X_2,\cdots,X_{n-1})}{n-1} \]
+\[ \frac{H(X_1,X_2,\cdots,X_n)}{n} \le \frac{1}{n} [ \frac{ H(X_1,X_2,\cdots,X_n) } {n-1}  + H(X_1,X_2,\cdots,X_{n-1}) ] \]
+\[ \le \frac{H(X_1,X_2,\cdots,X_{n-1})}{n-1} \]
 \\
 b) By stationarity we have $\forall 1 \le i \le n$,
+\\ \textbf{(b)} $\frac{H(X_1,X_2,\cdots,X_n)}{n} \ge H(X_1,X_2,\cdots,X_n)$
 \[ H(X_n | X^{n-1} ) \le H(X_i | X^{i-1}) (whichimplies)\]
-\[H(X_n | X^{n-1} = \frac{\sum_{i=1}^n H(X_n | X^{n-1} } {n} \]
-\[ \frac{\sum_{i=1}^n H(X_i | X^{i-1} } {n} = \frac{H(X_1,X_2,\cdots,X_n)}{n}\]
+\[H(X_n | X^{n-1}) = \frac{\sum_{i=1}^n H(X_n | X^{n-1}) } {n} \]
+\[ \frac{\sum_{i=1}^n H(X_i | X^{i-1}) } {n} = \frac{H(X_1,X_2,\cdots,X_n)}{n}\]
 
 \section*{Entropy rates of Markov chains}
 
-Let matrix P = $[ (1-p_{01}, p_{01}), (p_{10}, 1-p_{10}]$ 
+Let matrix P = $[ 1-p_{01} ,  p_{01}; p_{10}, 1-p_{10}]$ 
 \textbf{(a)} The stationary distribution is: $u_0=\frac{p_{10}}{p_{01}+p_{10}}$, $u_1=\frac{p_{01}}{p_{01}+p_{10}}$
 Therefore the entropy is: \( H(X_2 \mid X_1) = u_0H(p_{01})+u_1H(p_{10}) = \frac{p_{10}H(p_{01})+ p_{01}H(p_{10})}{p_{01}+p_{10}}. \)
 
