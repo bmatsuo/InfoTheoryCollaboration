@@ -18,9 +18,8 @@
 
 % Begin the actual document content here.
 \begin{document}
-
+\begin{tiny}
 \begin{multicols}{2}
-
 \section*{3.1}
 $\mathbf{(a)}$
 (Markov's Inequality) For non-negative random variable $X$ and  $t>0$,
@@ -54,28 +53,26 @@ $\mathbf{(b)}$
 variance $\sigma^2$. By letting $X = (Y-\mu)^2$, show that for
 $\varepsilon > 0$
 \begin{equation}
-    \Pr \{(Y-\mu)^2 > \varepsilon^2\} \leq \frac{\sigma^2}{\varepsilon^2}
+    \Pr \{|Y-\mu| > \varepsilon\} \leq \frac{\sigma^2}{\varepsilon^2}
     \label{eq: chebychevs ineq}
 \end{equation}
 \proof
 \begin{eqnarray}
-    \Pr\{(Y-\mu)^2 > \varepsilon^2\} &\leq& \Pr\{(Y-\mu)^2 \geq \varepsilon^2\}
-        \nonumber \\
-        &=& \Pr\{|Y-\mu| \geq \varepsilon\}
-        \label{eq: equate probs} \\
-    \Pr \{(Y-\mu)^2 > \varepsilon^2\} &\leq& \frac{\E \big[(Y-\mu)^2\big]}{\varepsilon^2}
-        \label{eq:instatiate 3.1a}
+    \Pr\{(Y-\mu)^2 \geq \varepsilon^2\} &\leq& \frac{\sigma^2}{\varepsilon^2}
+        \label{eq: apply markov} \\
+    \Pr\{|Y-\mu| > \varepsilon\} &=& \Pr\{(Y-\mu)^2 > \varepsilon^2\} \\
+    &\leq& \Pr\{(Y-\mu)^2 \geq \varepsilon^2\}
+        \label{eq: compare to strict inequality}
 \end{eqnarray}
-The final inequality coming from an application of Markov's Inequality
-\pref{eq: markovs ineq} and the derived inequality \pref{eq: equate probs}.
-The numerator $E[(Y-\mu)^2]$ is equal to $\sigma^2$, from the definition
-of variance and the fact that $\mu = E[Y]$. Thus we are left with
-Chebyshev's inequality \pref{eq: chebychevs ineq}. $\Box$
+\pref{eq: apply markov} is a direct application of Markov's inequality
+\pref{eq: markovs ineq}.
+Chebyshev's inequality \pref{eq: chebychevs ineq} comes directly from
+combining \pref{eq: apply markov} and \pref{eq: compare to strict inequality}. $\Box$
 
 $\mathbf{(c)}$
 (The weak law of large numbers.) Let $Z_1,Z_2,\dots,Z_n$ be a sequence of
 i.i.d. random variables with mean $\mu$ and variance $\sigma^2$. Let
-$\overline{Z_n} = \frac{1}{n}\sum{i=1,2,\dots,n}Z_i$ be the sample mean.
+$\overline{Z_n} = \frac{1}{n}\sum_{i=1}^{n}$ $Z_i$ be the sample mean.
 Show 
 \begin{equation}
     \Pr \{|\overline{Z_n} - \mu| > \varepsilon\} \leq
@@ -107,7 +104,7 @@ Let $(X_i,Y_i)$ be i.i.d. $\sim p(x,y)$. We form the log likelihood ratio
 of the hypothesis that $X$ and $Y$ are independent vs. the hypothesis that
 $X$ and $Y$ are dependent. What is the limit of
 \begin{equation}
-    \frac{1}{n}\log \frac{p(X^n)p(Y^n)}p(X^n,Y^n)
+    \frac{1}{n}\log \frac{p(X^n)p(Y^n)}{p(X^n,Y^n)}
     \label{eq: normalized llr}
 \end{equation}
 $Solution$:
@@ -143,7 +140,7 @@ $Solution$:
         \label{eq: P_n limit} 
     \end{eqnarray} 
     The convergence of the exponent in \pref{eq: limit of composition} to
-    $-H(X)$ comes from the definition of the AEP.
+    $-H(X)$ comes from the AEP.
     The above result assumes that $H(X)$ exists.
 \section*{3.11}
 \textbf{(a)}
@@ -165,12 +162,12 @@ $\Pr{B} > 1-\varepsilon_2$, show that $\Pr(A\cap B) > 1 - \varepsilon_1 -
 \end{eqnarray}
 \textbf{(b)} 
 Inequality \pref{eq: 3.11(a) conclusion} gives $1-\varepsilon-\delta \leq \Pr(A_\varepsilon^{(n)} \cap B_\delta^{(n)})$. 
-The definition of the probability of an event makes the RHS equal to
+The definition of probability for an event makes the RHS equal to
 $\sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} p(x^n)$.
 This value is at most 
 $\sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} 2^{-n(H-\varepsilon)}$, 
-by the definition of AEP 
-(for $x^n \in A_\varepsilon^{(n)}$ $p(x^n) \leq 2^{-n(H - \varepsilon)}$).
+by the definition of typical set $A_\varepsilon^{(n)}$
+($x^n \in A_\varepsilon^{(n)}$ iff $2^{-n(H + \varepsilon)} \leq p(x^n) \leq 2^{-n(H - \varepsilon)}$).
 The sum in carried out over a constant summand, and is equal to
 $|A_\varepsilon^{(n)} \cap B_\delta^{(n)}|2^{-n(H-\varepsilon)}$, which is
 upperbounded by $|B_\delta^{(n)}|2^{-n(H-\varepsilon)}$, because the
@@ -178,4 +175,5 @@ cardinality of a set intersection is at most the cardinality of either
 set.
 
 \end{multicols}
+\end{tiny}
 \end{document}
