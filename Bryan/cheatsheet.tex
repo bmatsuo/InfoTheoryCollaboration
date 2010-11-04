@@ -23,21 +23,24 @@
 \begin{scriptsize}
 \begin{multicols}{3}
 
+\begin{align*}
+\chi = \text{State space } (X_i \in \chi)
+X^n&=(X_1,\ldots,X_n) \\
+\end{align*}
+
 \section*{Entropy, Relative Entropy and Mutual Information}
 Definitions, alternate expressions, and properties.
 \begin{align}
-\underbrace{H(X)}_\text{entropy}&= -\sum_{x\in X} p(x) \log\ p(x) \label{eq:entropy}\\
-H(X)& \geq 0\\
-H_b(X)&= (\log_b a)H_a(X)\\
-H(X|Y)& \leq  H(X)\text{ eq iff ind} \label{eq:conditioning}\\
-X^n&=[X_1,\ldots,X_n]\\
-H(X^n)& \leq \sum_{i=1}^n H(X_i)\text{ eq iff ind} \label{eq:jointsum}\\
-H(X)&\leq  \log |\chi|  \text{ eq iff iid}\label{eq:alphabetentropy}\\
-H(p)&\text{ is concave in $p$}\\
+    \underbrace{H(X)}_\text{entropy}&= \sum_{x\in X} p(x) \log\ \frac{1}{p(x)}
+    = \E_X \log p(x) \label{defn: entropy}\\
+H(X)& \geq 0 \\
+H_b(X)&= (\log_b a)H_a(X) \\
+H(X|Y)& \leq  H(X)\text{ eq iff $X,Y$ ind} \label{eq: H cond}\\
+H(X^n)& \leq \sum_{i=1}^n H(X_i)\text{ eq iff all $X_i$ ind} \label{eq:jointsum}\\
+H(X)&\leq  \log |\chi|  \text{ eq iff iid }\label{eq:alphabetentropy}\\
+H(p)&\text{ is concave in $p$.}\\
 \underbrace{D(p||q)}_\text{rel ent} & = \sum_x p(x) \log \frac{p(x)}{q(x)}\\
 \underbrace{I(X;Y)}_\text{mut inf} & = \sum_{x\in X} \sum_{y \in Y} p(x,y) \log \frac{p(x,y)}{p(x)p(y)}\\
-H(X)&=E_p \log \frac{1}{p(X)}\\
-H(X,Y)&=E_p\log \frac{1}{p(x,y)}\\
 H(X|Y)&=E_p\log \frac{p(X,Y)}{p(X)p(Y)}\\
 D(p||q)&=E_p\log \frac{p(X)}{q(X)}\\
 I(X;Y)&=H(X)-H(X|Y)\\
