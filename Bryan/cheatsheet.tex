@@ -25,7 +25,6 @@
 \chi &= \text{State space } (X_i \in \chi) \\
 X^n &=(X_1,\ldots,X_n) \\
 \end{align*}
-
 \section*{Entropy, Relative Entropy and Mutual Information}
 Definitions, alternate expressions, and properties.
 \begin{align}
@@ -107,10 +106,6 @@ Definition of $a_n \doteq b_n$ means that $\frac{1}{n}\log \frac{a_n}{b_n} \righ
 Smallest probable set: Let $X_1,\ldots, X_n$ be iid with respect to $p(x)$ and for $\gamma < \frac{1}{2}$, let $B_\gamma^{(n)} \subset \chi^n$ be the smallest set such that $Pr\{ B_\gamma^{(n)} \} \geq 1-\gamma $ Then we have $|B_\gamma^{(n)}| \doteq 2^{nH}$
 
 \section*{Other useful laws and properties}
-{\bf General Statistical things} Expected value $E(x)=\sum_{i=1}^n x_i p(x_i)$
-
-Variance: $\sigma^2 = E\left[ \left(X-\mu\right)^2\right]$
-
 {\bf Law of Large Numbers} Weak law:
 \begin{eqnarray*}
 \bar{X}_n\overset{p}\rightarrow \mu \text{ when } n \rightarrow \infty\\
@@ -121,12 +116,34 @@ Strong law:
 Pr\left(\lim_{n\rightarrow \infty} \bar{X}_n = \mu \right) = 1
 \end{equation}
 
-{\bf Derivation Rules} Chain rule: $(f \circ g)'(x)=f'(g(x))g'(x)$
+\section*{Entropy Rate}
+\begin{eqnarray}
+H(\chi) = lim_{n \to \infty} \frac{1}{n} H(X^n) \\
+H^\prime(\chi) = lim_{n \to \infty} H(X_n | X^{n-1}) \\
+H(\chi) = H^\prime(\chi) \text{ (If stationary and stochastic)}
+\end{eqnarray}
 
-Product Rule: $(f\cdot g)' = f' \cdot g + f \cdot g'$
+\noindent Entropy rate of stationary Markov chain (transition matrix $P$) :
+\begin{equation}
+H(\chi) = H(X_2|X_1) = -\sum_{i,j} \mu_i P_{ij}log(P_ij)
+\end{equation}
 
-Quotient Rule: \[f(x)=\frac{g(x)}{h(x)}\text{ and }f'(x)=\frac{g'(x)h(x)-g(x)h'(x)}{\left(h(x)\right)^2}\]
+\noindent{\bf Stationarity } if a distribution at time $n+1$ is the same as time $n$, it is called a {\it stationary distribution}. If the initial state of Markov chain is a {\it stationary distribution} then the Markov chain is a stationary process. A finite-state Markov chain that is irreducible (positive prob. from any state to any other in finite steps) and aperiodic (largest factor of length of paths of state to itself is 1) has a unique stationary distribution that $lim_{n \to \infty}X_n$ converges to.
 
+\noindent{\bf Functions of Markov Chain}
+$X^n$ is stationary Markov chain, and $Y_i = \phi(X_i)$ then
+
+\begin{eqnarray*}
+H(Y_n | Y^{n-1}, X_1) \leq H(\gamma) \leq H(Y_n|Y^{n-1})\\
+lim_{n \to \infty}H(Y_n|Y^{n-1},X_1) = H(\gamma) \\
+= lim_{n \to \infty} H(Y_n | Y^{n-1})
+\end{eqnarray*}
+
+\noindent{\bf Ces\'{a}ro mean} If $a_n \to a$ and $b_n = \frac{1}{n}\sum_{i=1}^n a_i$ then $b_n \to a$. 
+
+\noindent{\bf 2 state Markov Chain} given $P=[1-\alpha, \alpha; \beta, 1-\beta]$ the stationary distribution $u$ where $uP = u$, is $u_1 = \frac{\beta}{\alpha+\beta}$, $u_2 = \frac{\alpha}{\alpha+\beta}$, and $H(\chi) = \frac{\beta}{\alpha + \beta}H(\alpha) + \frac{\alpha}{\alpha+\beta}H(\beta)$. 
+
+\noindent{\bf Doubly Stochastic} probability transition matrix $[P_{ij}] = Pr\{X_{n+1} = j | X_n = i\}$ is doubly stochastic if rows and cols sum to $1$. The uniform distribution is a stationary distribution iff $P$ is double stochastic.
 
 % HW1
 \section* {2.2 Entropy of functions.}
@@ -294,9 +311,9 @@ H(X|Y)= H(X|Y=a)Pr\{y=a\}+H(X|Y=b)Pr\{y=b\}+H(X|Y=c)Pr\{y=c\}
 Our estimator of error $P_e\geq \frac{1.5-1}{log\ 3}=0.316$ is not very close to Fano's bound in this form. Since $\hat{X}\in \chi$ we can use the stronger form of Fano's inequality 
 \( P_e \geq \frac{H(X|Y)-1}{log(|\chi|-1)}  \) to get \( P_e \geq \frac{1.5-1}{log\ 2}=\frac{1}{2} \) which is a great bound on our actual $P_e$.
 
-\section*{3.1} % HW2
-$\mathbf{(a)}$
-(Markov's Inequality) For non-negative random variable $X$ and  $t>0$,
+\section*{3.1 Probabilistic inequalities} % HW2
+$\mathbf{(a) Markov's Inequality.}$
+For non-negative random variable $X$ and  $t>0$,
 Show
 \begin{equation}
     \Pr\{X \geq t\} \leq \frac{\E X}{t} \label{eq: markovs ineq}
@@ -322,8 +339,8 @@ one.
 The expected value of $X$ is zero and thus, 
 \pref{eq: markovs ineq} is always an equality.
 
-$\mathbf{(b)}$
-(Chebychev's Inequality) Let $Y$ be a random variable with mean $\mu$ and
+$\mathbf{(b) Chebychev's Inequality.}$
+Let $Y$ be a random variable with mean $\mu$ and
 variance $\sigma^2$. By letting $X = (Y-\mu)^2$, show that for
 $\varepsilon > 0$
 \begin{equation}
@@ -345,10 +362,9 @@ The numerator $E[(Y-\mu)^2]$ is equal to $\sigma^2$, from the definition
 of variance and the fact that $\mu = E[Y]$. Thus we are left with
 Chebyshev's inequality \pref{eq: chebychevs ineq}. $\Box$
 
-$\mathbf{(c)}$
-(The weak law of large numbers.) Let $Z_1,Z_2,\dots,Z_n$ be a sequence of
-i.i.d. random variables with mean $\mu$ and variance $\sigma^2$. Let
-$\overline{Z_n} = \frac{1}{n}\sum{i=1,2,\dots,n}Z_i$ be the sample mean.
+$\mathbf{(c) The weak law of large numbers.}$
+Let $Z_1,Z_2,\cdots,Z_n$ be a sequence of i.i.d. random variables with mean $\mu$ and variance $\sigma^2$. Let
+$\overline{Z_n} = \frac{1}{n}\sum{i=1}^n Z_i$ be the sample mean.
 Show 
 \begin{equation}
     \Pr \{|\overline{Z_n} - \mu| > \varepsilon\} \leq
@@ -375,7 +391,7 @@ leading coefficients,
 Chebychev's inequality \pref{eq: chebychevs ineq} to $\overline{Z_n}$.
 $\Box$
 
-\section*{3.2}
+\section*{3.2 AEP and mutual information.}
 Let $(X_i,Y_i)$ be i.i.d. $\sim p(x,y)$. We form the log likelihood ratio
 of the hypothesis that $X$ and $Y$ are independent vs. the hypothesis that
 $X$ and $Y$ are dependent. What is the limit of
@@ -402,7 +418,7 @@ definition of mutual information.
 This implies convergence of the likelihood ratio
 $\frac{p(X^n)p(Y^n)}{p(X^n,Y^n)} \rightarrow 2^{-nI(X;Y)}$ which is 1 iff
 $X$ and $Y$ are independent.
-\section*{3.6}
+\section*{3.6 AEP-like limit.}
 Let $X_1,X_2,\dots$ be i.i.d. drawn according to probability mass function
 $p(x)$. Find the limit $\lim_{n \to \infty}
 (p(X_1,X_2,\dots,X_n))^{\frac{1}{n}}$.
@@ -418,7 +434,7 @@ $Solution$:
     The convergence of the exponent in \pref{eq: limit of composition} to
     $-H(X)$ comes from the definition of the AEP.
     The above result assumes that $H(X)$ exists.
-\section*{3.11}
+    \section*{3.11 Proof of bound for $|B_\delta^{(n)}|$}
 \textbf{(a)}
 Given any two sets $A$, $B$ such that $\Pr{A} > 1-\varepsilon_1$ and
 $\Pr{B} > 1-\varepsilon_2$, show that $\Pr(A\cap B) > 1 - \varepsilon_1 -
@@ -473,7 +489,7 @@ H(b) - H(a)
 $\frac{1}{n} = u_i = \sum_{j}u_{j}P_{ij}$ = $ \frac{1}{n}\sum_jP{ji}$ or $\sum_jP{ij}=1$ or that the matrix is doubly stochastic.
 
 
-\section*{4.6 Monotonicity of entropy per element}
+\section*{4.6 Monotonicity of entropy per element.}
 For a stationary stochastic process $X_1, X_2, \cdots , X_n$, show that
 \\ \textbf{(a)} $\frac{H(X_1,X_2,\cdots,X_n)}{n} \le \frac{H(X_1,X_2,\cdots,X_{n - 1})}{ n - 1} $
 \\ \textbf{(b)} $\frac{H(X_1,X_2,\cdots,X_n)}{n} \ge H(X_1,X_2,\cdots,X_n)$
@@ -504,7 +520,7 @@ H(X_n | X^{n-1}) \leq \frac{\sum_{i=1}^n H(X_n | X^{n-1}) } {n}
 \end{eqnarray*}
 
 
-\section*{Entropy rates of Markov chains}
+\section*{4.7 Entropy rates of Markov chains.}
 
 Let matrix P = $[ (1-p_{01}, p_{01}), (p_{10}, 1-p_{10}]$ 
 \textbf{(a)} The stationary distribution is: $u_0=\frac{p_{10}}{p_{01}+p_{10}}$, $u_1=\frac{p_{01}}{p_{01}+p_{10}}$
@@ -517,12 +533,33 @@ Let matrix P = $[ (1-p, p), (1, 0)]$
 \textbf{(e)} By calculus: \( p=\frac{(3-5^{1/2})}{2}=0.382.\) the max value is \(H(p)=H(1-p)=H(\frac{5^{1/2}-1}{2}) = 0.694bits\)
 note that \( \frac{(5^{1/2}-1)}{2} =.618\) is (the reciprocal of) the Golden Ratio.
 
-\section*{Show for markov chain become more difficult to recover as the future $X_n$ unfolds. $H (X_0|Xn_) \ge H (X_0|X_{n?1})$.}
-Solution: initial conditions. For a Markov chain, by the data processing theorem we have $I(X_0  \: X_{n-1}) \ge I(X_0 \ : X_n)$ Therefore $H(X_0) - H(X_0 | X_{n-1}) \ge H(X_0) - H(X_0 | X_n)$ or $H(X_0 | X_n)$  increases with n
+\section*{4.9 Initial conditions.}
+Show for the initial conditions of a markov chain become more difficult to
+recover as the future $X_n$ unfolds. That is $H (X_0|X_n) \ge H (X_0|X_{n-1})$.
 
-\section*{Let	. . . ,$ X_{-1}, X_0, X_1$, . . . be	a stationary (not necessarily Markov) stochastic process.}
-Solution: stationary processes A) $H(x_n | X_0) = H(X_{-n} | X_0).$ True cause: $H(X_n | X_0) = H(X_n,X_0) - H(X_0)$ and $H(X_{-n} | X_0) = H(X_{-n},X_0) - H(X_0)$ by stationarity.
-b) \(H(X_n\mid X_0) \ge H(X_{n-1} \mid X_0). \) \textbf{Not true} in general. Thous is true for first order markov chains. A simple counterexample is a periodic process with period n. Let $X_0,X_1,X_2,\cdots,X_{n-1}$ be i.i.d. uniformly distributed binary random variables and let \(X_k =X_{k-n}\) for \( k \ge n \) In this cases, $H(X_n \mid X_0)$ and $H(X_{n-1} \mid X_0) = 1$, contradicting the statement $H(X_n | X_0) \ge H(X_{n-1} \mid X_0)$. C) \(H(X_n \mid X_1^{n-1}, X_{n+1}) \) is non-increasing in n. \textbf{true}, since by stationarity \(H(X_n \mid X_1^{n-1}, X_{n+1}) \) = \(H(X_{n+1} \mid X_2^{n}, X_{n+2}) \)  \( \ge H(X_{n+1} \mid X_1^{n}, X_{n+2}) \) where the inequality follows from the fact that conditioning reduces entropy.
+$Solution$: For a Markov chain, the data processing inequality
+\pref{thm: data processing} states $I(X_0  ; X_{n-1}) \ge I(X_0 ; X_n)$. 
+Therefore $H(X_0) - H(X_0 | X_{n-1}) \ge H(X_0) - H(X_0 | X_n)$. This
+shows that $H(X_0|X_n)$ increases with $n$.
+
+\section*{4.11 Stationary processes.}
+Let	$\cdots, X_{-1}, X_0, X_1, \cdots$ be	a stationary (not necessarily
+Markov) stochastic process. Either prove the following statements or give
+a counter-example.
+\begin{eqnarray}
+    H(x_n | X_0) = H(X_{-n} | X_0) \label{eq: 4.11a}\\
+    H(X_n\mid X_0) \ge H(X_{n-1} \mid X_0) \label{eq: 4.11b}\\
+    H(X_n \mid X_1^{n-1}, X_{n+1}) \text{ is non-increasing in n.} \label{eq: 4.11c}
+\end{eqnarray}
+
+Solution: \textbf{Equation \pref{eq: 4.11a}} True. $H(X_n | X_0) = H(X_n,X_0) - H(X_0)$ and $H(X_{-n} | X_0) = H(X_{-n},X_0) - H(X_0)$ by stationarity.
+
+\textbf{Equation \pref{eq: 4.11b}} Not true in general. True for first order markov chains. A simple counterexample is a periodic process with period n. Let $X_0,X_1,X_2,\cdots,X_{n-1}$ be i.i.d. uniformly distributed binary random variables and let \(X_k =X_{k-n}\) for \( k \ge n \) In this cases, $H(X_n \mid X_0)$ and $H(X_{n-1} \mid X_0) = 1$, contradicting the statement $H(X_n | X_0) \ge H(X_{n-1} \mid X_0)$.
+
+\textbf{Equation \pref{eq: 4.11c}} True. By stationarity 
+\(H(X_n \mid X_1^{n-1}, X_{n+1}) 
+= H(X_{n+1} \mid X_2^{n}, X_{n+2}) 
+\ge H(X_{n+1} \mid X_1^{n}, X_{n+2}) \). The inequality follows from the fact that conditioning reduces entropy.
 
 \section*{Example problems}
 
