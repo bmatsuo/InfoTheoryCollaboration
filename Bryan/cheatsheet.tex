@@ -9,6 +9,7 @@
 \newcommand{\bmat}[1]{{\color{red}{#1}}}
 
 \newtheorem{defn}{Definition}[section]
+\newtheorem{thm}{Theorem}[section]
 \newtheorem{lemma}{Lemma}[section]
 \newtheorem{corollary}{Corollary}[section]
 \newtheorem{question}{Question}[section]
@@ -58,36 +59,41 @@ I(X^n;Y)&=\sum_{i=1}^n I(X_i;Y|X^{i-1})\\
 D(p(x,y)||q(x,y))&=D(p(x)||q(x))\\
 &+D(p(y|x)||q(y|x))
 \end{align}
-{\bf Jensen's Inequality:} if $f$ is a convex function, then
+\thm[Jensen's Inequality] \label{thm: jensen}
+if $f$ is a convex function, then
 \begin{equation}
 Ef(x) \geq f(EX)
 \end{equation}
-{\bf Log sum inequality:} for n positive numbers $a_1,\ldots,a_n$ and $b_1,\ldots,b_n$,
+\thm[Log sum inequality] \label{thm: log sum}
+for n positive numbers $a_1,\ldots,a_n$ and $b_1,\ldots,b_n$,
 \begin{equation}
 \sum_{i=1}^n a_i \log \frac{a_i}{b_i} \geq \left( \sum_{i=1}^n a_i \right) \log \frac{\sum_{i=1}^n a_i}{\sum_{i=1}^n b_i}
 \end{equation}
 with equality only if $\frac{a_i}{b_i}$ is constant. 
 
-{\bf Data processing inequality:} given some Markov processes $X\rightarrow Y\rightarrow Z$ we know $I(X;Y)\geq I(X;Z)$
+\thm[Data processing inequality] \label{thm: data processing} 
+given some Markov processes $X\rightarrow Y\rightarrow Z$ we know
+\( I(X;Y) \geq I(X;Z) \)
 
-{\bf Sufficient Statistic:} $T(X)$ is sufficient relative to $\{f_\theta (x)\}$ iff $I(\theta;X)=I(\theta;T(X))$ for all distributions on $\theta$.
+\thm[Sufficient Statistics] \label{thm: suff stats}
+$T(X)$ is sufficient relative to $\{f_\theta (x)\}$ iff $I(\theta;X)=I(\theta;T(X))$ for all distributions on $\theta$.
 
-{\bf Fano's inequality:} Let $P_e=Pr\{\hat{X}(Y)\neq X\}$. Then $H(P_e)+P_e \log |\chi| \geq H(X|Y)$.
+\thm[Fano's inequality] \label{thm: fano}
+Let $P_e=Pr\{\hat{X}(Y)\neq X\}$. Then $H(P_e)+P_e \log |\chi| \geq H(X|Y)$.
 
-{\bf Inequality.} If $X$ and $X'$ are independent and identically distributed then $Pr(X=X') \geq 2^{-H(X)}$
+\thm[Inequality] \label{thm: Ineq}
+If $X$ and $X'$ are independent and identically distributed then $Pr(X=X') \geq 2^{-H(X)}$
 
 
 \section*{Asymptotic Equipartition Property (AEP)}
-``Almost all events are almost equally surprising''. Specifically if $X_1,\ldots,X_n$ are iid with distribution to $p(x)$ then:
+``Almost all events are almost equally surprising''. Specifically if $X_1,\ldots,X_n$ are iid with respect to $p(x)$ then :
 \begin{equation}
 -\frac{1}{n}\log p(X_1,\ldots,X_n)\rightarrow H(X) \text{in probability}
-\label{thm: AEP}
 \end{equation}
 
 A typical set $A_\epsilon^{(n)}$ is the set of sequences $x_1,\ldots, x_n$ that follow:
 \begin{equation}
 2^{-n(H(X)+\epsilon)}\leq p(X^n)\leq 2^{-n(H(X)-\epsilon)}
-\label{defn: typical set}
 \end{equation}
 
 Some properties of a typical set:
@@ -244,8 +250,8 @@ $Solution$:
     &=& 2^{-H(X)},
         \label{eq: P_n limit} 
     \end{eqnarray} 
-    The convergence of the exponent in \pref{eq: limit of composition} is
-    by the AEP \pref{thm: AEP}.
+    The convergence of the exponent in \pref{eq: limit of composition} to
+    $-H(X)$ comes from the definition of the AEP.
     The above result assumes that $H(X)$ exists.
 \section*{3.11}
 \textbf{(a)}
@@ -271,7 +277,8 @@ The definition of the probability of an event makes the RHS equal to
 $\sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} p(x^n)$.
 This value is at most 
 $\sum_{A_\varepsilon^{(n)} \cap B_\delta^{(n)}} 2^{-n(H-\varepsilon)}$, 
-by the definition of typical set $A_\varepsilon^{(n)}$ \pref{defn: typical set}.
+by the definition of AEP 
+(for $x^n \in A_\varepsilon^{(n)}$ $p(x^n) \leq 2^{-n(H - \varepsilon)}$).
 The sum in carried out over a constant summand, and is equal to
 $|A_\varepsilon^{(n)} \cap B_\delta^{(n)}|2^{-n(H-\varepsilon)}$, which is
 upperbounded by $|B_\delta^{(n)}|2^{-n(H-\varepsilon)}$, because the
