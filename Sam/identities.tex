@@ -1,0 +1,62 @@
+\documentclass[10pt]{article}
+
+\usepackage{fullpage,latexsym,amsthm,amsmath,amsfonts,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
+\pagestyle{empty}
+% Define new commands.
+\DeclareMathOperator*{\E}{\mbox{\text{E}}}
+
+\newcommand{\pref}[1]{{(\ref{#1})}}
+\newcommand{\bmat}[1]{{\color{red}{#1}}}
+
+\newtheorem{defn}{Definition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{question}{Question}[section]
+\newtheorem{proposition}{Proposition}[section]
+\usepackage{multicol}
+\usepackage{savetrees}
+
+
+% Begin the actual document content here.
+\begin{document}
+\begin{scriptsize}
+\begin{multicols}{3}
+
+\section*{Entropy Rate}
+\begin{equation}
+H(\chi) = lim_{n \to \infty} \frac{1}{n} H(X^n) \\
+\end{equation}
+\begin{equation}
+H^\prime(\chi) = lim_{n \to \infty} H(X_n | X^{n-1})
+\end{equation}
+
+\noindent If stationary and stochastic:
+\begin{equation}
+H(\chi) = H^\prime(\chi)
+\end{equation}
+
+\noindent Entropy rate of stationary Markov chain (transition matrix $P$) :
+\begin{equation}
+H(\chi) = H(X_2|X_1) = -\sum_{i,j} \mu_i P_{ij}log(P_ij)
+\end{equation}
+
+\noindent{\bf Stationarity } if a distribution at time $n+1$ is the same as time $n$, it is called a {\it stationary distribution}. If the initial state of Markov chain is a {\it stationary distribution} then the Markov chain is a stationary process. A finite-state Markov chain that is irreducible (positive prob. from any state to any other in finite steps) and aperiodic (largest factor of length of paths of state to itself is 1) has a unique stationary distribution that $lim_{n \to \infty}X_n$ converges to.
+
+\noindent{\bf Functions of Markov Chain}
+$X^n$ is stationary Markov chain, and $Y_i = \phi(X_i)$ then
+
+\begin{eqnarray*}
+H(Y_n | Y^{n-1}, X_1) \leq H(\gamma) \leq H(Y_n|Y^{n-1})\\
+lim_{n \to \infty}H(Y_n|Y^{n-1},X_1) = H(\gamma) \\
+= lim_{n \to \infty} H(Y_n | Y^{n-1})
+\end{eqnarray*}
+
+\noindent{\bf Ces\'{a}ro mean} If $a_n \to a$ and $b_n = \frac{1}{n}\sum_{i=1}^n a_i$ then $b_n \to a$. 
+
+\noindent{\bf 2 state Markov Chain} given $P=[1-\alpha, \alpha; \beta, 1-\beta]$ the stationary distribution $u$ where $uP = u$, is $u_1 = \frac{\beta}{\alpha+\beta}$, $u_2 = \frac{\alpha}{\alpha+\beta}$, and $H(\chi) = \frac{\beta}{\alpha + \beta}H(\alpha) + \frac{\alpha}{\alpha+\beta}H(\beta)$. 
+
+\noindent{\bf Doubly Stochastic} probability transition matrix $[P_{ij}] = Pr\{X_{n+1} = j | X_n = i\}$ is doubly stochastic if rows and cols sum to $1$. The uniform distribution is a stationary distribution iff $P$ is double stochastic.
+
+\end{multicols}
+\end{scriptsize}
+\end{document}
