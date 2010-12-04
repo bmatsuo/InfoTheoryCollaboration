@@ -1,3 +1,9 @@
+*.gz
+*.pdf
+*.log
+*.aux
+*.bbl
+*.blg
 */*/*.aux
 */*/*.log
 */*/*.bbl
