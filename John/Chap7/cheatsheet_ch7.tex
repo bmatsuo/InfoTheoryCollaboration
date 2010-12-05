@@ -110,6 +110,14 @@ Smallest probable set: Let $X_1,\ldots, X_n$ be iid with respect to $p(x)$ and f
 {\bf Joint typicality.}  The set $A_{\epsilon}^{(n)}$ of {\it jointly typical} sequences $\{(x^{n},y^{n})\}$ with respect to the distribution $p(x,y)$ is given by $A_{\epsilon}^{(n)} = \{ (x^{n},y^{n}) \in \sigma^{n} \times \chi^{n}: \left| -\frac{1}{n}\log p(x^{n}) - H(X) \right| < \epsilon, $ $\left| -\frac{1}{n}\log p(y^{n}) - H(Y) \right| <\epsilon, $ $\left| -\frac{1}{n} \log p(x^{n},y^{n})-H(X,Y) \right| <\epsilon \}, $ where $p(x^{n},y^{n}) = \prod_{i=1}^{n}p(x_{i},y_{i}).$
 
 
+{\bf Joint AEP} Let $(X^{n}, Y^{n})$ be sequences of length {\it n} drawn i.i.d according to $p(x^{n},y^{n})=\prod_{i=1}^{n}p(x_{i},y_{i})$ Then: 1. Pr$((X^{n},Y^{n}) \in A_{\epsilon}^{(n)}\rightarrow 1$ as $n\rightarrow \infty$. 2. $|A_{\epsilon}^{(n)}|\leq 2^{n(H(X,Y)+\epsilon)}$. 3. If $(\tilde{X}^{n}, \tilde{Y}^{n})\sim p(x^{n})p(y^{n}),$ then Pr$\left( (\tilde{X}^{n},\tilde{Y}^{n})\in A_{\epsilon}^{(n)} )\right) $ $\leq 2^{-n(I(X;Y)-2\epsilon)}$
+
+{\bf Channel coding theorem.} All rates below capacity {\it C} are achievable, and all rates above capacity are not; that is, for all rates $R<C$, there exists a sequence of $(2^{nR},n)$ codes with probability of error $\lambda^{(n)}\leftarrow 0$. Conversely for rates $R>C$, $\lambda^{(n)}$ is bounded away from 0.
+
+{\bf Feedback capacity.} Feedback does not increase capacity for discrete memoryless channels (i.e., $C_{\text{F}B} = C$).
+
+{\bf Source-channel theorem.} A stochastic process with entropy rate $H$ cannot be sent reliably over a discrete memoryless channel if $H > C$. Conversely, if the process satisfies the AEP, the source can be transmitted reliably if $H<C$.
+
 
 
 \section*{Other useful laws and properties}
@@ -133,7 +141,39 @@ Product Rule: $(f\cdot g)' = f' \cdot g + f \cdot g'$
 
 Quotient Rule: \[f(x)=\frac{g(x)}{h(x)}\text{ and }f'(x)=\frac{g'(x)h(x)-g(x)h'(x)}{\left(h(x)\right)^2}\]
 
+\section*{Channel Capacity Problems}
+{\bf Channels with memory have higher capacity} {\it problem} Consider a binary symmetric channel with $Y_{i} = X_{i}\oplus Z_{i}$, where $\oplus$ is mod 2 addition , and $X_{i},Y_{I} \in \{0,1\}$. Suppose that $\{Z_{i}\}$ has constant marginal probabilities Pr$\{Z_{i}=1\} = p = 1-\text{Pr}\{Z_{i}=0\}$, but that $Z_{1}, Z_{2}, \ldots Z_{n}$ are not necessarily independent. Assume that $Z^{n}$ is independent of the input $X^{n}$ Let $C=1-H(p,1-p)$ Show that $\text{max}_{p(x_{1},\ldots,x_{n})}I(X_{1},\ldots,X_{n};Y_{1},\ldots,Y_{n}) \geq nC$
 
+{\it solution} 
+\begin{eqnarray*}
+I(X_{1},\ldots,X_{n};Y_{1},\ldots,Y_{n})\\
+= H(X_{1},\ldots,X_{n})-H(X_{1},\ldots,X_{n}|Y_{1},\ldots,Y_{n})\\
+= H(X_{1},\ldots,X_{n}) - H(Z_{1},\ldots,Z_{n}|Y_{1},\ldots,Y_{n})\\
+\geq H(X_{1},\ldots,X_{n}) - H(Z_{1},\ldots,Z_{n})\\
+\geq H(X_{1},\ldots,X_{n}) - \sum H(Z_{i})\\
+=H(X_{1},\ldots,X_{n}) - nH(p)\\
+=n - nH(p)
+\end{eqnarray*}
+if $X_{1},\ldots,X_{n}$ are chosen i.i.d $\sim$ Bern$\left( \frac{1}{2}\right)$. The capacity of the channel with memory over n uses of the channel is $n$
+
+
+\section*{Proof of Shannon Code shortness}
+{\it Let $l(x)$ be the codeword lengths associated with the Shannon code, and let $l'(x)$ be the codeword lengths associated with any other uniquely decodable code. Then} Pr$(l(X) \geq l'(X) + c)\leq \frac{1}{2^{c-1}}$
+
+For example, the probability that $l'(X)$ is 5 or more bits shorter than $l(X)$ is less than $\frac{1}{16}$. 
+
+{\bf Proof}
+\begin{eqnarray*}
+\text{Pr}(l(X) \geq l'(X) + c)\\
+=\text{Pr}\left(\lceil \log \frac{1}{p(X)} \geq l'(X) + c \right)\\
+\geq \text{Pr}\left( \log \frac{1}{p(X)} \geq l'(C) + c - 1 \right)\\
+=\text{Pr}\left( p(X) \leq 2^{-l'(X)-c+1}\right)\\
+=\sum_{x:p(x)\leq 2^{-l'(x)-c+1}} p(x)\\
+\leq \sum_{x:p(x)\leq 2^{-l'(x)-c+1}}2^{-l'(x)-(c-1)} \\
+\leq \sum_{x}2^{-l'(x)}2^{-(c-1)}\\
+\leq 2^{-(c-1)}
+\end{eqnarray*}
+Since $\sum 2^{-l'(x)} \leq 1$ by the Kraft inequality.
 
 
 \end{multicols}
