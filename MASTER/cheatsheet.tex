@@ -1,72 +1,461 @@
 \documentclass[10pt]{article}
-\usepackage{fullpage,latexsym,amsthm,amsmath,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
 
+\usepackage{fullpage,latexsym,amsthm,amsmath,amsfonts,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
+\pagestyle{empty}
 % Define new commands.
+\DeclareMathOperator*{\E}{\mbox{\text{E}}}
 
 \newcommand{\pref}[1]{{(\ref{#1})}}
-\newcommand{\annotate}[1]{{\color{red}{#1}}}
+\newcommand{\bmat}[1]{{\color{red}{#1}}}
 
 \newtheorem{defn}{Definition}[section]
+\newtheorem{thm}{Theorem}[section]
 \newtheorem{lemma}{Lemma}[section]
 \newtheorem{corollary}{Corollary}[section]
-\newtheorem{question}{Question}[section]
-\newtheorem{proposition}{Proposition}[section]
+\newtheorem{question}{Question}[section] \newtheorem{proposition}{Proposition}[section] 
+\usepackage{qtree}
 \usepackage{multicol}
 \usepackage{savetrees}
+
+
 % Begin the actual document content here.
-
 \begin{document}
+\begin{tiny}
+\begin{multicols}{3}
 
-% Setup document header/footer and adjust spacing accordingly.
-\pagestyle{fancy}
-\lhead{Cheatsheet - EE 253 Fall 2010}
-\rhead{Bryan Matsuo (bryan.matsuo@gmail.com)}
-\rfoot{\today}
-\renewcommand\headheight{15pt}
-\renewcommand\footrulewidth{0.4pt}
-\setlength{\parskip}{0pt}
-\setlength{\parsep}{0pt}
-\setlength{\headsep}{0pt}
-\setlength{\topskip}{15pt}
-\setlength{\topmargin}{0pt}
-\setlength{\topsep}{0pt}
-\setlength{\partopsep}{0pt}
-%end the header thing.
+\section*{Entropy, Relative Entropy and Mutual Information}
+Definitions, alternate expressions, and properties.
+\begin{align}
+\underbrace{H(X)}_\text{entropy}&= -\sum_{x\in X} p(x) \log\ p(x) \label{eq:entropy}\\
+H(X)& \geq 0\\
+H_b(X)&= (\log_b a)H_a(X)\\
+H(X|Y)& \leq  H(X)\text{ eq iff ind} \label{eq:conditioning}\\
+X^n&=[X_1,\ldots,X_n]\\
+H(X^n)& \leq \sum_{i=1}^n H(X_i)\text{ eq iff ind} \label{eq:jointsum}\\
+H(X)&\leq  \log |\chi|  \text{ eq iff iid}\label{eq:alphabetentropy}\\
+H(p)&\text{ is concave in $p$}\\
+\underbrace{D(p||q)}_\text{rel ent} & = \sum_x p(x) \log \frac{p(x)}{q(x)}\\
+\underbrace{I(X;Y)}_\text{mut inf} & = \sum_{x\in X} \sum_{y \in Y} p(x,y) \log \frac{p(x,y)}{p(x)p(y)}\\
+H(X)&=E_p \log \frac{1}{p(X)}\\
+H(X,Y)&=E_p\log \frac{1}{p(x,y)}\\
+H(X|Y)&=E_p\log \frac{p(X,Y)}{p(X)p(Y)}\\
+D(p||q)&=E_p\log \frac{p(X)}{q(X)}\\
+I(X;Y)&=H(X)-H(X|Y)\\
+&=H(Y)-H(Y|X)\\
+&=H(X)+H(Y)-H(X,Y)\\
+D(p||q)&\geq 0 \text{ eq iff $p=q$}\\
+I(X;Y)&=D(p(x,y)||p(x)p(y))\\
+	&\geq 0 \text{ eq iff $p(x,y)=p(x)p(y)$}
+\end{align}
+Given $|\chi|=m$ and $u$ is the uniform distribution over $\chi$, we get equation~\ref{eq:chimu}.
+\begin{align}
+D(p||u)&=\log m - H(p)\label{eq:chimu}\\
+D(p||q)&\text{ is convex in the pair }(p,q)
+\end{align}
+Following are chain rules:
+\begin{align}
+H(X^n)&=\sum_{i=1}^n H(X_i|X^{i-1})\\
+I(X^n;Y)&=\sum_{i=1}^n I(X_i;Y|X^{i-1})\\
+D(p(x,y)||q(x,y))&=D(p(x)||q(x))\\
+&+D(p(y|x)||q(y|x))
+\end{align}
+{\bf Jensen's Inequality:} if $f$ is a convex function, then
+\begin{equation}
+Ef(x) \geq f(EX)
+\end{equation}
+{\bf Log sum inequality:} for n positive numbers $a_1,\ldots,a_n$ and $b_1,\ldots,b_n$,
+\begin{equation}
+\sum_{i=1}^n a_i \log \frac{a_i}{b_i} \geq \left( \sum_{i=1}^n a_i \right) \log \frac{\sum_{i=1}^n a_i}{\sum_{i=1}^n b_i}
+\end{equation}
+with equality only if $\frac{a_i}{b_i}$ is constant. 
 
-\begin{multicols}{2}
+{\bf Data processing inequality:} given some Markov processes $X\rightarrow Y\rightarrow Z$ we know $I(X;Y)\geq I(X;Z)$
 
-    Blah blah blah. This is from lemma \pref{lem: a} (or lemma \ref{lem: a}) and simple stuff.
-    \lemma[Some lemma]
-    
-    This is a lemma about something mathematical.
+{\bf Sufficient Statistic:} $T(X)$ is sufficient relative to $\{f_\theta (x)\}$ iff $I(\theta;X)=I(\theta;T(X))$ for all distributions on $\theta$.
 
-    \lemma{Some lemma}\label{lem: a}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
-    \lemma{Some lemma}This is a lemma about something mathematical.
+{\bf Fano's inequality:} Let $P_e=Pr\{\hat{X}(Y)\neq X\}$. Then $H(P_e)+P_e \log |\chi| \geq H(X|Y)$.
 
-% Add a bibliography.
-% \bibliographystyle{plain}
-% \bibliography{brlen}
+{\bf Inequality.} If $X$ and $X'$ are independent and identically distributed then $Pr(X=X') \geq 2^{-H(X)}$
+
+
+\section*{Asymptotic Equipartition Property (AEP)}
+``Almost all events are almost equally surprising''. Specifically if $X_1,\ldots,X_n$ are iid with respect to $p(x)$ then :
+\begin{equation}
+-\frac{1}{n}\log p(X_1,\ldots,X_n)\rightarrow H(X) \text{in probability}
+\end{equation}
+
+A typical set $A_\epsilon^{(n)}$ is the set of sequences $x_1,\ldots, x_n$ that follow:
+\begin{equation}
+2^{-n(H(X)+\epsilon)}\leq p(X^n)\leq 2^{-n(H(X)-\epsilon)}
+\end{equation}
+
+Some properties of a typical set:
+\begin{enumerate}
+\item if $(x_1,\ldots,x_n) \in A_\epsilon^{(n)}$ then $p(x_1,\ldots,x_n) = 2^{-n(H\pm \epsilon)}$
+\item Pr$\left\{A_\epsilon^{(n)}\right\}>1-\epsilon$ for sufficiently large $\epsilon$
+\item $|A_\epsilon^{(n)}| \leq 2^{n(H(X)+\epsilon}$
+\end{enumerate}
+
+Definition of $a_n \doteq b_n$ means that $\frac{1}{n}\log \frac{a_n}{b_n} \rightarrow 0$ as $n\rightarrow \infty$.
+
+Smallest probable set: Let $X_1,\ldots, X_n$ be iid with respect to $p(x)$ and for $\gamma < \frac{1}{2}$, let $B_\gamma^{(n)} \subset \chi^n$ be the smallest set such that $Pr\{ B_\gamma^{(n)} \} \geq 1-\gamma $ Then we have $|B_\gamma^{(n)}| \doteq 2^{nH}$
+
+
+\section*{Channel capacity}
+{\bf Channel capacity.} The logarithm of the number of distinguishable inputs is given by $ C= \text{max}_{p(x)} I(X;Y).$
+
+{\bf Common examples} Binary symmetric channel: $C= 1 - H(p)$. Binary erasure channel: $C = 1 - \alpha$. Symmetric channel: $C= \log |\gamma | - H(\text{row of transition matrix})$
+
+{\bf Properties of C}  1. $0 \leq C \leq \text{min}\{\log |\chi| - \log | \gamma | \}$  2. $|(X;Y)$ is a continuous concave function of $p(x)$.
+
+{\bf Joint typicality.}  The set $A_{\epsilon}^{(n)}$ of {\it jointly typical} sequences $\{(x^{n},y^{n})\}$ with respect to the distribution $p(x,y)$ is given by $A_{\epsilon}^{(n)} = \{ (x^{n},y^{n}) \in \sigma^{n} \times \chi^{n}: \left| -\frac{1}{n}\log p(x^{n}) - H(X) \right| < \epsilon, $ $\left| -\frac{1}{n}\log p(y^{n}) - H(Y) \right| <\epsilon, $ $\left| -\frac{1}{n} \log p(x^{n},y^{n})-H(X,Y) \right| <\epsilon \}, $ where $p(x^{n},y^{n}) = \prod_{i=1}^{n}p(x_{i},y_{i}).$
+
+
+{\bf Joint AEP} Let $(X^{n}, Y^{n})$ be sequences of length {\it n} drawn i.i.d according to $p(x^{n},y^{n})=\prod_{i=1}^{n}p(x_{i},y_{i})$ Then: 1. Pr$((X^{n},Y^{n}) \in A_{\epsilon}^{(n)}\rightarrow 1$ as $n\rightarrow \infty$. 2. $|A_{\epsilon}^{(n)}|\leq 2^{n(H(X,Y)+\epsilon)}$. 3. If $(\tilde{X}^{n}, \tilde{Y}^{n})\sim p(x^{n})p(y^{n}),$ then Pr$\left( (\tilde{X}^{n},\tilde{Y}^{n})\in A_{\epsilon}^{(n)} )\right) $ $\leq 2^{-n(I(X;Y)-2\epsilon)}$
+
+{\bf Channel coding theorem.} All rates below capacity {\it C} are achievable, and all rates above capacity are not; that is, for all rates $R<C$, there exists a sequence of $(2^{nR},n)$ codes with probability of error $\lambda^{(n)}\leftarrow 0$. Conversely for rates $R>C$, $\lambda^{(n)}$ is bounded away from 0.
+
+{\bf Feedback capacity.} Feedback does not increase capacity for discrete memoryless channels (i.e., $C_{\text{F}B} = C$).
+
+{\bf Source-channel theorem.} A stochastic process with entropy rate $H$ cannot be sent reliably over a discrete memoryless channel if $H > C$. Conversely, if the process satisfies the AEP, the source can be transmitted reliably if $H<C$.
+
+
+
+\section*{Other useful laws and properties}
+{\bf General Statistical things} Expected value $E(x)=\sum_{i=1}^n x_i p(x_i)$
+
+Variance: $\sigma^2 = E\left[ \left(X-\mu\right)^2\right]$
+
+{\bf Law of Large Numbers} Weak law:
+\begin{eqnarray*}
+\bar{X}_n\overset{p}\rightarrow \mu \text{ when } n \rightarrow \infty\\
+\lim_{n\rightarrow \infty} Pr\left(|\bar{X}_n-\mu| < \epsilon \right) = 1
+\end{eqnarray*}
+Strong law:
+\begin{equation}
+Pr\left(\lim_{n\rightarrow \infty} \bar{X}_n = \mu \right) = 1
+\end{equation}
+
+{\bf Derivation Rules} Chain rule: $(f \circ g)'(x)=f'(g(x))g'(x)$
+
+Product Rule: $(f\cdot g)' = f' \cdot g + f \cdot g'$
+
+Quotient Rule: \[f(x)=\frac{g(x)}{h(x)}\text{ and }f'(x)=\frac{g'(x)h(x)-g(x)h'(x)}{\left(h(x)\right)^2}\]
+
+%\section*{Channel Capacity Problems}
+%{\bf Channels with memory have higher capacity} {\it problem} Consider a binary symmetric channel with $Y_{i} = X_{i}\oplus Z_{i}$, where $\oplus$ is mod 2 addition , and $X_{i},Y_{I} \in \{0,1\}$. Suppose that $\{Z_{i}\}$ has constant marginal probabilities Pr$\{Z_{i}=1\} = p = 1-\text{Pr}\{Z_{i}=0\}$, but that $Z_{1}, Z_{2}, \ldots Z_{n}$ are not necessarily independent. Assume that $Z^{n}$ is independent of the input $X^{n}$ Let $C=1-H(p,1-p)$ Show that $\text{max}_{p(x_{1},\ldots,x_{n})}I(X_{1},\ldots,X_{n};Y_{1},\ldots,Y_{n}) \geq nC$
+
+{\it solution} 
+\begin{eqnarray*}
+I(X_{1},\ldots,X_{n};Y_{1},\ldots,Y_{n})\\
+= H(X_{1},\ldots,X_{n})-H(X_{1},\ldots,X_{n}|Y_{1},\ldots,Y_{n})\\
+= H(X_{1},\ldots,X_{n}) - H(Z_{1},\ldots,Z_{n}|Y_{1},\ldots,Y_{n})\\
+\geq H(X_{1},\ldots,X_{n}) - H(Z_{1},\ldots,Z_{n})\\
+\geq H(X_{1},\ldots,X_{n}) - \sum H(Z_{i})\\
+=H(X_{1},\ldots,X_{n}) - nH(p)\\
+=n - nH(p)
+\end{eqnarray*}
+if $X_{1},\ldots,X_{n}$ are chosen i.i.d $\sim$ Bern$\left( \frac{1}{2}\right)$. The capacity of the channel with memory over n uses of the channel is $n$
+
+
+\section*{Proof of Shannon Code shortness}
+{\it Let $l(x)$ be the codeword lengths associated with the Shannon code, and let $l'(x)$ be the codeword lengths associated with any other uniquely decodable code. Then} Pr$(l(X) \geq l'(X) + c)\leq \frac{1}{2^{c-1}}$
+
+For example, the probability that $l'(X)$ is 5 or more bits shorter than $l(X)$ is less than $\frac{1}{16}$. 
+
+{\bf Proof}
+\begin{eqnarray*}
+\text{Pr}(l(X) \geq l'(X) + c)\\
+=\text{Pr}\left(\lceil \log \frac{1}{p(X)} \geq l'(X) + c \right)\\
+\geq \text{Pr}\left( \log \frac{1}{p(X)} \geq l'(C) + c - 1 \right)\\
+=\text{Pr}\left( p(X) \leq 2^{-l'(X)-c+1}\right)\\
+=\sum_{x:p(x)\leq 2^{-l'(x)-c+1}} p(x)\\
+\leq \sum_{x:p(x)\leq 2^{-l'(x)-c+1}}2^{-l'(x)-(c-1)} \\
+\leq \sum_{x}2^{-l'(x)}2^{-(c-1)}\\
+\leq 2^{-(c-1)}
+\end{eqnarray*}
+Since $\sum 2^{-l'(x)} \leq 1$ by the Kraft inequality.
+
+\begin{align*}
+\chi &= \text{State space } (X_i \in \chi) \\
+X^n &=(X_1,\ldots,X_n) \\
+\end{align*}
+
+
+%%%%%%%%%%%Begin Data Compression%%%%%%%%
+\section*{Data Compression}
+Definitions, alternate expressions, and properties.
+\begin{align}
+    \underbrace{L(C)}_\text{Exp. Length}&= \sum_{x\in X} p(x)l(x) \label{defn: Exp. Length}\\
+C(X_1,X_2,\ldots,X_n) &= C(X_1)C(X_2)\ldots C(X_n)
+\end{align}
+\thm[Kraft's Inequality] \label{thm: kraft}
+For any instantaneous code (prefix code), the codeword length $l_1,l_2 \ldots , l_m$ must satisfy
+\begin{equation}
+\sum_i D^{-li}  \leq 1.
+\end{equation}
+\section*{Optimal Codes}
+\begin{align}
+\underbrace{L}_\text{minimize}&= \sum p(x)l(x) \label{defn: minimize}\\
+\underbrace{J}_\text{Lagrange min.}&= \sum {p_i}{l_i} + \gamma (\sum D^{l_i}&\leq 1) \label{defn: lagrange}
+\end{align}
+\thm[Expected Length and Entropy] \label{thm: codewordentropy}
+The expected length L is greater than or equal to the entropy (instant code)
+\begin{equation}
+L \geq H_D(X) \text{ (equal iff } D^{-l_i} = p_i \text{)}
+\end{equation}
+\begin{eqnarray}
+L - H_D(X) = \sum {p_i}{l_i} - \sum {p_i} \log_D \frac {1}{p_i}\\
+= - \sum {p_i} \log_D D^{-l_i} + \sum {p_i} \log_D {p_i} \\
+\text{letting } {r_i} = \frac {D^{-l_i}}{\sum_j D^{-l_j}} \text{ and } c = \sum D^{-l_i} \\
+L - H = \sum {p_i} \log_D \frac {p_i}{r_i} - \log_D C \\
+= D(p||r) + \log_D \frac {1}{c} \\
+\geq 0 
+\end{eqnarray}
+
+%%%%%%%%%%%End Data Compression%%%%%%%%
+
+
+%%%%%%%%%%%Begin Optimal Code Lengths%%%%%%%%
+
+\section*{Bounds on Optimal Code Length}
+\begin{eqnarray*}
+H(X) \leq L < H(X) + 1
+\end{eqnarray*}
+After finding the D-adic variable r from before. \\*
+$L-H_D = D(p||r) - \log $($\sum D^{-l_i}$) \\
+${l_i} = \lceil{\log_D \frac {1}{p_i}} \rceil$ \\
+$\sum D^{- \lceil \log \frac {1}{p_i}\rceil}\leq\sum D^{- \log\frac{1}{p_i}}=\sum {p_i}=1$ 
+\thm[Optimal Codeword Lengths] \label{thm:optimum codewords}
+Let ${l_1^{*}}$, ${l_2^{*}}$ \ldots , ${l_m^{*}}$be optimal codeword lengths for a
+source disribution p and a D-ary alphabet, and let ${L^{*}}$ be the associated
+expected length of an optimal code (${L^{*}}=\sum{p_i}{l_i^{*}}$ ). Then \\
+${H_D(X)}\leq L^{*}<{H_D(X)}+1$ \\
+Define ${L_n}$ to be the expected codeword length per input symbol, that is,
+if ${l(x_1,x_2, \ldots ,x_n)}$ is the length of the binary codeword associated with
+${(x_1,x_2, \ldots ,x_n)}$, then \newline
+\begin{eqnarray*}
+{L_n} = \frac {1}{n}\sum{p(x_1,x_2, \ldots ,x_n)}{l(x_1,x_2, \ldots ,x_n})\\
+= \frac{1}{n}El(x_1,x_2, \ldots ,x_n)\\
+\text{Now apply the bounds}\\
+{H(x^{n})} \leq El(x_1,x_2, \ldots ,x_n) < {H(x^{n})} + 1 \\
+\text{Since } {x^{n}} \text{is i.i.d,} {H(X)} \leq {L_n} < {H(X)} + \frac{1}{n} \\*
+\end{eqnarray*}
+We can now get arbitrarily close to the entropy by increasing n, \newline
+${H(x^{n})} \leq El(x_1,x_2, \ldots ,x_n) < {H(x^{n})} + 1$ \\*
+$\frac{H(x^{n})}{n}\leq {L_n}<\frac{H(x^{n})}{n}+\frac{1}{n}$ \\*
+If the stochastic process is stationary,$\frac{H(x^{n})}{n}$ tends to the entropy rate \newline
+and the expected length tends to the entropy as n goes to infinity \\
+Note: Shannon Code Assignment $l(x) = \lceil \log \frac {1}{q(x)} \rceil$
+\thm[Wrong Code] \label{thm:wrongcode}
+The expected length under ${p(x)}$ of the code assignment ${l(x)}=\lceil\log\frac{1}{q(x)}\rceil$ satisfies 
+$H(p)+D(p||q) \leq E_pl(X)<H(p)+D(p||q)+1$ \\
+Proof: 
+\begin{eqnarray}
+El(x) = \sum_x p(x) \lceil\log \frac{1}{q(x)} \\
+< \sum_x p(x) (\log \frac{1}{q(x)} + 1) \\
+= \sum_x p(x) \log \frac{p(x)}{q(x)} \frac{1}{p(x)} + 1 \\
+= \sum_x p(x) \log \frac{p(x)}{q(x)} + \sum_x p(x) \log \frac{1}{p(x)} + 1 \\
+= D(p||q) + H(p) + 1
+\end{eqnarray}
+
+%%%%%%%%%%%End Optimal Code Lengths%%%%%%%%
+
+
+%%%%%%%%%%%Kraft Inequality for Uniquely Decodable Codes%%%%%%%%
+
+\section*{Kraft Inequality for Uniquely Decodable Codes}
+\thm[McMillan] \label{thm: mcmillan}
+The codeword lengths of any uniquely decodable D-ary code must satisfy the Kraft Inequality (seen many times above) \newline
+Proof: \newline
+Consider ${C^{k}}$, the kth extension of the code. By definition of unique decodability, the kth extension of the code is nonsingular; 
+the number of code sequences of length ${n}$ in the kth extension of the code must be no greater than ${D^{n}}$. 
+\begin{eqnarray}
+l({x_1},{x_2}, \ldots , {x_k}) = \sum_{i=1}^{k} l({x_i})\\
+(\sum_{x\in \chi} D^{-li})^{k} = \\*
+\sum_{x_1\in\chi}\sum_{x_2\in\chi} \ldots \sum_{x_k\in\chi}  D^{-l({x_1})} \ldots D^{-l({x_k})}\\
+=\sum_{{x_1},{x_2}, \ldots , {x_k} \in \chi^{k}}  D^{-l({x_1})}\ldots D^{-l({x_k})} \\
+=\sum_{x_k} D^{-l({x^{k}})}\\
+\end{eqnarray}
+${l_{max}}$ is the maximum codeword length and a(m) is the number of source sequences
+${x^{k}}$ mapping into codewords of length m. The mapping is one-to-one, so $a(m) \leq D^{m}$:
+\begin{eqnarray}
+(\sum_{x\in\chi} D^{-l(x)})^{k} = \sum_{m=1}^{kl_{max}} a(m)D^{-m}\\
+\leq \sum_{m=1}^{kl_{max}} D^{m}D^{-m}\\
+=kl_{max}\\
+\text{and hence } \sum_j D^{-l_j} \leq (kl_{max})^{\frac{1}{k}}
+\end{eqnarray}
+Since this inequality is true for all ${k}$, it is true in the limit as ${k} \rightarrow \infty$.
+Since ${(kl_{max})^{\frac{1}{k}}} \rightarrow 1$, we have \newline
+$\sum_j D^{-l_j} \leq 1$, which is the Kraft inequality.\newline
+{\bf Corollary: }{\it A uniquely decodable code for an infinite source alphabet $\chi$ also satisfies Kraft}. \newline
+$\sum_{i=1}^{\infty}D^{-li} = \lim_{N\rightarrow\infty}\sum_{i=1}^{N}D^{-li} \leq 1$.
+
+%%%%%%%%%%%End Kraft Inequality for Uniquely Decodable Codes%%%%%%%
+
+
+%%%%%%%%%%%%%%%%Huffman Codes%%%%%%%%%%%%%%%%%
+\section*{Huffman Coding and Optimality}
+Just remember 20 questions and expand the tree down one side. "Is X equal to 3?", etc...
+\lemma{Huffman Properties}\label{huffman}
+\begin{enumerate}
+	\item {\it The lengths are ordered inversely with the probabilities. High p(x) means small l(x).}
+	\item {\it The two longest codewords have the same length.}
+	\item {\it Two of the longest codewords differ only in the last bit and correspond to the two least likely symbols.}
+\end{enumerate}
+{\bf Proof:|} The proof amounts to swapping, trimming and rearranging...Consider the optimal code ${C_m}$
+If ${p_j} > {p_k} \text{,then } {l_j} \leq {l_k}$. Here we swap codewords. Consider $C_m^{'}$ an optimal code ${C_m}$:
+Then, \newline 
+\begin{eqnarray}
+L(C_m^{'}) - L(C_m) = \sum {p_i}{l_i^{'}} - \sum {p_i}{l_i} \\
+={p_j}{l_k}+{p_k}{l_j} - {p_j}{l_j} - {p_k}{l_k}\\
+=({p_j}-{p_k})({l_k}-{l_j})\\
+\end{eqnarray}
+But ${p_j} - {p_k} > 0$, andn since ${C_m}$ is optimal, $L(C_m^{'}) - L(C_m) \geq 0$.
+Hence, we must have ${l_k} \geq {l_j}$. Thus, ${C_m}$ itself satisfies property 1(above).
+\section*{Huffman reductions}
+Calculation of the average length $\sum_i {p_i^{'}}{l_i^{'}}$ shows that \\*
+$L(p) = L^{*}(p^{'})+p_{m-1} + p_m\\$
+We can construct ${p^{'}}$ by merging the codewords for the two lowest probability symbols
+${m-1} \text{and} {m}$.  The new code for ${p^{'}}$ has average length
+\begin{eqnarray}
+L(p^{'}) \\
+= \sum_{i=1}^{m-2} p_i l_i + p_{m-1}(l_{m-1} -1 )+p_{m}(l_{m} -1)\\
+=\sum_{i=1}^{m} {p_i}{l_i} - {p_{m-1}} - {p_{m}}\\
+=L^{*}(p) - {p_{m-1}} - {p_{m}}\\
+\text{from this we obtain} \\*
+L(p^{'}) + L(p) = L^{*}(p^{'}) + L^{*}(p)\\
+(L(p^{'}) -  L^{*}(p^{'})) + (L(p) - L^{*}(p)) = 0\\
+L(p^{'}) - L^{*}(p^{'}) \geq 0 \\
+L(p) = L^{*}(p)
+\end{eqnarray}
+\thm[Optimal Huff] \label{thm: opthuff}
+Huffamn coding is optimal; that is, if $C^{*}$ is a huffman code and $C^{'}$ is any other uniquely decodable code,
+$L(C^{*}) \leq L(C^{'})$
+%%%%%%%%%%%%%%%End Huffman Codes %%%%%%%%%%%%%%%%
+
+
+%%%%%%%%%%%%%%%Begin Shannon-Fano-Elias Coding%%%%%%%%%%
+\section*{Shannon-Fano-Elias Coding}
+The CDF for ${F(x)}$ is defined as \\* $F(x) = \sum_{a\leq x}p(a)$\\
+Consider the modified CDF: \\* $\bar{ F(x)} = \sum_{a < x}p(a) + \frac{1}{2} p(x)$\\
+Using the first $l(x)$ bits of $\bar{F}(x)$ as a code for $x$. By definition of rounding off, we have \\*
+\begin{eqnarray}
+\bar{F}(x) - {\lfloor \bar{F}(x) \rfloor}_{l(x)} < \frac{1}{2^{l(x)}}\\
+\text{If } l(x) = \lceil \log \frac{1}{p(x)} \rceil + 1 \text{ then } \\
+\frac {1}{2^{l(x)}} < \frac {p(x)}{2} =  \bar{F}(x) - F(x-1)\\
+L= \sum_x p(x) (\lceil \log \frac {1}{p(x)} \rceil + 1) < H(X) + 2\\
+\end{eqnarray}
+
+\thm[Dyadic Stuff] \label{thm: dyadic}
+For a dyadic probability mass function $p(x)$, let $l(x) = \log \frac{1}{p(x)}$ be the word lengths of the binary Shannon code for the source, and let $l^{'}(x)$ be the lengths of any other uniquely decodable code for the source. Then \\*
+$Pr(l(X) < l^{'}(X)) \geq Pr(l(X) > l^{'}(X))$ \\*
+, with equality iff $l^{'}(x) = l(x)$ for all $x$. The code length is thus uniquely competitively optimal.\\*
+{\bf Proof: } \\*
+\begin{eqnarray}
+Pr(l^{'}(X) < l(X)) - Pr(l^{'}(X) > l(X)) = \\*
+\sum_{x:l^{'}(x)<l(x)} p(x) - \sum_{x:l^{'}(x)>l(x)} p(x)\\
+=\sum_x p(x)sgn(l(x) - l^{'}(x))\\
+=E sgn(l(X) - l^{'}(X)) \\
+\leq \sum_x 2^{-l(x)} (2^{l(x)-l^{'}(x)} - 1)\\
+=\sum_x 2^{-l^{'}(x)} - \sum_x 2^{-l(x)}\\
+=\sum_x 2^{l^{'}(x)} - 1\\
+\leq 1-1 = 0\\
+\end{eqnarray}
+{\bf Corollary}{\it For nondyadic probability mass functions, }\\*
+$E sgn(l(X) - l^{'}(X) - 1) \leq 0$, where $l(x) = \lceil \log \frac {1}{p(x)} \rceil$ and $l^{'}(x)$ is any other code for the source.
+%%%%%%%%%%%%%%%End Shannon-Fano-Elias Coding%%%%%%%%%%
+
+\section*{Shannon coding example}
+$l(x)= \lceil \log(\frac{1}{p(x)}) \rceil + 1$
+\[
+\begin{pmatrix}
+      X & P(X) & F(X)  & F(X) & \bar{F}(X)_{2} & l(x) & code  \\
+      1 & 0.25 & 0.25 & 0.125 & 0.001 & 3 & 001\\ 
+      2 & 0.25 & 0.5 & 0.375 & 0.011 & 3 & 011\\ 
+      3 & 0.2 & 0.7 & 0.6 & 0.\overline{10011} & 4 & 1001\\ 
+      4 & 0.15 & 0.85 & 0.775 & 0.110 \overline{0011} & 4 & 1100\\ 
+      5 & 0.15 & 1 & 0.925 & 0.111\overline{0110} & 4 & 1110
+\end{pmatrix}
+\]
+
+
+%%%% SAM's Additions%%%%%%
+\textit{Huffman Dummy Variables}
+Use $1+k(D-1)$ where $D$ is the encoded base, $k$ is the smallest constant such that the expression is $\geq$ the number of variables you are encoding (say $V$). Add $1+k(D-1) - V$ dummy variables.
+
+\textit{5.1: Uniquely Decodable}
+$L = \sum_{i=1}^m p_i l_i^{100}, L_1 = min\{L\} \textrm { over instantaneous codes}, L_2 = min\{L\} \textrm{ over uniquely decodable codes}$. We observe that since uniquely decodable codes are a superset of instantaneous codes, we can immediately conclude that $L_2 \leq L_1$, however the inequality can be stricter. Specifically, the Kraft and McMillan inequalities do not depend on the standard expected length definition ($\sum_i p(x_i)l_i$), and apply in the $l_i^{100}$ case as well. Thus, any codeword that minimizes $L_2$ must satisfy McMillan, and thus Kraft. Yet, Kraft also asserts that given a set of lengths that satisfy Kraft, there exists a code. Thus, there exists a code with the same code lengths in $L_1$, and $\fbox{$L_1 = L_2$}$.
+
+\textit{5.1: Martian Fingers}
+$(l_1,l_2,...,l_6) = (1,1,2,3,2,3)$ We note that any uniquely decodable D-ary code must satisfy the Kraft inequality: $\sum D^{-l_i} \leq 1$, or, $D^{-1} + D^{-2} + D^{-3} \leq \frac{1}{2}$. Additionally, we assume that the Martian has an integer number of fingers. We know that for $D=2$ the inequality does not hold, however for $D=3$: $\frac{1}{3} + \frac{1}{9} + \frac{1}{27} = \frac{13}{27} \leq  \frac{13}{26} = \frac{1}{2}$. Thus, a Martian has at least $3$ fingers.
+
+\textit{5.4: Huffman Coding}
+\[
+ X =
+ \begin{pmatrix}
+	x_1 & x_2 & x_3 & x_4 & x_5 & x_6 & x_7 \\
+	0.49 & 0.26 & 0.12 & 0.04 & 0.04 & 0.03 & 0.02 \\
+ \end{pmatrix}
+\]
+\Tree [.$1.0$ [.$0.51$ [.$0.25$ [.$0.13$ [.$0.08$ $x_4$ $x_5$ ] [.$0.05$ $x_6$ $x_7$ ] ] $x_3$ ] $x_2$ ] $x_1$ ]
+\begin{itemize}
+	\item[a.] 
+\[
+ \begin{pmatrix}
+	x_1 & x_2 & x_3 & x_4   & x_5   & x_6   & x_7 \\
+	1   & 01  & 001 & 00001 & 00000 & 00010 & 00011 \\
+ \end{pmatrix}
+\]
+	\item[b.] $L = \sum_{i=1}^7 l_i p(x_i) = 0.04*5 + 0.04*5 + 0.03*5 + 0.02*5 + 0.12*3 + 0.26*2 + 0.49*1 = 2.02\textrm{ bits}$
+
+	\item[c.] 
+\
+\Tree [.$1.0$  [.$0.25$ [.$0.09$ $x_5$ $x_6$ $x_7$ ] $x_3$ $x_4$ ] $x_2$ $x_1$ ]
+
+\[
+ \begin{pmatrix}
+	x_1 & x_2 & x_3 & x_4 & x_5 & x_6 & x_7 \\
+	0   & 1   & 21  & 20  & 222 & 221 & 220 \\
+ \end{pmatrix}
+\]
+\end{itemize}
+
+\textit{5.6: Bad Codes}
+
+\begin{itemize}
+	\item[a.] $ \{0, 10, 11 \} $ This code is a $\fbox{valid}$ Huffman code, which could be generated by the following probabilities $\{ \frac{1}{2}, \frac{1}{4}, \frac{1}{4} \}$, where $D=2$.
+	\item[b.] $ \{00, 01, 10, 110 \} $ This code is an $\fbox{invalid}$ Huffman code, as a Huffman code has optimal length, and $110$ can be replaced by $11$ to decrease the expected length.  
+	\item[c.] $ \{01, 10 \} $ This code is an $\fbox{invalid}$ Huffman code, as a Huffman code has optimal length and $01$ can be replaced with $0$, while $10$ can be replaced by $1$ to reduce the expected length by $2$.
+\end{itemize}
+
+\textit{5.12: Shannon and Huffman}
+\begin{itemize}
+	\item[a.]
+\Tree [.$1.0$ [.$\frac{2}{3}$ [.$\frac{1}{3}$ $\frac{1}{4}$ $\frac{1}{12}$ ] $\frac{1}{3}$ ] $\frac{1}{3}$ ]
+\[
+ \begin{pmatrix}
+	\frac{1}{3} & \frac{1}{3} & \frac{1}{12} & \frac{1}{4}\\
+	0           &  10         & 110          & 111\\
+ \end{pmatrix}
+\]
+	\item[b.] We note that the tree above exhibits a $(1,2,3,3)$ code. However, another tree could have been constructed: 
+
+\Tree [.$1.0$ [.$\frac{1}{3}$ $\frac{1}{4}$ $\frac{1}{12}$ ] [.$\frac{2}{3}$ $\frac{1}{3}$ $\frac{1}{3}$ ] ] 
+
+Which has Huffman coding:
+\[
+ \begin{pmatrix}
+	\frac{1}{3} & \frac{1}{3} & \frac{1}{12} & \frac{1}{4}\\
+	00           &  01         & 10          & 11\\
+ \end{pmatrix}
+\] with lengths $(2, 2, 2, 2)$.
+	\item[c.] We note that in the first code, the symbol with probability $\frac{1}{4}$ is encoded with $3$ bits, whereas the Shannon code length is $\lceil log(\frac{1}{p(x)}) \rceil = 2$ bits. Thus, there are optimal codes with codeword lengths for some symbols that exceed the Shannon code length.
+\end{itemize}
+
+
+
+
 \end{multicols}
+\end{tiny}
 \end{document}
