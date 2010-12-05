@@ -1,6 +1,8 @@
 \documentclass[12pt]{article}
 
 \usepackage{fullpage,latexsym,amsthm,amsmath,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
+\usepackage{multicol}
+\usepackage{savetrees}
 
 % Define new commands.
 \newcommand{\setbrace}[1]{{\{#1\}}}
@@ -14,25 +16,10 @@
 \newtheorem{question}{Question}[section]
 \newtheorem{proposition}{Proposition}[section]
 
-% Setup document header/footer and adjust spacing accordingly.
-\pagestyle{fancy}
-\lhead{HW \#3 - EE253 Fall 2010}
-\rhead{Bryan Matsuo [bmatsuo@soe.ucsc.edu]}
-\rfoot{\today}
-\renewcommand\headheight{15pt}
-\renewcommand\footrulewidth{0.4pt}
-
-\setlength{\parskip}{0pt}
-\setlength{\parsep}{0pt}
-\setlength{\headsep}{0pt}
-\setlength{\topskip}{15pt}
-\setlength{\topmargin}{0pt}
-\setlength{\topsep}{0pt}
-\setlength{\partopsep}{0pt}
-
 % Begin the actual document content here.
 \begin{document}
-
+\begin{tiny}
+\begin{multicols}{2}
 \section*{7.3 Channels with mevory have higher capacity.}
 \begin{eqnarray*}
     X_i, Y_i &\in& \{0,1\} \\
@@ -250,5 +237,7 @@ So two independent looks can do more than twice as good as single look.
 % \bibliographystyle{plain}
 % \bibliography{brlen}
 
+\end{multicols}
+\end{tiny}
 \end{document}
 
