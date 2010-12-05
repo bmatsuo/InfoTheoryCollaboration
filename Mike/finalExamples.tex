@@ -1,0 +1,38 @@
+\documentclass[11pt]{amsart}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{Brief Article}
+\author{The Author}
+%\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+%\section{}
+%\subsection{}
+% Requires the booktabs if the memoir class is not being used
+\begin{table}[htbp]
+   \centering
+   %\topcaption{Table captions are better up top} % requires the topcapt package
+   \begin{tabular}{@{} | l | l | l | l | l | l | l | @{}} % Column formatting, @{} suppresses leading/trailing space
+      %\toprule
+      \multicolumn{2}{c}{Example from Chapter5} \\
+      %\cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
+      X & P(X) & F(X)  & F(X) & $\bar{F}$(X) in binary & l(x)= $\lceil \log(\frac{1}{p(x)}) \rceil$ + 1 & codeword  \\
+      %\midrule
+      1 & 0.25 & 0.25 & 0.125 & 0.001 & 3 & 001\\ 
+      2 & 0.25 & 0.5 & 0.375 & 0.011 & 3 & 011\\ 
+      3 & 0.2 & 0.7 & 0.6 & 0.$\overline{10011}$ & 4 & 1001\\ 
+      4 & 0.15 & 0.85 & 0.775 & 0.110$\overline{0011}$ & 4 & 1100\\ 
+      5 & 0.15 & 1 & 0.925 & 0.111$\overline{0110}$ & 4 & 1110\\             
+      %\bottomrule
+   \end{tabular}
+\end{table}
+
+\end{document}  
