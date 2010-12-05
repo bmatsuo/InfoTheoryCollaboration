@@ -1,0 +1,243 @@
+\documentclass[12pt]{article}
+
+\usepackage{fullpage,latexsym,amsthm,amsmath,algorithmic,graphicx,subfigure,color,verbatim,epsfig,fancyhdr}
+\usepackage{multicol}
+\usepackage{savetrees}
+
+% Define new commands.
+\newcommand{\setbrace}[1]{{\{#1\}}}
+\newcommand{\setbigbrace}[1]{{\big\{#1\big\}}}
+\newcommand{\setbiggbrace}[1]{{\bigg\{#1\bigg\}}}
+\newcommand{\annotate}[1]{{\color{red}{#1}}}
+
+\newtheorem{defn}{Definition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{corollary}{Corollary}[section]
+\newtheorem{question}{Question}[section]
+\newtheorem{proposition}{Proposition}[section]
+
+% Begin the actual document content here.
+\begin{document}
+\begin{tiny}
+\begin{multicols}{2}
+\section*{7.3 Channels with mevory have higher capacity.}
+\begin{eqnarray*}
+    X_i, Y_i &\in& \{0,1\} \\
+    Y_i &=& X_i \oplus Z_i \\
+    Z_i &=& \begin{cases}
+        1 \text{ with probability } p \\
+        0 \text{ with probability } 1 - p
+    \end{cases}
+\end{eqnarray*}
+where $Z_i$ are not assumed independent of one another, but $Z^n$ is independent of $X^n$.
+
+\begin{eqnarray*}
+    I(X^n;Y^n) &=& H(X^n) - H(X^n|Y^n) \\
+    &=& H(X^n) - H(Z^n|Y^n) \\
+    &\ge& H(X^n) - H(Z^n) \\
+    &\ge& H(X^n) - \sum H(Z_i) \text{ (chain rule + drop condition)}\\
+    &=& H(X^n) - nH(p) \text{ ($H(Z_i) = H(p)$)} \\
+    &=& n - nH(p) \text{ (if $X_i \sim_{i.i.d} Bernouli\big(\frac{1}{2}\big)$)}
+\end{eqnarray*}
+The capacity of the channel with memory of $n$ uses of the channel is
+\begin{eqnarray*}
+    nC^{(n)} &=& \max_{p(x^n)} I(X^n; Y^n) \\
+    &\ge& I(X^n;Y^n)_{p(x^n)=Bern(\frac{1}{2})} \\
+    &\ge& n ( 1 - H(p)) \text{ (using the result about MI)} \\
+    &\ge& nC
+\end{eqnarray*}
+So channels which have memory have capacity at least as high a capacity as the channel without memory.
+
+\section*{7.4 Channel capacity.}
+
+Consider the channel $Y=X+Z\ (\bmod 11)$, where $X \in
+\setbrace{0,\dots,10}$ and $Z$, independent of $X$, is distributed as
+
+\begin{equation*}
+    Z = {{1,\ 2,\ 3}\choose{\frac{1}{3},\ \frac{1}{3},\ \frac{1}{3}}}
+\end{equation*}
+
+
+\subsection*{\textbf{(a)} Find the capacity.}
+
+Consider the mutual information $I(X;Y) = H(Y) - H(Y|X)$. The conditional
+entropy $H(Y|X)$ is equal to $H(Z)=\log 3$.
+So we have
+\begin{eqnarray}
+    I(X;Y) &=& H(Y) - H(Y|X) \nonumber \\
+        &=& H(Y) - \log 3 \nonumber \\
+        &\leq& \log {\vert \mathcal{Y} \vert} - \log 3 \label{eq:7.4-cap}
+\end{eqnarray}
+Equality can be achieved, and thus a maximum found, if $Y$ is distributed
+uniformily on $\setbrace{0,\dots,10}$. This is achieved when $X$ is
+distributed uniformily. That is
+
+\begin{align*}
+    \Pr \setbrace{Y=y} &= 
+    \Pr \setbrace{Z=1} \Pr \setbrace{X = x : x+1\ (\bmod 11) = y} \\
+    &+ \Pr \setbrace{Z=2} \Pr \setbrace{X = x : x+2\ (\bmod 11) = y} \\
+    &+ \Pr \setbrace{Z=3} \Pr \setbrace{X = x : x+3\ (\bmod 11) = y} \\
+    &= \frac{1}{3}\sum_{z=1}^{3} \Pr \setbrace{X = x : x+z\ (\bmod 11) = y}
+    &= \frac{1}{11}
+\end{align*}
+It is easily verified that when $X$ is uniformily distributed over
+$\setbrace{0,\dots,10}$, then the above equality is satisfied.
+
+So it has been shown that expression \ref{eq:7.4-cap} is the capacity of
+the channel $Y$.
+
+\subsection*{\textbf{(b)} Find the maximizing $p^*(x)$.}
+
+The uniform distibution
+\begin{equation*}
+    p(x)= \begin{cases}
+        \frac{1}{11} & \text{for $x \in \setbrace{0,\dots,10}$} \\
+        0 & \text{otherwise}
+    \end{cases}
+\end{equation*}
+See the end of part (a) for details.
+
+\section*{7.7 Cascade of binary symmetric channels.}
+
+Consider the process defined by $n$ identical independent binary symmetric
+channels,
+
+\begin{equation*}
+    X_0 \rightarrow \boxed{BSC} \rightarrow X_1 \rightarrow \dots
+    \rightarrow X_{n-1} \rightarrow \boxed{BSC} \rightarrow X_n.
+\end{equation*}
+
+Each channel has a raw error probability $p$. So the process
+$X_1,X_2,\dots$
+is a stationary markov process with transition matrix $P$, where
+\begin{equation*}
+    P = \left[ \begin{array}{ccc}
+        (1-p) & p \\
+        p & (1-p)
+    \end{array} \right].
+\end{equation*}
+Then the conditional probability $\Pr \setbrace{X_n|X_0}$ is equal to 
+\begin{equation*}
+    \Pr \setbrace{X_n \mid X_0} =  (p_0\ p_1)P^n,
+\end{equation*}
+where $p_0$ and $p_1$ are the probilities $\Pr \setbrace{X_0 = 0}$ and
+$\Pr \setbrace{X_0 = 1}$ respectively. Mathematica was used to to
+calculate the matrix power as
+\begin{equation*}
+    P^n = \frac{1}{2}\left[ \begin{array}{ccc}
+        (1-2p)^2 + 1 & 1-(1-2p)^n \\
+        1-(1-2p)^n & (1-2p)^n + 1
+    \end{array}\right]
+\end{equation*}
+The entries which lie off of the main diagonal are, individually, equal to
+the probability that $X_n \neq X_0$ conditioned on $ X_0$. That is
+$\Pr \{X_n \neq X_0 | X_0\} = \frac{1}{2}[1-(1-2p)^n]$. This is the same
+probability of error induced by a binary symmetric channel with the same
+raw error rates.
+
+For $p$ in the open interval $(0,1)$, as $n$ increases $p_e^{(n)}$ the probability of
+error in $X_n$ given $X_0$ tends to one half, and thus $H(p_e^{(n)}) \rightarrow 1$.
+Because a binary symmetric channel with probability of error $p_e$ has
+capacity $C = 1-p_e$, it should be clear that the the capacity of the
+channel with error probablity $p_e^{(n)}$ tends toward zero capacity as
+$n$ increases. And thus,
+\begin{equation*}
+    \lim_{n \to \infty} I(X_0;X_n) \leq \lim_{n \to \infty} \max_{p(x_0)}
+    I(X_0;X_n) = 0
+\end{equation*}
+
+The non-negativity of mutual information forces the left hand limit to
+converge to zero aswell.
+
+\section*{7.11 Time-varying channels.}
+Consider a time-varying discrete memoryless channel.
+
+Let $Y_1,\dots,Y_n$ be conditionally independent given $X_1,\dots,X_n$ with distribution $p(\bf{x}, \bf{y}) = \prod_{i=1}^{n}p_i(y_i|x_i)$. Let $\bf{X} = (X_1,\dots,X_n)$ and $Y=(Y_1,\dots,Y_n)$. Find $\max_{p(\bf{x})} I(\bf{X};\bf{Y})$.
+
+Using the same chain of inequalities as in the proof of the converse to the chanel coding theorem. That is,
+\begin{eqnarray*}
+    I(X^n;Y^n) &=& H(Y^n) - H(Y^n|X^n) \\
+    &=& H(Y^n) - H(Y_i | Y^{i-1}, X^n) \\
+    &=& H(Y^n) - \sum_{i=1}{n} H(Y_i | X_i)
+\end{eqnarray*}
+
+Since by the definition of the channel, $Y_i$ depends only on $X_i$ and is conditionally independent of everything else. Continuing the series of inequalities, we have
+
+\begin{eqnarray*}
+    I(X^n;Y^n) &=& H(Y^n) - \sum_{i=1}{n} H(Y_i | X_i) \\
+    &\le& \sum_{i=1}^{n} H(Y_i) - \sum_{i=1}^{n}H(Y_i | X_i) \\
+    &\le& \sum_{i=1}^{n} (1-H(p)),
+\end{eqnarray*}
+
+Equality holds if $X_i,\dots,X_n$ are $\sim_{i.i.d.} Bern(\frac{1}{2}$. Hence
+\begin{equation*}
+    \max_{p(x)} I(X^n; Y^n) = \sum_{i=1}^{n}(1-H(p)).
+\end{equation*}
+
+\section*{7.13 Erasures and errors in a binary channel.}
+Consider a channel with binary inputs that has both erasures and errors. Let the probability of error be $\varepsilon$ and the probability of erasure be $\alpha$ (there is a picture).
+
+\subsection*{(a) Find the capacity of the channel.}
+
+Like example in the text, set the input distn. for the two inputs to be $\pi$ and $1-\pi$. Then
+\begin{eqnarray*}
+    C &=& \max_{p(x)}I(X;Y) \\
+    &=& \max_{p(x)}[H(Y) - H(Y|X)] \\
+    &=& \max_{p(x)}H(Y) - H(1-\varepsilon-\alpha,\alpha,\varepsilon).
+\end{eqnarray*}
+$H(Y)$ can not be made equal to $\log 3$, because of erasures. 
+\begin{eqnarray*}
+    H(Y) &=& H( \pi(1-\varepsilon-\alpha) + (1-\pi)\varepsilon,\alpha,(1-\pi)(1-\varepsilon-\alpha) + \pi\varepsilon ) \\
+    &=& H(\alpha) + (1-\alpha)H\bigg(\frac{\pi+\varepsilon -\pi\alpha-2\pi\varepsilon}{1-\alpha}\bigg) \\
+    &\le& H(\alpha) + (1-\alpha)
+\end{eqnarray*}
+with equality iff $\frac{\pi+\varepsilon -\pi\alpha-2\pi\varepsilon}{1-\alpha} = \frac{1}{2}$, happening if $\pi = \frac{1}{2}$.
+
+So the capacity of the channel is
+\begin{eqnarray*}
+    C = H(\alpha) + 1 - \alpha - H(1-\alpha-\varepsilon,\alpha,\varepsilon) \\
+    = H(\alpha) + 1 - \alpha - H(\alpha) - (1-\alpha) H\bigg(\frac{\varepsilon}{1-\alpha}\bigg) \\
+    = (1-\alpha) \bigg(1 - H\bigg(\frac{\varepsilon}{1-\alpha}\bigg)\bigg)
+\end{eqnarray*}
+
+\subsection*{(b) Specialize to the case of binary symmetric channel ($\alpha = 0$).}
+
+Setting $\alpha = 0$ means $C=1-H(\varepsilon)$.
+
+\subsection*{(c) Specialize to the case of binary erasure channel ($\varepsilon = 0$).}
+Setting $\varepsilon = 0$ means $C=1-\alpha$.
+
+\section*{7.20 Channel with two independent looks at $Y$.}
+
+Let $Y_1$ and $Y_2$ be conditionally independent and conditionally identically distributed given $X$.
+
+\subsection*{(a) Show that $I(X;Y_1, Y_2 = 2I(X;Y_1) - I(Y_1,Y_2)$}
+\begin{eqnarray*}
+    I(X;Y_1,Y_2) = H(Y_1,Y_2) - H(Y_1,Y_2 | X)
+    = \sum_{i=1,2} H(Y_i) - I(Y_1;Y_2) - \sum_{i=1,2} H (Y_i|X)
+    =I(X;Y_1) + I(X_1,Y_2) - I(Y_1,Y-2) \\
+    =2I(X_i,Y_i) - I(Y_1,Y_2)
+\end{eqnarray*}
+
+\subsection*{(b) Conclude the channel $X\rightarrow\rightarrow(Y_1,Y_2)$ is less thatn twice the capacity of the channel $X\rightarrow\rightarrow(Y_1)$.}
+
+The capacity of a single-look channel $X\rightarrow Y_1$ is $C_1 = \max_{p(x)} I(X;Y_1)$.
+
+The capacity of the channel $X \rightarrow (Y_1,Y_2)$ is 
+\begin{eqnarray*}
+    C_2 
+    &=& \max_{p(x)}I(X;Y_1,Y_2) \\
+    &=& \max_{p(x)} 2I(X;Y_1) -I(Y_1; Y_2) \\
+    &\le& \max_{p(x)}2I(X;Y_1) \\
+    &=& 2C_1;
+\end{eqnarray*}
+So two independent looks can do more than twice as good as single look.
+
+% Add a bibliography.
+% \bibliographystyle{plain}
+% \bibliography{brlen}
+
+\end{multicols}
+\end{tiny}
+\end{document}
+
