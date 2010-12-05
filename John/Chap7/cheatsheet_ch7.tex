@@ -154,7 +154,26 @@ I(X_{1},\ldots,X_{n};Y_{1},\ldots,Y_{n})\\
 =H(X_{1},\ldots,X_{n}) - nH(p)\\
 =n - nH(p)
 \end{eqnarray*}
+if $X_{1},\ldots,X_{n}$ are chosen i.i.d $\sim$ Bern$\left( \frac{1}{2}\right)$. The capacity of the channel with memory over n uses of the channel is $n$
 
+
+\section*{Proof of Shannon Code shortness}
+{\it Let $l(x)$ be the codeword lengths associated with the Shannon code, and let $l'(x)$ be the codeword lengths associated with any other uniquely decodable code. Then} Pr$(l(X) \geq l'(X) + c)\leq \frac{1}{2^{c-1}}$
+
+For example, the probability that $l'(X)$ is 5 or more bits shorter than $l(X)$ is less than $\frac{1}{16}$. 
+
+{\bf Proof}
+\begin{eqnarray*}
+\text{Pr}(l(X) \geq l'(X) + c)\\
+=\text{Pr}\left(\lceil \log \frac{1}{p(X)} \geq l'(X) + c \right)\\
+\geq \text{Pr}\left( \log \frac{1}{p(X)} \geq l'(C) + c - 1 \right)\\
+=\text{Pr}\left( p(X) \leq 2^{-l'(X)-c+1}\right)\\
+=\sum_{x:p(x)\leq 2^{-l'(x)-c+1}} p(x)\\
+\leq \sum_{x:p(x)\leq 2^{-l'(x)-c+1}}2^{-l'(x)-(c-1)} \\
+\leq \sum_{x}2^{-l'(x)}2^{-(c-1)}\\
+\leq 2^{-(c-1)}
+\end{eqnarray*}
+Since $\sum 2^{-l'(x)} \leq 1$ by the Kraft inequality.
 
 
 \end{multicols}
