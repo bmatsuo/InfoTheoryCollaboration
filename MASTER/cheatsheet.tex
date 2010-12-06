@@ -23,6 +23,8 @@
 \usepackage{multicol}
 \usepackage{savetrees}
 \usepackage{times}
+\setlength{\parskip}{0cm}
+\setlength{\parindent}{0em}
 
 
 % Begin the actual document content here.
@@ -195,10 +197,8 @@ For any instantaneous code (prefix code), the codeword length $l_1,l_2 \ldots , 
 The expected length L is greater than or equal to the entropy (instant code).
 \end{thm}
 
-\begin{equation}
-L \geq H_D(X) \text{ (equal iff } D^{-l_i} = p_i \text{)}
-\end{equation}
 \begin{eqnarray}
+L \geq H_D(X) \text{ (equal iff } D^{-l_i} = p_i \text{)} \\
 L - H_D(X) = \sum {p_i}{l_i} - \sum {p_i} \log_D \frac {1}{p_i}\\
 = - \sum {p_i} \log_D D^{-l_i} + \sum {p_i} \log_D {p_i} \\
 \text{letting } {r_i} = \frac {D^{-l_i}}{\sum_j D^{-l_j}} \text{ and } c = \sum D^{-l_i} \\
