@@ -50,6 +50,8 @@ D(p||q)&=E_p\log \frac{p(X)}{q(X)}\\
 I(X;Y)&=H(X)-H(X|Y)\\
 &=H(Y)-H(Y|X)\\
 &=H(X)+H(Y)-H(X,Y)\\
+I(X;Y,Z) &= I(X;Z) + I(X;Y|Z) \\
+&= I(X;Y) + I(X;Z|Y)\\
 D(p||q)&\geq 0 \text{ eq iff $p=q$}\\
 I(X;Y)&=D(p(x,y)||p(x)p(y))\\
 	&\geq 0 \text{ eq iff $p(x,y)=p(x)p(y)$}
@@ -64,7 +66,7 @@ Following are chain rules:
 H(X^n)&=\sum_{i=1}^n H(X_i|X^{i-1})\\
 I(X^n;Y)&=\sum_{i=1}^n I(X_i;Y|X^{i-1})\\
 D(p(x,y)||q(x,y))&=D(p(x)||q(x))\\
-&+D(p(y|x)||q(y|x))
+&+D(p(y|x)||q(y|x))\\
 \end{align}
 {\bf Jensen's Inequality:} if $f$ is a convex function, then
 \begin{equation}
