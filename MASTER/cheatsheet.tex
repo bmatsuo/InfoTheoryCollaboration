@@ -30,7 +30,7 @@
 \begin{tiny}
 \begin{multicols}{3}
 
-\section*{Entropy, Relative Entropy and Mutual Information}
+\textbf{\scriptsize Entropy, Relative Entropy and Mutual Information}
 Definitions, alternate expressions, and properties.
 \begin{align}
 \underbrace{H(X)}_\text{entropy}&= -\sum_{x\in X} p(x) \log\ p(x) \label{eq:entropy}\\
@@ -85,7 +85,7 @@ with equality only if $\frac{a_i}{b_i}$ is constant.
 {\bf Inequality.} If $X$ and $X'$ are independent and identically distributed then $Pr(X=X') \geq 2^{-H(X)}$
 
 
-\section*{Channel capacity}
+\textbf{\scriptsize Channel capacity}
 {\bf Channel capacity.} The logarithm of the number of distinguishable inputs is given by $ C= \text{max}_{p(x)} I(X;Y).$
 
 {\bf Common examples} Binary symmetric channel: $C= 1 - H(p)$. Binary erasure channel: $C = 1 - \alpha$. Symmetric channel: $C= \log |\gamma | - H(\text{row of transition matrix})$
@@ -105,7 +105,7 @@ with equality only if $\frac{a_i}{b_i}$ is constant.
 
 
 
-\section*{Other useful laws and properties}
+\textbf{\scriptsize Other useful laws and properties}
 {\bf General Statistical things} Expected value $E(x)=\sum_{i=1}^n x_i p(x_i)$
 
 Variance: $\sigma^2 = E\left[ \left(X-\mu\right)^2\right]$
@@ -126,7 +126,7 @@ Product Rule: $(f\cdot g)' = f' \cdot g + f \cdot g'$
 
 Quotient Rule: \[f(x)=\frac{g(x)}{h(x)}\text{ and }f'(x)=\frac{g'(x)h(x)-g(x)h'(x)}{\left(h(x)\right)^2}\]
 
-%\section*{Channel Capacity Problems}
+%\textbf{\scriptsize Channel Capacity Problems}
 %{\bf Channels with memory have higher capacity} {\it problem} Consider a binary symmetric channel with $Y_{i} = X_{i}\oplus Z_{i}$, where $\oplus$ is mod 2 addition , and $X_{i},Y_{I} \in \{0,1\}$. Suppose that $\{Z_{i}\}$ has constant marginal probabilities Pr$\{Z_{i}=1\} = p = 1-\text{Pr}\{Z_{i}=0\}$, but that $Z_{1}, Z_{2}, \ldots Z_{n}$ are not necessarily independent. Assume that $Z^{n}$ is independent of the input $X^{n}$ Let $C=1-H(p,1-p)$ Show that $\text{max}_{p(x_{1},\ldots,x_{n})}I(X_{1},\ldots,X_{n};Y_{1},\ldots,Y_{n}) \geq nC$
 
 {\it solution} 
@@ -142,7 +142,7 @@ I(X_{1},\ldots,X_{n};Y_{1},\ldots,Y_{n})\\
 if $X_{1},\ldots,X_{n}$ are chosen i.i.d $\sim$ Bern$\left( \frac{1}{2}\right)$. The capacity of the channel with memory over n uses of the channel is $n$
 
 
-\section*{Proof of Shannon Code shortness}
+\textbf{\scriptsize Proof of Shannon Code shortness}
 {\it Let $l(x)$ be the codeword lengths associated with the Shannon code, and let $l'(x)$ be the codeword lengths associated with any other uniquely decodable code. Then} Pr$(l(X) \geq l'(X) + c)\leq \frac{1}{2^{c-1}}$
 
 For example, the probability that $l'(X)$ is 5 or more bits shorter than $l(X)$ is less than $\frac{1}{16}$. 
@@ -167,7 +167,7 @@ X^n &=(X_1,\ldots,X_n) \\
 
 
 %%%%%%%%%%%Begin Data Compression%%%%%%%%
-\section*{Data Compression}
+\textbf{\scriptsize Data Compression}
 Definitions, alternate expressions, and properties.
 \begin{align}
     \underbrace{L(C)}_\text{Exp. Length}&= \sum_{x\in X} p(x)l(x) \label{defn: Exp. Length}\\
@@ -182,7 +182,7 @@ For any instantaneous code (prefix code), the codeword length $l_1,l_2 \ldots , 
 \sum_i D^{-li}  \leq 1.
 \end{equation}
 
-\section*{Optimal Codes}
+\textbf{\scriptsize Optimal Codes}
 \begin{align}
 \underbrace{L}_\text{minimize}&= \sum p(x)l(x) \label{defn: minimize}\\
 \underbrace{J}_\text{Lagrange min.}&= \sum {p_i}{l_i} + \gamma \sum D^{-l_i} \label{defn: lagrange}
@@ -209,7 +209,7 @@ L - H = \sum {p_i} \log_D \frac {p_i}{r_i} - \log_D C \\
 
 %%%%%%%%%%%Begin Optimal Code Lengths%%%%%%%%
 
-\section*{Bounds on Optimal Code Length}
+\textbf{\scriptsize Bounds on Optimal Code Length}
 \begin{eqnarray*}
 H(X) \leq L < H(X) + 1
 \end{eqnarray*}
@@ -258,7 +258,7 @@ El(x) = \sum_x p(x) \lceil\log \frac{1}{q(x)} \\
 
 %%%%%%%%%%%Kraft Inequality for Uniquely Decodable Codes%%%%%%%%
 
-\section*{Kraft Inequality for Uniquely Decodable Codes}
+\textbf{\scriptsize Kraft Inequality for Uniquely Decodable Codes}
 \begin{thm}{McMillan} \label{thm: mcmillan}
 The codeword lengths of any uniquely decodable D-ary code must satisfy the Kraft Inequality (seen many times above) 
 \end{thm}
@@ -294,7 +294,7 @@ $\sum_{i=1}^{\infty}D^{-li} = \lim_{N\rightarrow\infty}\sum_{i=1}^{N}D^{-li} \le
 
 
 %%%%%%%%%%%%%%%%Huffman Codes%%%%%%%%%%%%%%%%%
-\section*{Huffman Coding and Optimality}
+\textbf{\scriptsize Huffman Coding and Optimality}
 Just remember 20 questions and expand the tree down one side. "Is X equal to 3?", etc...
 \begin{lemma}{Huffman Properties}\label{huffman}
 \begin{enumerate}
@@ -314,7 +314,7 @@ L(C_m^{'}) - L(C_m) = \sum {p_i}{l_i^{'}} - \sum {p_i}{l_i} \\
 But ${p_j} - {p_k} > 0$, andn since ${C_m}$ is optimal, $L(C_m^{'}) - L(C_m) \geq 0$.
 Hence, we must have ${l_k} \geq {l_j}$. Thus, ${C_m}$ itself satisfies property 1(above).
 \end{proof}
-\section*{Huffman reductions}
+\textbf{\scriptsize Huffman reductions}
 Calculation of the average length $\sum_i {p_i^{'}}{l_i^{'}}$ shows that \\*
 $L(p) = L^{*}(p^{'})+p_{m-1} + p_m\\$
 We can construct ${p^{'}}$ by merging the codewords for the two lowest probability symbols
@@ -338,7 +338,7 @@ $L(C^{*}) \leq L(C^{'})$
 
 
 %%%%%%%%%%%%%%%Begin Shannon-Fano-Elias Coding%%%%%%%%%%
-\section*{Shannon-Fano-Elias Coding}
+\textbf{\scriptsize Shannon-Fano-Elias Coding}
 The CDF for ${F(x)}$ is defined as \\* $F(x) = \sum_{a\leq x}p(a)$\\
 Consider the modified CDF: \\* $\bar{ F(x)} = \sum_{a < x}p(a) + \frac{1}{2} p(x)$\\
 Using the first $l(x)$ bits of $\bar{F}(x)$ as a code for $x$. By definition of rounding off, we have \\*
@@ -371,7 +371,7 @@ $E sgn(l(X) - l^{'}(X) - 1) \leq 0$, where $l(x) = \lceil \log \frac {1}{p(x)} \
 \end{corollary}
 %%%%%%%%%%%%%%%End Shannon-Fano-Elias Coding%%%%%%%%%%
 
-\section*{Shannon coding example}
+\textbf{\scriptsize Shannon coding example}
 $l(x)= \lceil \log(\frac{1}{p(x)}) \rceil + 1$
 \[
 \begin{pmatrix}
@@ -386,7 +386,7 @@ $l(x)= \lceil \log(\frac{1}{p(x)}) \rceil + 1$
 
 
 %%%% SAM's Additions%%%%%%
-\section*{Chapter 5 Problems}
+\textbf{\scriptsize Chapter 5 Problems}
 \textit{Huffman Dummy Variables}
 Use $1+k(D-1)$ where $D$ is the encoded base, $k$ is the smallest constant such that the expression is $\geq$ the number of variables you are encoding (say $V$). Add $1+k(D-1) - V$ dummy variables.
 
@@ -461,7 +461,7 @@ Which has Huffman coding:
 	\item[c.] We note that in the first code, the symbol with probability $\frac{1}{4}$ is encoded with $3$ bits, whereas the Shannon code length is $\lceil log(\frac{1}{p(x)}) \rceil = 2$ bits. Thus, there are optimal codes with codeword lengths for some symbols that exceed the Shannon code length.
 \end{itemize}
 
-\section*{7.3 Channels with mevory have higher capacity.}
+\textbf{\scriptsize 7.3 Channels with mevory have higher capacity.}
     $X_i, Y_i \in \{0,1\}$.
     $Y_i = X_i \oplus Z_i$.
     $Z_i = 1$ w/ prob $p$, 0 otherwise.
@@ -485,7 +485,7 @@ The capacity of the channel with memory of $n$ uses of the channel is
 \end{eqnarray*}
 So channels which have memory have capacity at least as high a capacity as the channel without memory.
 
-\section*{7.4 Channel capacity.}
+\textbf{\scriptsize 7.4 Channel capacity.}
 
 Consider the channel $Y=X+Z\ (\bmod 11)$, where $X \in \setbrace{0,\dots,10}$ and $Z$, independent of $X$, is distributed as
 
@@ -531,7 +531,7 @@ The uniform distibution
 \end{equation*}
 See the end of part (a) for details.
 
-\section*{7.7 Cascade of binary symmetric channels.}
+\textbf{\scriptsize 7.7 Cascade of binary symmetric channels.}
 
 Consider the process defined by $n$ identical independent binary symmetric
 channels,
@@ -563,7 +563,7 @@ A^n &= PD^nP^{-1} \\
         p_n & 1 - p_n \end{pmatrix} 
 \end{align*} , where  $p_n = \frac{1}{2}(1 - (1-2p)^n)$.
 
-\section*{7.11 Time-varying channels.}
+\textbf{\scriptsize 7.11 Time-varying channels.}
 Consider a time-varying discrete memoryless channel.
 
 Let $Y_1,\dots,Y_n$ be conditionally independent given $X_1,\dots,X_n$ with distribution $p(\bf{x}, \bf{y}) = \prod_{i=1}^{n}p_i(y_i|x_i)$. Let $\bf{X} = (X_1,\dots,X_n)$ and $Y=(Y_1,\dots,Y_n)$. Find $\max_{p(\bf{x})} I(\bf{X};\bf{Y})$.
@@ -588,7 +588,7 @@ Equality holds if $X_i,\dots,X_n$ are $\sim_{i.i.d.} Bern(\frac{1}{2})$. Hence
     \max_{p(x)} I(X^n; Y^n) = \sum_{i=1}^{n}(1-H(p)).
 \end{equation*}
 
-\section*{7.13 Erasures and errors in a binary channel.}
+\textbf{\scriptsize 7.13 Erasures and errors in a binary channel.}
 Consider a channel with binary inputs that has both erasures and errors. Let the probability of error be $\varepsilon$ and the probability of erasure be $\alpha$ (there is a picture).
 
 \textbf{(a)} Find the capacity of the channel.
@@ -620,7 +620,7 @@ Setting $\alpha = 0$ means $C=1-H(\varepsilon)$.
 
 \textbf{(c)} When $\varepsilon = 0$ (binary erasure channel), $C=1-\alpha$.
 
-\section*{7.20 Channel with two independent looks at $Y$.}
+\textbf{\scriptsize 7.20 Channel with two independent looks at $Y$.}
 
 Let $Y_1$ and $Y_2$ be conditionally independent and conditionally identically distributed given $X$.
 
