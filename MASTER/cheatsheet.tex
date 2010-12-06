@@ -60,6 +60,9 @@ H(p)&\text{ is concave in $p$}\\
 H(X)&=E_p \log \frac{1}{p(X)}\\
 H(X,Y)&=E_p\log \frac{1}{p(x,y)}\\
 H(X|Y)&=E_p\log \frac{p(X,Y)}{p(X)p(Y)}\\
+H(X,Y|Z)&= H(X|Z) + H(Y|X,Z) \\
+H(X_1, \cdots, X_n) &= H(X_1) + H(X_2| X_1) + \cdots + H(X_n | X_{n-1}, \cdots, X_1) \\
+H(X,Y)&=H(X) + H(Y|X) \\
 D(p||q)&=E_p\log \frac{p(X)}{q(X)}\\
 I(X;Y)&=H(X)-H(X|Y)\\
 &=H(Y)-H(Y|X)\\
