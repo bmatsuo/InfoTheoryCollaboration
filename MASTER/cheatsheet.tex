@@ -40,13 +40,13 @@
 
 
 
-\fontsize{5.75pt}{5pt}
+\fontsize{5.99999pt}{5pt}
 
 \textbf{\scriptsize Entropy, Relative Entropy and Mutual Information}
 Definitions, alternate expressions, and properties.
 \begin{align}
 \chi &= \text{State space } (X_i \in \chi)\\
-X^n &=(X_1,\ldots,X_n)
+X^n &=(X_1,\ldots,X_n) \\
 \underbrace{H(X)}_\text{entropy}&= -\sum_{x\in X} p(x) \log\ p(x) \label{eq:entropy}\\
 H(X)& \geq 0\\
 H_b(X)&= (\log_b a)H_a(X)\\
@@ -80,8 +80,7 @@ Following are chain rules:
 \begin{align}
 H(X^n)&=\sum_{i=1}^n H(X_i|X^{i-1})\\
 I(X^n;Y)&=\sum_{i=1}^n I(X_i;Y|X^{i-1})\\
-D(p(x,y)||q(x,y))&=D(p(x)||q(x))\\
-&+D(p(y|x)||q(y|x))
+D(p(x,y)||q(x,y))&=D(p(x)||q(x)) + D(p(y|x)||q(y|x))
 \end{align}
 {\bf Jensen's Inequality:} if $f$ is a convex function, then
 \begin{equation}
@@ -123,9 +122,12 @@ with equality only if $\frac{a_i}{b_i}$ is constant.
 
 
 \textbf{\scriptsize Other useful laws and properties}
-{\bf General Statistical things} Expected value $E(x)=\sum_{i=1}^n x_i p(x_i)$
 
-Variance: $\sigma^2 = E\left[ \left(X-\mu\right)^2\right]$
+{\bf General Statistical things} 
+
+Expected value $\E[X]=\sum_{i=1}^n x_i p(x_i)$
+
+Variance: $\sigma^2 = Var[X] = \E [ (X-\mu)^2]$
 
 {\bf Law of Large Numbers} Weak law:
 \begin{eqnarray*}
@@ -146,17 +148,17 @@ Quotient Rule: \[f(x)=\frac{g(x)}{h(x)}\text{ and }f'(x)=\frac{g'(x)h(x)-g(x)h'(
 %\textbf{\scriptsize Channel Capacity Problems}
 %{\bf Channels with memory have higher capacity} {\it problem} Consider a binary symmetric channel with $Y_{i} = X_{i}\oplus Z_{i}$, where $\oplus$ is mod 2 addition , and $X_{i},Y_{I} \in \{0,1\}$. Suppose that $\{Z_{i}\}$ has constant marginal probabilities Pr$\{Z_{i}=1\} = p = 1-\text{Pr}\{Z_{i}=0\}$, but that $Z_{1}, Z_{2}, \ldots Z_{n}$ are not necessarily independent. Assume that $Z^{n}$ is independent of the input $X^{n}$ Let $C=1-H(p,1-p)$ Show that $\text{max}_{p(x_{1},\ldots,x_{n})}I(X_{1},\ldots,X_{n};Y_{1},\ldots,Y_{n}) \geq nC$
 
-{\it solution} 
-\begin{eqnarray*}
-I(X_{1},\ldots,X_{n};Y_{1},\ldots,Y_{n})\\
-= H(X_{1},\ldots,X_{n})-H(X_{1},\ldots,X_{n}|Y_{1},\ldots,Y_{n})\\
-= H(X_{1},\ldots,X_{n}) - H(Z_{1},\ldots,Z_{n}|Y_{1},\ldots,Y_{n})\\
-\geq H(X_{1},\ldots,X_{n}) - H(Z_{1},\ldots,Z_{n})\\
-\geq H(X_{1},\ldots,X_{n}) - \sum H(Z_{i})\\
-=H(X_{1},\ldots,X_{n}) - nH(p)\\
-=n - nH(p)
-\end{eqnarray*}
-if $X_{1},\ldots,X_{n}$ are chosen i.i.d $\sim$ Bern$\left( \frac{1}{2}\right)$. The capacity of the channel with memory over n uses of the channel is $n$
+%{\it solution} 
+%\begin{eqnarray*}
+%I(X_{1},\ldots,X_{n};Y_{1},\ldots,Y_{n})\\
+%= H(X_{1},\ldots,X_{n})-H(X_{1},\ldots,X_{n}|Y_{1},\ldots,Y_{n})\\
+%= H(X_{1},\ldots,X_{n}) - H(Z_{1},\ldots,Z_{n}|Y_{1},\ldots,Y_{n})\\
+%\geq H(X_{1},\ldots,X_{n}) - H(Z_{1},\ldots,Z_{n})\\
+%\geq H(X_{1},\ldots,X_{n}) - \sum H(Z_{i})\\
+%=H(X_{1},\ldots,X_{n}) - nH(p)\\
+%=n - nH(p)
+%\end{eqnarray*}
+%if $X_{1},\ldots,X_{n}$ are chosen i.i.d $\sim$ Bern$\left( \frac{1}{2}\right)$. The capacity of the channel with memory over n uses of the channel is $n$
 
 
 \textbf{\scriptsize Proof of Shannon Code shortness}
@@ -203,18 +205,18 @@ Minimize $L = \sum p(x) l(x)$ subject to constraint $D^{-l_i} \leq 1$. So minimi
 &\Rightarrow& l_i^* \geq - \log_D p_i \text{ \bigg(eq when $\gamma$ equals $\frac{1}{\log_e D}$\bigg)}
 \end{align*}
 
-\begin{thm}{Expected Length and Entropy}\label{thm: codewordentropy}
+\begin{thm}[Expected Length and Entropy]\label{thm: codewordentropy}
 The expected length L is greater than or equal to the entropy (instant code).
+\[L \geq H_D(X) \]
+equal iff $D^{-l_i} = p_i )$.
 \end{thm}
-
-\begin{eqnarray}
-L \geq H_D(X) \text{ (equal iff } D^{-l_i} = p_i \text{)} \\
-L - H_D(X) = \sum {p_i}{l_i} - \sum {p_i} \log_D \frac {1}{p_i}\\
-= - \sum {p_i} \log_D D^{-l_i} + \sum {p_i} \log_D {p_i} \\
-\text{letting } {r_i} = \frac {D^{-l_i}}{\sum_j D^{-l_j}} \text{ and } c = \sum D^{-l_i} \\
-L - H = \sum {p_i} \log_D \frac {p_i}{r_i} - \log_D C \\
-= D(p||r) + \log_D \frac {1}{c} \geq 0 
-\end{eqnarray}
+\begin{proof} Let 
+    $c = \sum D^{-l_i}$ and $r_i = \frac {D^{-l_i}}{\sum D^{-l_j}} = \frac{D^{-l_i}}{c}$. Then
+\begin{align*}
+L - H_D(X) &= \sum {p_i}{l_i} + \sum {p_i} \log_D p_i = \sum {p_i} \log_D {p_i} - \sum {p_i} \log_D D^{-l_i} \\
+&= \sum {p_i} \log_D \frac {p_i}{r_i} - \log_D c = D(p||r) + \log_D \frac {1}{c} \geq 0 
+\end{align*}
+\end{proof}
 
 %%%%%%%%%%%End Data Compression%%%%%%%%
 
@@ -223,46 +225,46 @@ L - H = \sum {p_i} \log_D \frac {p_i}{r_i} - \log_D C \\
 
 \textbf{\scriptsize Bounds on Optimal Code Length}
 \begin{eqnarray*}
-H(X) \leq L < H(X) + 1
+    H(X) \leq L < H(X) + 1
 \end{eqnarray*}
-After finding the D-adic variable r from before. \\*
-$L-H_D = D(p||r) - \log $($\sum D^{-l_i}$) \\
-${l_i} = \lceil{\log_D \frac {1}{p_i}} \rceil$ \\
-$\sum D^{- \lceil \log \frac {1}{p_i}\rceil}\leq\sum D^{- \log\frac{1}{p_i}}=\sum {p_i}=1$ 
-\begin{thm}{Optimal Codeword Lengths} \label{thm:optimum codewords}
-Let ${l_1^{*}}$, ${l_2^{*}}$ \ldots , ${l_m^{*}}$be optimal codeword lengths for a
-source disribution p and a D-ary alphabet, and let ${L^{*}}$ be the associated
-expected length of an optimal code (${L^{*}}=\sum{p_i}{l_i^{*}}$ ). Then
-${H_D(X)}\leq L^{*}<{H_D(X)}+1$ 
-\end{thm}
-Define ${L_n}$ to be the expected codeword length per input symbol, that is,
-if ${l(x_1,x_2, \ldots ,x_n)}$ is the length of the binary codeword associated with
-${(x_1,x_2, \ldots ,x_n)}$, then \newline
-\begin{eqnarray*}
-{L_n} = \frac {1}{n}\sum{p(x_1,x_2, \ldots ,x_n)}{l(x_1,x_2, \ldots ,x_n})\\
-= \frac{1}{n}El(x_1,x_2, \ldots ,x_n)\\
-\text{Now apply the bounds}\\
-{H(x^{n})} \leq El(x_1,x_2, \ldots ,x_n) < {H(x^{n})} + 1 \\
-\text{Since } {x^{n}} \text{is i.i.d,} {H(X)} \leq {L_n} < {H(X)} + \frac{1}{n} \\*
-\end{eqnarray*}
-We can now get arbitrarily close to the entropy by increasing n, \newline
-${H(x^{n})} \leq El(x_1,x_2, \ldots ,x_n) < {H(x^{n})} + 1$ \\*
-$\frac{H(x^{n})}{n}\leq {L_n}<\frac{H(x^{n})}{n}+\frac{1}{n}$ \\*
-If the stochastic process is stationary,$\frac{H(x^{n})}{n}$ tends to the entropy rate \newline
-and the expected length tends to the entropy as n goes to infinity \\
-Note: Shannon Code Assignment $l(x) = \lceil \log \frac {1}{q(x)} \rceil$
-\begin{thm}[Wrong Code] \label{thm:wrongcode}
-The expected length under ${p(x)}$ of the code assignment ${l(x)}=\lceil\log\frac{1}{q(x)}\rceil$ satisfies 
-$H(p)+D(p||q) \leq E_pl(X)<H(p)+D(p||q)+1$
+After finding the D-adic variable r from before.
+\[ L-H_D = D(p||r) - \log (\sum D^{-l_i}) \]
+\[ {l_i} = \lceil{\log_D \frac {1}{p_i}} \rceil \]
+\[ \sum D^{- \lceil \log \frac {1}{p_i}\rceil}\leq\sum D^{- \log\frac{1}{p_i}}=\sum {p_i}=1 \] 
+\begin{thm}[Optimal Codeword Lengths] \label{thm:optimum codewords}
+    Let ${l_1^{*}}$, ${l_2^{*}}$ \ldots , ${l_m^{*}}$be optimal codeword lengths for a
+    source disribution p and a D-ary alphabet, and let ${L^{*}}$ be the associated
+    expected length of an optimal code (${L^{*}}=\sum{p_i}{l_i^{*}}$ ). Then
+    ${H_D(X)}\leq L^{*}<{H_D(X)}+1$ 
 \end{thm}
 \begin{proof}
-    \begin{eqnarray}
-El(x) = \sum_x p(x) \lceil\log \frac{1}{q(x)} \\
-< \sum_x p(x) (\log \frac{1}{q(x)} + 1) \\
-= \sum_x p(x) \log \frac{p(x)}{q(x)} \frac{1}{p(x)} + 1 \\
-= \sum_x p(x) \log \frac{p(x)}{q(x)} + \sum_x p(x) \log \frac{1}{p(x)} + 1 \\
-= D(p||q) + H(p) + 1
-\end{eqnarray}
+    Define ${L_n}$ to be the expected codeword length per input symbol, that is,
+    if ${l(x_1,x_2, \ldots ,x_n)}$ is the length of the binary codeword associated with
+    ${(x_1,x_2, \ldots ,x_n)}$, then 
+    \begin{eqnarray*}
+        {L_n} = \frac {1}{n}\sum{p(x_1,x_2, \ldots ,x_n)}{l(x_1,x_2, \ldots ,x_n})\\
+        = \frac{1}{n}El(x_1,x_2, \ldots ,x_n)\\
+        \text{Now apply the bounds}\\
+        {H(x^{n})} \leq El(x_1,x_2, \ldots ,x_n) < {H(x^{n})} + 1 \\
+        \text{Since } {x^{n}} \text{is i.i.d,} {H(X)} \leq {L_n} < {H(X)} + \frac{1}{n} \\*
+    \end{eqnarray*}
+    We can now get arbitrarily close to the entropy by increasing n, 
+    \[{H(x^{n})} \leq El(x_1,x_2, \ldots ,x_n) < {H(x^{n})} + 1\]
+    \[\frac{H(x^{n})}{n} \leq {L_n} < \frac{H(x^{n})}{n}+\frac{1}{n}\]
+    If the stochastic process is stationary,$\frac{H(x^{n})}{n}$ tends to the entropy rate 
+    and the expected length tends to the entropy as n goes to infinity \end{proof}
+    Note: Shannon Code Assignment $l(x) = \lceil \log \frac {1}{q(x)} \rceil$
+    \begin{thm}[Wrong Code] \label{thm:wrongcode}
+        The expected length under ${p(x)}$ of the code assignment ${l(x)}=\lceil\log\frac{1}{q(x)}\rceil$ satisfies 
+        $H(p)+D(p||q) \leq E_pl(X)<H(p)+D(p||q)+1$
+    \end{thm}
+    \begin{proof}
+        \begin{align*}
+            El(x) &= \sum_x p(x) \lceil\log \frac{1}{q(x)} \\
+            &< \sum_x p(x) (\log \frac{1}{q(x)} + 1) = \sum_x p(x) \log \frac{p(x)}{q(x)} \frac{1}{p(x)} + 1 \\
+&= \sum_x p(x) \log \frac{p(x)}{q(x)} + \sum_x p(x) \log \frac{1}{p(x)} + 1 \\
+&= D(p||q) + H(p) + 1
+\end{align*}
 \end{proof}
 
 %%%%%%%%%%%End Optimal Code Lengths%%%%%%%%
@@ -326,20 +328,20 @@ But ${p_j} - {p_k} > 0$, andn since ${C_m}$ is optimal, $L(C_m^{'}) - L(C_m) \ge
 Hence, we must have ${l_k} \geq {l_j}$. Thus, ${C_m}$ itself satisfies property 1(above).
 \end{proof}
 \textbf{\scriptsize Huffman reductions}
-Calculation of the average length $\sum_i {p_i^{'}}{l_i^{'}}$ shows that \\*
-$L(p) = L^{*}(p^{'})+p_{m-1} + p_m\\$
-We can construct ${p^{'}}$ by merging the codewords for the two lowest probability symbols
-${m-1} \text{and} {m}$.  The new code for ${p^{'}}$ has average length
-\begin{eqnarray}
-L(p^{'}) = \sum_{i=1}^{m-2} p_i l_i + p_{m-1}(l_{m-1} -1 )+p_{m}(l_{m} -1)\\
-=\sum_{i=1}^{m} {p_i}{l_i} - {p_{m-1}} - {p_{m}}\\
-=L^{*}(p) - {p_{m-1}} - {p_{m}}\\
-\text{from this we obtain} \\*
-L(p^{'}) + L(p) = L^{*}(p^{'}) + L^{*}(p)\\
-(L(p^{'}) -  L^{*}(p^{'})) + (L(p) - L^{*}(p)) = 0\\
-L(p^{'}) - L^{*}(p^{'}) \geq 0 \\
-L(p) = L^{*}(p)
-\end{eqnarray}
+Calculation of the average length $\sum_i {p_i'}{l_i'}$ shows that \\*
+$L(p) = L^{*}(p')+p_{m-1} + p_m\\$
+We can construct ${p'}$ by merging the codewords for the two lowest probability symbols
+${m-1} \text{and} {m}$.  The new code for ${p'}$ has average length
+\begin{align*}
+L(p') &= \sum_{i=1}^{m-2} p_i l_i + p_{m-1}(l_{m-1} -1 )+p_{m}(l_{m} -1)\\
+&=\sum_{i=1}^{m} {p_i}{l_i} - {p_{m-1}} - {p_{m}}\\
+&=L^{*}(p) - {p_{m-1}} - {p_{m}}\\
+\text{from this we obtain:}& \\*
+L(p') + L(p) &= L^{*}(p') + L^{*}(p)\\
+(L(p') -  L^{*}(p')) + (L(p) - L^{*}(p)) &= 0\\
+L(p') - L^{*}(p') &\geq 0 \\
+L(p) &\geq L^{*}(p)
+\end{align*}
 \begin{thm}[Optimal Huff] \label{thm: opthuff}
 Huffamn coding is optimal; that is, if $C^{*}$ is a huffman code and $C^{'}$ is any other uniquely decodable code,
 $L(C^{*}) \leq L(C^{'})$
@@ -360,20 +362,19 @@ L= \sum_x p(x) (\lceil \log \frac {1}{p(x)} \rceil + 1) < H(X) + 2
 \end{eqnarray}
 
 \begin{thm}[Dyadic Stuff] \label{thm: dyadic}
-For a dyadic probability mass function $p(x)$, let $l(x) = \log \frac{1}{p(x)}$ be the word lengths of the binary Shannon code for the source, and let $l^{'}(x)$ be the lengths of any other uniquely decodable code for the source. Then 
-\[Pr(l(X) < l^{'}(X)) \geq Pr(l(X) > l^{'}(X)),\] 
-with equality iff $l^{'}(x) = l(x)$ for all $x$. The code length is thus uniquely competitively optimal.
+For a dyadic probability mass function $p(x)$, let $l(x) = \log \frac{1}{p(x)}$ be the word lengths of the binary Shannon code for the source, and let $l'(x)$ be the lengths of any other uniquely decodable code for the source. Then 
+\[Pr(l(X) < l'(X)) \geq Pr(l(X) > l'(X)),\] 
+with equality iff $l'(x) = l(x)$ for all $x$. The code length is thus uniquely competitively optimal.
 \end{thm}
 \begin{proof}
-\begin{eqnarray}
-Pr(l^{'}(X) < l(X)) - Pr(l^{'}(X) > l(X)) = \\
-\sum_{x:l^{'}(x)<l(x)} p(x) - \sum_{x:l^{'}(x)>l(x)} p(x)\\
-=\sum_x p(x)sgn(l(x) - l^{'}(x))\\
-=E sgn(l(X) - l^{'}(X)) \\
-\leq \sum_x 2^{-l(x)} (2^{l(x)-l^{'}(x)} - 1)\\
-=\sum_x 2^{-l^{'}(x)} - \sum_x 2^{-l(x)} \\
-=\sum_x 2^{l^{'}(x)} - 1 \leq 1-1 = 0 
-\end{eqnarray}
+\begin{align*}
+Pr(l'(X) < l(X)) - Pr(l'(X) > l(X)) &= \sum_{x:l'(x)<l(x)} p(x) - \sum_{x:l'(x)>l(x)} p(x)\\
+&=\sum_x p(x)sgn(l(x) - l'(x)) \\
+&= \E sgn(l(X) - l'(X)) \\
+&\leq \sum_x 2^{-l(x)} (2^{l(x)-l'(x)} - 1)\\
+&=\sum_x 2^{-l'(x)} - \sum_x 2^{-l(x)} \\
+&=\sum_x 2^{l'(x)} - 1 \leq 1-1 = 0 
+\end{align*}
 \end{proof}
 \begin{corollary}For nondyadic probability mass functions,
 $E sgn(l(X) - l^{'}(X) - 1) \leq 0$, where $l(x) = \lceil \log \frac {1}{p(x)} \rceil$ and $l^{'}(x)$ is any other code for the source.
@@ -477,15 +478,15 @@ Which has Huffman coding:
     $Z_i$ are not assumed independent of one another, but $Z^n$ is independent of $X^n$.
 
 \begin{align}
-    I(X^n;Y^n) &= H(X^n) - H(X^n|Y^n) &=& H(X^n) - H(Z^n|Y^n) &\ge H(X^n) - H(Z^n) \nonumber\\
-    &\ge H(X^n) - \sum H(Z_i) &=& H(X^n) - nH(p) &= n - nH(p) \nonumber
+    I(X^n;Y^n) &= H(X^n) - H(X^n|Y^n) = H(X^n) - H(Z^n|Y^n) &\ge H(X^n) - H(Z^n) \nonumber\\
+    &\ge H(X^n) - \sum H(Z_i) = H(X^n) - nH(p) &= n - nH(p) \nonumber
 \end{align}
 $I(X^n;Y^n) = n - nH(p)$ if $X_i \sim_{i.i.d} Bernouli\big(\frac{1}{2}\big)$.
 The capacity of the channel with memory of $n$ uses of the channel is
 \begin{align*}
-    nC^{(n)} &= \max_{p(x^n)} I(X^n; Y^n) \ge I(X^n;Y^n)_{p(x^n)=Bern(\frac{1}{2})} \\
-    &\ge n ( 1 - H(p)) \text{ (from the MI result.)} \\
-    &\ge nC
+    nC^{(n)} = \max_{p(x^n)} I(X^n; Y^n) 
+        \ge I(X^n;Y^n)\mid_{p(x^n) \sim Bern(\frac{1}{2})} 
+        \ge n ( 1 - H(p)) \ge nC
 \end{align*}
 So channels which have memory have capacity at least as high a capacity as the channel without memory.
 
@@ -573,16 +574,15 @@ Let $Y_1,\dots,Y_n$ be conditionally independent given $X_1,\dots,X_n$ with dist
 
 Using the same chain of inequalities as in the proof of the converse to the chanel coding theorem. That is,
 \begin{eqnarray*}
-    I(X^n;Y^n) &=& H(Y^n) - H(Y^n|X^n) \\ 
-        &=& H(Y^n) - H(Y_i | Y^{i-1}, X^n)  \\
+    I(X^n;Y^n) &=& H(Y^n) - H(Y^n|X^n)  = H(Y^n) - H(Y_i | Y^{i-1}, X^n)  \\
         &=& H(Y^n) - \sum_{i=1}{n} H(Y_i | X_i)
 \end{eqnarray*}
 
 Since by the definition of the channel, $Y_i$ depends only on $X_i$ and is conditionally independent of everything else. Continuing the series of inequalities, we have
 
 \begin{eqnarray*}
-    I(X^n;Y^n) &=& H(Y^n) - \sum_{i=1}{n} H(Y_i | X_i) \\
-    &\le& \sum_{i=1}^{n} H(Y_i) - \sum_{i=1}^{n}H(Y_i | X_i) \\ 
+    I(X^n;Y^n) &=& H(Y^n) - \sum_{i=1}{n} H(Y_i | X_i) 
+    \le \sum_{i=1}^{n} H(Y_i) - \sum_{i=1}^{n}H(Y_i | X_i) \\ 
     &\le& \sum_{i=1}^{n} (1-H(p)),
 \end{eqnarray*}
 
