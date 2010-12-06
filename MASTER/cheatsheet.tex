@@ -206,8 +206,7 @@ L - H_D(X) = \sum {p_i}{l_i} - \sum {p_i} \log_D \frac {1}{p_i}\\
 = - \sum {p_i} \log_D D^{-l_i} + \sum {p_i} \log_D {p_i} \\
 \text{letting } {r_i} = \frac {D^{-l_i}}{\sum_j D^{-l_j}} \text{ and } c = \sum D^{-l_i} \\
 L - H = \sum {p_i} \log_D \frac {p_i}{r_i} - \log_D C \\
-= D(p||r) + \log_D \frac {1}{c} \\
-\geq 0 
+= D(p||r) + \log_D \frac {1}{c} \geq 0 
 \end{eqnarray}
 
 %%%%%%%%%%%End Data Compression%%%%%%%%
@@ -315,7 +314,7 @@ Then,
 \begin{eqnarray}
 L(C_m^{'}) - L(C_m) = \sum {p_i}{l_i^{'}} - \sum {p_i}{l_i} \\
 ={p_j}{l_k}+{p_k}{l_j} - {p_j}{l_j} - {p_k}{l_k}\\
-=({p_j}-{p_k})({l_k}-{l_j})\\
+=({p_j}-{p_k})({l_k}-{l_j})
 \end{eqnarray}
 But ${p_j} - {p_k} > 0$, andn since ${C_m}$ is optimal, $L(C_m^{'}) - L(C_m) \geq 0$.
 Hence, we must have ${l_k} \geq {l_j}$. Thus, ${C_m}$ itself satisfies property 1(above).
@@ -368,8 +367,7 @@ Pr(l^{'}(X) < l(X)) - Pr(l^{'}(X) > l(X)) = \\
 =E sgn(l(X) - l^{'}(X)) \\
 \leq \sum_x 2^{-l(x)} (2^{l(x)-l^{'}(x)} - 1)\\
 =\sum_x 2^{-l^{'}(x)} - \sum_x 2^{-l(x)} \\
-=\sum_x 2^{l^{'}(x)} - 1 \\
-\leq 1-1 = 0 \\
+=\sum_x 2^{l^{'}(x)} - 1 \leq 1-1 = 0 
 \end{eqnarray}
 \end{proof}
 \begin{corollary}For nondyadic probability mass functions,
