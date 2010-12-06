@@ -234,7 +234,7 @@ The expected length under ${p(x)}$ of the code assignment ${l(x)}=\lceil\log\fra
 $H(p)+D(p||q) \leq E_pl(X)<H(p)+D(p||q)+1$ \\
 Proof: 
 \begin{eqnarray}
-El(x) = \sum_x p(x) \lceil\log \frac{1}{q(x)} \\
+El(x) = \sum_x p(x) \lceil\log \frac{1}{q(x)}\rceil \\
 < \sum_x p(x) (\log \frac{1}{q(x)} + 1) \\
 = \sum_x p(x) \log \frac{p(x)}{q(x)} \frac{1}{p(x)} + 1 \\
 = \sum_x p(x) \log \frac{p(x)}{q(x)} + \sum_x p(x) \log \frac{1}{p(x)} + 1 \\
