@@ -30,7 +30,7 @@
 \begin{tiny}
 \begin{multicols}{3}
 
-\section*{Entropy, Relative Entropy and Mutual Information}
+    \textbf{\begin{small}Entropy, Relative Entropy and Mutual Information\end{small}}
 Definitions, alternate expressions, and properties.
 \begin{align}
 \underbrace{H(X)}_\text{entropy}&= -\sum_{x\in X} p(x) \log\ p(x) \label{eq:entropy}\\
@@ -183,10 +183,13 @@ For any instantaneous code (prefix code), the codeword length $l_1,l_2 \ldots , 
 \end{equation}
 
 \section*{Optimal Codes}
-\begin{align}
-\underbrace{L}_\text{minimize}&= \sum p(x)l(x) \label{defn: minimize}\\
-\underbrace{J}_\text{Lagrange min.}&= \sum {p_i}{l_i} + \gamma \sum D^{-l_i} \label{defn: lagrange}
-\end{align}
+Minimize $L = \sum p(x) l(x)$ subject to constraint $D^{-l_i} \leq 1$. So minimize the following equation w.r.t. $l_i$,
+\begin{align*}
+\underbrace{J}_\text{Lagrange min.} &=& \sum {p_i}{l_i} + \gamma \sum D^{-l_i} \label{defn: lagrange} \\
+\bigg(\frac{\partial J}{\partial l_i} = 0\bigg) &\Rightarrow& \bigg(D^{-l_i} = \frac{p_i}{\gamma \log_e D}\bigg) \\
+&\Rightarrow& \gamma \ge \frac{1}{\log_e D} \text{ (plug into Kraft ineq.)} \\
+&\Rightarrow& l_i^* \geq - \log_D p_i \text{ \bigg(eq when $\gamma$ equals $\frac{1}{\log_e D}$\bigg)}
+\end{align*}
 
 \begin{thm}{Expected Length and Entropy}\label{thm: codewordentropy}
 The expected length L is greater than or equal to the entropy (instant code).
