@@ -17,7 +17,8 @@
 \newtheorem{thm}{Theorem}[section]
 \newtheorem{lemma}{Lemma}[section]
 \newtheorem{corollary}{Corollary}[section]
-\newtheorem{question}{Question}[section] \newtheorem{proposition}{Proposition}[section] 
+\newtheorem{question}{Question}[section]
+\newtheorem{proposition}{Proposition}[section] 
 \usepackage{qtree}
 \usepackage{multicol}
 \usepackage{savetrees}
@@ -79,7 +80,7 @@ with equality only if $\frac{a_i}{b_i}$ is constant.
 
 {\bf Sufficient Statistic:} $T(X)$ is sufficient relative to $\{f_\theta (x)\}$ iff $I(\theta;X)=I(\theta;T(X))$ for all distributions on $\theta$.
 
-{\bf Fano's inequality:} Let $P_e=Pr\{\hat{X}(Y)\neq X\}$. Then $H(P_e)+P_e \log |\chi| \geq H(X|Y)$.
+{\bf Fano's inequality:} Let $P_e=Pr\{\hat{X}(Y)\neq X\}$. Then $H(P_e)+P_e \log |\chi| \geq H(X|Y)$, more general: $P_e \geq \frac{H(X|Y)-1}{log|X|}$.
 
 {\bf Inequality.} If $X$ and $X'$ are independent and identically distributed then $Pr(X=X') \geq 2^{-H(X)}$
 
@@ -172,18 +173,25 @@ Definitions, alternate expressions, and properties.
     \underbrace{L(C)}_\text{Exp. Length}&= \sum_{x\in X} p(x)l(x) \label{defn: Exp. Length}\\
 C(X_1,X_2,\ldots,X_n) &= C(X_1)C(X_2)\ldots C(X_n)
 \end{align}
-\thm[Kraft's Inequality] \label{thm: kraft}
+
+\begin{thm}{Kraft's Inequality}\label{thm: kraft}
 For any instantaneous code (prefix code), the codeword length $l_1,l_2 \ldots , l_m$ must satisfy
+\end{thm}
+
 \begin{equation}
 \sum_i D^{-li}  \leq 1.
 \end{equation}
+
 \section*{Optimal Codes}
 \begin{align}
 \underbrace{L}_\text{minimize}&= \sum p(x)l(x) \label{defn: minimize}\\
-\underbrace{J}_\text{Lagrange min.}&= \sum {p_i}{l_i} + \gamma (\sum D^{l_i}&\leq 1) \label{defn: lagrange}
+\underbrace{J}_\text{Lagrange min.}&= \sum {p_i}{l_i} + \gamma \sum D^{-l_i} \label{defn: lagrange}
 \end{align}
-\thm[Expected Length and Entropy] \label{thm: codewordentropy}
-The expected length L is greater than or equal to the entropy (instant code)
+
+\begin{thm}{Expected Length and Entropy}\label{thm: codewordentropy}
+The expected length L is greater than or equal to the entropy (instant code).
+\end{thm}
+
 \begin{equation}
 L \geq H_D(X) \text{ (equal iff } D^{-l_i} = p_i \text{)}
 \end{equation}
@@ -209,11 +217,12 @@ After finding the D-adic variable r from before. \\*
 $L-H_D = D(p||r) - \log $($\sum D^{-l_i}$) \\
 ${l_i} = \lceil{\log_D \frac {1}{p_i}} \rceil$ \\
 $\sum D^{- \lceil \log \frac {1}{p_i}\rceil}\leq\sum D^{- \log\frac{1}{p_i}}=\sum {p_i}=1$ 
-\thm[Optimal Codeword Lengths] \label{thm:optimum codewords}
+\begin{thm}{Optimal Codeword Lengths} \label{thm:optimum codewords}
 Let ${l_1^{*}}$, ${l_2^{*}}$ \ldots , ${l_m^{*}}$be optimal codeword lengths for a
 source disribution p and a D-ary alphabet, and let ${L^{*}}$ be the associated
-expected length of an optimal code (${L^{*}}=\sum{p_i}{l_i^{*}}$ ). Then \\
-${H_D(X)}\leq L^{*}<{H_D(X)}+1$ \\
+expected length of an optimal code (${L^{*}}=\sum{p_i}{l_i^{*}}$ ). Then
+${H_D(X)}\leq L^{*}<{H_D(X)}+1$ 
+\end{thm}
 Define ${L_n}$ to be the expected codeword length per input symbol, that is,
 if ${l(x_1,x_2, \ldots ,x_n)}$ is the length of the binary codeword associated with
 ${(x_1,x_2, \ldots ,x_n)}$, then \newline
@@ -230,17 +239,19 @@ $\frac{H(x^{n})}{n}\leq {L_n}<\frac{H(x^{n})}{n}+\frac{1}{n}$ \\*
 If the stochastic process is stationary,$\frac{H(x^{n})}{n}$ tends to the entropy rate \newline
 and the expected length tends to the entropy as n goes to infinity \\
 Note: Shannon Code Assignment $l(x) = \lceil \log \frac {1}{q(x)} \rceil$
-\thm[Wrong Code] \label{thm:wrongcode}
+\begin{thm}{Wrong Code} \label{thm:wrongcode}
 The expected length under ${p(x)}$ of the code assignment ${l(x)}=\lceil\log\frac{1}{q(x)}\rceil$ satisfies 
-$H(p)+D(p||q) \leq E_pl(X)<H(p)+D(p||q)+1$ \\
-Proof: 
-\begin{eqnarray}
+$H(p)+D(p||q) \leq E_pl(X)<H(p)+D(p||q)+1$
+\end{thm}
+\begin{proof}
+    \begin{eqnarray}
 El(x) = \sum_x p(x) \lceil\log \frac{1}{q(x)} \\
 < \sum_x p(x) (\log \frac{1}{q(x)} + 1) \\
 = \sum_x p(x) \log \frac{p(x)}{q(x)} \frac{1}{p(x)} + 1 \\
 = \sum_x p(x) \log \frac{p(x)}{q(x)} + \sum_x p(x) \log \frac{1}{p(x)} + 1 \\
 = D(p||q) + H(p) + 1
 \end{eqnarray}
+\end{proof}
 
 %%%%%%%%%%%End Optimal Code Lengths%%%%%%%%
 
@@ -248,9 +259,10 @@ El(x) = \sum_x p(x) \lceil\log \frac{1}{q(x)} \\
 %%%%%%%%%%%Kraft Inequality for Uniquely Decodable Codes%%%%%%%%
 
 \section*{Kraft Inequality for Uniquely Decodable Codes}
-\thm[McMillan] \label{thm: mcmillan}
-The codeword lengths of any uniquely decodable D-ary code must satisfy the Kraft Inequality (seen many times above) \newline
-Proof: \newline
+\begin{thm}{McMillan} \label{thm: mcmillan}
+The codeword lengths of any uniquely decodable D-ary code must satisfy the Kraft Inequality (seen many times above) 
+\end{thm}
+\begin{proof}
 Consider ${C^{k}}$, the kth extension of the code. By definition of unique decodability, the kth extension of the code is nonsingular; 
 the number of code sequences of length ${n}$ in the kth extension of the code must be no greater than ${D^{n}}$. 
 \begin{eqnarray}
@@ -269,9 +281,13 @@ ${x^{k}}$ mapping into codewords of length m. The mapping is one-to-one, so $a(m
 \text{and hence } \sum_j D^{-l_j} \leq (kl_{max})^{\frac{1}{k}}
 \end{eqnarray}
 Since this inequality is true for all ${k}$, it is true in the limit as ${k} \rightarrow \infty$.
-Since ${(kl_{max})^{\frac{1}{k}}} \rightarrow 1$, we have \newline
-$\sum_j D^{-l_j} \leq 1$, which is the Kraft inequality.\newline
-{\bf Corollary: }{\it A uniquely decodable code for an infinite source alphabet $\chi$ also satisfies Kraft}. \newline
+Since ${(kl_{max})^{\frac{1}{k}}} \rightarrow 1$, we have 
+$\sum_j D^{-l_j} \leq 1$, which is the Kraft inequality.
+\end{proof}
+
+\begin{corollary}A uniquely decodable code for an infinite source alphabet $\chi$ also satisfies Kraft. 
+\end{corollary}
+
 $\sum_{i=1}^{\infty}D^{-li} = \lim_{N\rightarrow\infty}\sum_{i=1}^{N}D^{-li} \leq 1$.
 
 %%%%%%%%%%%End Kraft Inequality for Uniquely Decodable Codes%%%%%%%
@@ -280,15 +296,16 @@ $\sum_{i=1}^{\infty}D^{-li} = \lim_{N\rightarrow\infty}\sum_{i=1}^{N}D^{-li} \le
 %%%%%%%%%%%%%%%%Huffman Codes%%%%%%%%%%%%%%%%%
 \section*{Huffman Coding and Optimality}
 Just remember 20 questions and expand the tree down one side. "Is X equal to 3?", etc...
-\lemma{Huffman Properties}\label{huffman}
+\begin{lemma}{Huffman Properties}\label{huffman}
 \begin{enumerate}
 	\item {\it The lengths are ordered inversely with the probabilities. High p(x) means small l(x).}
 	\item {\it The two longest codewords have the same length.}
 	\item {\it Two of the longest codewords differ only in the last bit and correspond to the two least likely symbols.}
 \end{enumerate}
-{\bf Proof:|} The proof amounts to swapping, trimming and rearranging...Consider the optimal code ${C_m}$
+\end{lemma}
+\begin{proof} The proof amounts to swapping, trimming and rearranging...Consider the optimal code ${C_m}$
 If ${p_j} > {p_k} \text{,then } {l_j} \leq {l_k}$. Here we swap codewords. Consider $C_m^{'}$ an optimal code ${C_m}$:
-Then, \newline 
+Then, 
 \begin{eqnarray}
 L(C_m^{'}) - L(C_m) = \sum {p_i}{l_i^{'}} - \sum {p_i}{l_i} \\
 ={p_j}{l_k}+{p_k}{l_j} - {p_j}{l_j} - {p_k}{l_k}\\
@@ -296,6 +313,7 @@ L(C_m^{'}) - L(C_m) = \sum {p_i}{l_i^{'}} - \sum {p_i}{l_i} \\
 \end{eqnarray}
 But ${p_j} - {p_k} > 0$, andn since ${C_m}$ is optimal, $L(C_m^{'}) - L(C_m) \geq 0$.
 Hence, we must have ${l_k} \geq {l_j}$. Thus, ${C_m}$ itself satisfies property 1(above).
+\end{proof}
 \section*{Huffman reductions}
 Calculation of the average length $\sum_i {p_i^{'}}{l_i^{'}}$ shows that \\*
 $L(p) = L^{*}(p^{'})+p_{m-1} + p_m\\$
@@ -312,9 +330,10 @@ L(p^{'}) + L(p) = L^{*}(p^{'}) + L^{*}(p)\\
 L(p^{'}) - L^{*}(p^{'}) \geq 0 \\
 L(p) = L^{*}(p)
 \end{eqnarray}
-\thm[Optimal Huff] \label{thm: opthuff}
+\begin{thm}{Optimal Huff} \label{thm: opthuff}
 Huffamn coding is optimal; that is, if $C^{*}$ is a huffman code and $C^{'}$ is any other uniquely decodable code,
 $L(C^{*}) \leq L(C^{'})$
+\end{thm}
 %%%%%%%%%%%%%%%End Huffman Codes %%%%%%%%%%%%%%%%
 
 
@@ -330,23 +349,26 @@ Using the first $l(x)$ bits of $\bar{F}(x)$ as a code for $x$. By definition of 
 L= \sum_x p(x) (\lceil \log \frac {1}{p(x)} \rceil + 1) < H(X) + 2\\
 \end{eqnarray}
 
-\thm[Dyadic Stuff] \label{thm: dyadic}
+\begin{thm}{Dyadic Stuff} \label{thm: dyadic}
 For a dyadic probability mass function $p(x)$, let $l(x) = \log \frac{1}{p(x)}$ be the word lengths of the binary Shannon code for the source, and let $l^{'}(x)$ be the lengths of any other uniquely decodable code for the source. Then \\*
 $Pr(l(X) < l^{'}(X)) \geq Pr(l(X) > l^{'}(X))$ \\*
 , with equality iff $l^{'}(x) = l(x)$ for all $x$. The code length is thus uniquely competitively optimal.\\*
-{\bf Proof: } \\*
+\end{thm}
+\begin{proof}
 \begin{eqnarray}
-Pr(l^{'}(X) < l(X)) - Pr(l^{'}(X) > l(X)) = \\*
+Pr(l^{'}(X) < l(X)) - Pr(l^{'}(X) > l(X)) = \\
 \sum_{x:l^{'}(x)<l(x)} p(x) - \sum_{x:l^{'}(x)>l(x)} p(x)\\
 =\sum_x p(x)sgn(l(x) - l^{'}(x))\\
 =E sgn(l(X) - l^{'}(X)) \\
 \leq \sum_x 2^{-l(x)} (2^{l(x)-l^{'}(x)} - 1)\\
-=\sum_x 2^{-l^{'}(x)} - \sum_x 2^{-l(x)}\\
-=\sum_x 2^{l^{'}(x)} - 1\\
-\leq 1-1 = 0\\
+=\sum_x 2^{-l^{'}(x)} - \sum_x 2^{-l(x)} \\
+=\sum_x 2^{l^{'}(x)} - 1 \\
+\leq 1-1 = 0 \\
 \end{eqnarray}
-{\bf Corollary}{\it For nondyadic probability mass functions, }\\*
+\end{proof}
+\begin{corollary}For nondyadic probability mass functions,
 $E sgn(l(X) - l^{'}(X) - 1) \leq 0$, where $l(x) = \lceil \log \frac {1}{p(x)} \rceil$ and $l^{'}(x)$ is any other code for the source.
+\end{corollary}
 %%%%%%%%%%%%%%%End Shannon-Fano-Elias Coding%%%%%%%%%%
 
 \section*{Shannon coding example}
@@ -364,16 +386,17 @@ $l(x)= \lceil \log(\frac{1}{p(x)}) \rceil + 1$
 
 
 %%%% SAM's Additions%%%%%%
+\section*{Chapter 5 Problems}
 \textit{Huffman Dummy Variables}
 Use $1+k(D-1)$ where $D$ is the encoded base, $k$ is the smallest constant such that the expression is $\geq$ the number of variables you are encoding (say $V$). Add $1+k(D-1) - V$ dummy variables.
 
-\textit{5.1: Uniquely Decodable}
+\textbf{5.1: Uniquely Decodable}
 $L = \sum_{i=1}^m p_i l_i^{100}, L_1 = min\{L\} \textrm { over instantaneous codes}, L_2 = min\{L\} \textrm{ over uniquely decodable codes}$. We observe that since uniquely decodable codes are a superset of instantaneous codes, we can immediately conclude that $L_2 \leq L_1$, however the inequality can be stricter. Specifically, the Kraft and McMillan inequalities do not depend on the standard expected length definition ($\sum_i p(x_i)l_i$), and apply in the $l_i^{100}$ case as well. Thus, any codeword that minimizes $L_2$ must satisfy McMillan, and thus Kraft. Yet, Kraft also asserts that given a set of lengths that satisfy Kraft, there exists a code. Thus, there exists a code with the same code lengths in $L_1$, and $\fbox{$L_1 = L_2$}$.
 
-\textit{5.1: Martian Fingers}
+\textbf{5.1: Martian Fingers}
 $(l_1,l_2,...,l_6) = (1,1,2,3,2,3)$ We note that any uniquely decodable D-ary code must satisfy the Kraft inequality: $\sum D^{-l_i} \leq 1$, or, $D^{-1} + D^{-2} + D^{-3} \leq \frac{1}{2}$. Additionally, we assume that the Martian has an integer number of fingers. We know that for $D=2$ the inequality does not hold, however for $D=3$: $\frac{1}{3} + \frac{1}{9} + \frac{1}{27} = \frac{13}{27} \leq  \frac{13}{26} = \frac{1}{2}$. Thus, a Martian has at least $3$ fingers.
 
-\textit{5.4: Huffman Coding}
+\textbf{5.4: Huffman Coding}
 \[
  X =
  \begin{pmatrix}
@@ -406,7 +429,7 @@ $(l_1,l_2,...,l_6) = (1,1,2,3,2,3)$ We note that any uniquely decodable D-ary co
 \]
 \end{itemize}
 
-\textit{5.6: Bad Codes}
+\textbf{5.6: Bad Codes}
 
 \begin{itemize}
 	\item[a.] $ \{0, 10, 11 \} $ This code is a $\fbox{valid}$ Huffman code, which could be generated by the following probabilities $\{ \frac{1}{2}, \frac{1}{4}, \frac{1}{4} \}$, where $D=2$.
@@ -414,7 +437,7 @@ $(l_1,l_2,...,l_6) = (1,1,2,3,2,3)$ We note that any uniquely decodable D-ary co
 	\item[c.] $ \{01, 10 \} $ This code is an $\fbox{invalid}$ Huffman code, as a Huffman code has optimal length and $01$ can be replaced with $0$, while $10$ can be replaced by $1$ to reduce the expected length by $2$.
 \end{itemize}
 
-\textit{5.12: Shannon and Huffman}
+\textbf{5.12: Shannon and Huffman}
 \begin{itemize}
 	\item[a.]
 ($1.0$ ($\frac{2}{3}$ ($\frac{1}{3}$ $\frac{1}{4}$ $\frac{1}{12}$ ) $\frac{1}{3}$ ) $\frac{1}{3}$ )
