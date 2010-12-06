@@ -179,7 +179,7 @@ For any instantaneous code (prefix code), the codeword length $l_1,l_2 \ldots , 
 \section*{Optimal Codes}
 \begin{align}
 \underbrace{L}_\text{minimize}&= \sum p(x)l(x) \label{defn: minimize}\\
-\underbrace{J}_\text{Lagrange min.}&= \sum {p_i}{l_i} + \gamma (\sum D^{l_i}&\leq 1) \label{defn: lagrange}
+\underbrace{J}_\text{Lagrange min.}&= \sum {p_i}{l_i} + \gamma \sum D^{-l_i} \label{defn: lagrange}
 \end{align}
 \thm[Expected Length and Entropy] \label{thm: codewordentropy}
 The expected length L is greater than or equal to the entropy (instant code)
