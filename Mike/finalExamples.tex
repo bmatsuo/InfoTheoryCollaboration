@@ -6,6 +6,7 @@
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{epstopdf}
+\usepackage{multicol}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 \title{Brief Article}
@@ -13,16 +14,17 @@
 %\date{}                                           % Activate to display a given date or no date
 
 \begin{document}
+\begin{multicols}{4}
+
 \maketitle
 %\section{}
 %\subsection{}
 % Requires the booktabs if the memoir class is not being used
-\begin{table}[htbp]
+\begin{table*}[htbp]
    \centering
    %\topcaption{Table captions are better up top} % requires the topcapt package
    \begin{tabular}{@{} | l | l | l | l | l | l | l | @{}} % Column formatting, @{} suppresses leading/trailing space
       %\toprule
-      \multicolumn{2}{c}{Example from Chapter5} \\
       %\cmidrule(r){1-2} % Partial rule. (r) trims the line a little bit on the right; (l) & (lr) also possible
       X & P(X) & F(X)  & F(X) & $\bar{F}$(X) in binary & l(x)= $\lceil \log(\frac{1}{p(x)}) \rceil$ + 1 & codeword  \\
       %\midrule
@@ -33,6 +35,7 @@
       5 & 0.15 & 1 & 0.925 & 0.111$\overline{0110}$ & 4 & 1110\\             
       %\bottomrule
    \end{tabular}
-\end{table}
+\end{table*}
+\end{multicols}
 
 \end{document}  
