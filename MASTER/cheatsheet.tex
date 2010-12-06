@@ -40,11 +40,13 @@
 
 
 
-\fontsize{4.99999pt}{5pt}
+\fontsize{5.75pt}{5pt}
 
 \textbf{\scriptsize Entropy, Relative Entropy and Mutual Information}
 Definitions, alternate expressions, and properties.
 \begin{align}
+\chi &= \text{State space } (X_i \in \chi)\\
+X^n &=(X_1,\ldots,X_n)
 \underbrace{H(X)}_\text{entropy}&= -\sum_{x\in X} p(x) \log\ p(x) \label{eq:entropy}\\
 H(X)& \geq 0\\
 H_b(X)&= (\log_b a)H_a(X)\\
@@ -162,24 +164,19 @@ if $X_{1},\ldots,X_{n}$ are chosen i.i.d $\sim$ Bern$\left( \frac{1}{2}\right)$.
 
 For example, the probability that $l'(X)$ is 5 or more bits shorter than $l(X)$ is less than $\frac{1}{16}$. 
 
-{\bf Proof}
-\begin{eqnarray*}
-\text{Pr}(l(X) \geq l'(X) + c)\\
-=\text{Pr}\left(\lceil \log \frac{1}{p(X)} \geq l'(X) + c \right)\\
-\geq \text{Pr}\left( \log \frac{1}{p(X)} \geq l'(C) + c - 1 \right)\\
-=\text{Pr}\left( p(X) \leq 2^{-l'(X)-c+1}\right)\\
-=\sum_{x:p(x)\leq 2^{-l'(x)-c+1}} p(x)\\
-\leq \sum_{x:p(x)\leq 2^{-l'(x)-c+1}}2^{-l'(x)-(c-1)} \\
-\leq \sum_{x}2^{-l'(x)}2^{-(c-1)}\\
-\leq 2^{-(c-1)}
-\end{eqnarray*}
-Since $\sum 2^{-l'(x)} \leq 1$ by the Kraft inequality.
-
+\begin{proof}
 \begin{align*}
-\chi &= \text{State space } (X_i \in \chi)\\
-X^n &=(X_1,\ldots,X_n)
+\text{Pr}(l(X) \geq l'(X) + c)
+&= \text{Pr}\left(\lceil \log \frac{1}{p(X)} \geq l'(X) + c \right) \\
+&\geq \text{Pr}\left( \log \frac{1}{p(X)} \geq l'(C) + c - 1 \right)\\
+&=\text{Pr}\left( p(X) \leq 2^{-l'(X)-c+1}\right) \\
+&=\sum_{x:p(x)\leq 2^{-l'(x)-c+1}} p(x)
+\leq \sum_{x:p(x)\leq 2^{-l'(x)-c+1}}2^{-l'(x)-(c-1)} \\
+&\leq \sum_{x}2^{-l'(x)}2^{-(c-1)}
+\leq 2^{-(c-1)} 
 \end{align*}
-
+Since $\sum 2^{-l'(x)} \leq 1$ by the Kraft inequality.
+\end{proof}
 
 %%%%%%%%%%%Begin Data Compression%%%%%%%%
 \textbf{\scriptsize Data Compression}
@@ -197,7 +194,7 @@ For any instantaneous code (prefix code), the codeword length $l_1,l_2 \ldots , 
 \sum_i D^{-li}  \leq 1.
 \end{equation}
 
-\section*{Optimal Codes}
+\textbf{\scriptsize{Optimal Codes}}
 Minimize $L = \sum p(x) l(x)$ subject to constraint $D^{-l_i} \leq 1$. So minimize the following equation w.r.t. $l_i$,
 \begin{align*}
 \underbrace{J}_\text{Lagrange min.} &=& \sum {p_i}{l_i} + \gamma \sum D^{-l_i} \label{defn: lagrange} \\
@@ -254,7 +251,7 @@ $\frac{H(x^{n})}{n}\leq {L_n}<\frac{H(x^{n})}{n}+\frac{1}{n}$ \\*
 If the stochastic process is stationary,$\frac{H(x^{n})}{n}$ tends to the entropy rate \newline
 and the expected length tends to the entropy as n goes to infinity \\
 Note: Shannon Code Assignment $l(x) = \lceil \log \frac {1}{q(x)} \rceil$
-\begin{thm}{Wrong Code} \label{thm:wrongcode}
+\begin{thm}[Wrong Code] \label{thm:wrongcode}
 The expected length under ${p(x)}$ of the code assignment ${l(x)}=\lceil\log\frac{1}{q(x)}\rceil$ satisfies 
 $H(p)+D(p||q) \leq E_pl(X)<H(p)+D(p||q)+1$
 \end{thm}
@@ -274,36 +271,35 @@ El(x) = \sum_x p(x) \lceil\log \frac{1}{q(x)} \\
 %%%%%%%%%%%Kraft Inequality for Uniquely Decodable Codes%%%%%%%%
 
 \textbf{\scriptsize Kraft Inequality for Uniquely Decodable Codes}
-\begin{thm}{McMillan} \label{thm: mcmillan}
+\begin{thm}[McMillan] \label{thm: mcmillan}
 The codeword lengths of any uniquely decodable D-ary code must satisfy the Kraft Inequality (seen many times above) 
 \end{thm}
 \begin{proof}
 Consider ${C^{k}}$, the kth extension of the code. By definition of unique decodability, the kth extension of the code is nonsingular; 
 the number of code sequences of length ${n}$ in the kth extension of the code must be no greater than ${D^{n}}$. 
-\begin{eqnarray}
-l({x_1},{x_2}, \ldots , {x_k}) = \sum_{i=1}^{k} l({x_i})\\
-(\sum_{x\in \chi} D^{-li})^{k} = \\*
+\begin{align}
+l({x_1},{x_2}, \ldots , {x_k}) &= \sum_{i=1}^{k} l({x_i})\\
+\bigg(\sum_{x\in \chi} D^{-li}\bigg)^{k} &=
 \sum_{x_1\in\chi}\sum_{x_2\in\chi} \ldots \sum_{x_k\in\chi}  D^{-l({x_1})} \ldots D^{-l({x_k})}\\
-=\sum_{{x_1},{x_2}, \ldots , {x_k} \in \chi^{k}}  D^{-l({x_1})}\ldots D^{-l({x_k})} \\
+&=\sum_{{x_1},{x_2}, \ldots , {x_k} \in \chi^{k}}  D^{-l({x_1})}\ldots D^{-l({x_k})} 
 =\sum_{x_k} D^{-l({x^{k}})}
-\end{eqnarray}
+\end{align}
 ${l_{max}}$ is the maximum codeword length and a(m) is the number of source sequences
 ${x^{k}}$ mapping into codewords of length m. The mapping is one-to-one, so $a(m) \leq D^{m}$:
-\begin{eqnarray}
-(\sum_{x\in\chi} D^{-l(x)})^{k} = \sum_{m=1}^{kl_{max}} a(m)D^{-m}\\
-\leq \sum_{m=1}^{kl_{max}} D^{m}D^{-m}\\
-=kl_{max}\\
-\text{and hence } \sum_j D^{-l_j} \leq (kl_{max})^{\frac{1}{k}}
-\end{eqnarray}
+\begin{align}
+\bigg(\sum_{x\in\chi} D^{-l(x)}\bigg)^{k} &= \sum_{m=1}^{kl_{max}} a(m)D^{-m}\\
+&\leq \sum_{m=1}^{kl_{max}} D^{m}D^{-m} = kl_{max}\\
+\text{and hence } \sum_j D^{-l_j} &\leq (kl_{max})^{\frac{1}{k}}
+\end{align}
 Since this inequality is true for all ${k}$, it is true in the limit as ${k} \rightarrow \infty$.
 Since ${(kl_{max})^{\frac{1}{k}}} \rightarrow 1$, we have 
 $\sum_j D^{-l_j} \leq 1$, which is the Kraft inequality.
 \end{proof}
 
 \begin{corollary}A uniquely decodable code for an infinite source alphabet $\chi$ also satisfies Kraft. 
+\[\sum_{i=1}^{\infty}D^{-li} = \lim_{N\rightarrow\infty}\sum_{i=1}^{N}D^{-li} \leq 1\].
 \end{corollary}
 
-$\sum_{i=1}^{\infty}D^{-li} = \lim_{N\rightarrow\infty}\sum_{i=1}^{N}D^{-li} \leq 1$.
 
 %%%%%%%%%%%End Kraft Inequality for Uniquely Decodable Codes%%%%%%%
 
@@ -335,8 +331,7 @@ $L(p) = L^{*}(p^{'})+p_{m-1} + p_m\\$
 We can construct ${p^{'}}$ by merging the codewords for the two lowest probability symbols
 ${m-1} \text{and} {m}$.  The new code for ${p^{'}}$ has average length
 \begin{eqnarray}
-L(p^{'}) \\
-= \sum_{i=1}^{m-2} p_i l_i + p_{m-1}(l_{m-1} -1 )+p_{m}(l_{m} -1)\\
+L(p^{'}) = \sum_{i=1}^{m-2} p_i l_i + p_{m-1}(l_{m-1} -1 )+p_{m}(l_{m} -1)\\
 =\sum_{i=1}^{m} {p_i}{l_i} - {p_{m-1}} - {p_{m}}\\
 =L^{*}(p) - {p_{m-1}} - {p_{m}}\\
 \text{from this we obtain} \\*
@@ -345,7 +340,7 @@ L(p^{'}) + L(p) = L^{*}(p^{'}) + L^{*}(p)\\
 L(p^{'}) - L^{*}(p^{'}) \geq 0 \\
 L(p) = L^{*}(p)
 \end{eqnarray}
-\begin{thm}{Optimal Huff} \label{thm: opthuff}
+\begin{thm}[Optimal Huff] \label{thm: opthuff}
 Huffamn coding is optimal; that is, if $C^{*}$ is a huffman code and $C^{'}$ is any other uniquely decodable code,
 $L(C^{*}) \leq L(C^{'})$
 \end{thm}
@@ -354,9 +349,9 @@ $L(C^{*}) \leq L(C^{'})$
 
 %%%%%%%%%%%%%%%Begin Shannon-Fano-Elias Coding%%%%%%%%%%
 \textbf{\scriptsize Shannon-Fano-Elias Coding}
-The CDF for ${F(x)}$ is defined as \\* $F(x) = \sum_{a\leq x}p(a)$\\
-Consider the modified CDF: \\* $\bar{ F(x)} = \sum_{a < x}p(a) + \frac{1}{2} p(x)$\\
-Using the first $l(x)$ bits of $\bar{F}(x)$ as a code for $x$. By definition of rounding off, we have \\*
+The CDF for ${F(x)}$ is defined as $F(x) = \sum_{a\leq x}p(a)$
+Consider the modified CDF: $\bar{ F(x)} = \sum_{a < x}p(a) + \frac{1}{2} p(x)$
+Using the first $l(x)$ bits of $\bar{F}(x)$ as a code for $x$. By definition of rounding off, we have 
 \begin{eqnarray}
 \bar{F}(x) - {\lfloor \bar{F}(x) \rfloor}_{l(x)} < \frac{1}{2^{l(x)}}\\
 \text{If } l(x) = \lceil \log \frac{1}{p(x)} \rceil + 1 \text{ then } \\
@@ -364,10 +359,10 @@ Using the first $l(x)$ bits of $\bar{F}(x)$ as a code for $x$. By definition of 
 L= \sum_x p(x) (\lceil \log \frac {1}{p(x)} \rceil + 1) < H(X) + 2
 \end{eqnarray}
 
-\begin{thm}{Dyadic Stuff} \label{thm: dyadic}
-For a dyadic probability mass function $p(x)$, let $l(x) = \log \frac{1}{p(x)}$ be the word lengths of the binary Shannon code for the source, and let $l^{'}(x)$ be the lengths of any other uniquely decodable code for the source. Then \\*
-$Pr(l(X) < l^{'}(X)) \geq Pr(l(X) > l^{'}(X))$ \\*
-, with equality iff $l^{'}(x) = l(x)$ for all $x$. The code length is thus uniquely competitively optimal.\\*
+\begin{thm}[Dyadic Stuff] \label{thm: dyadic}
+For a dyadic probability mass function $p(x)$, let $l(x) = \log \frac{1}{p(x)}$ be the word lengths of the binary Shannon code for the source, and let $l^{'}(x)$ be the lengths of any other uniquely decodable code for the source. Then 
+\[Pr(l(X) < l^{'}(X)) \geq Pr(l(X) > l^{'}(X)),\] 
+with equality iff $l^{'}(x) = l(x)$ for all $x$. The code length is thus uniquely competitively optimal.
 \end{thm}
 \begin{proof}
 \begin{eqnarray}
@@ -481,22 +476,17 @@ Which has Huffman coding:
     $Z_i = 1$ w/ prob $p$, 0 otherwise.
     $Z_i$ are not assumed independent of one another, but $Z^n$ is independent of $X^n$.
 
-\begin{eqnarray}
-    I(X^n;Y^n) &=& H(X^n) - H(X^n|Y^n) \nonumber \\
-    &=& H(X^n) - H(Z^n|Y^n) \nonumber\\
-    &\ge& H(X^n) - H(Z^n) \nonumber\\
-    &\ge& H(X^n) - \sum H(Z_i) \nonumber\\
-    &=& H(X^n) - nH(p) \nonumber\\
-    &=& n - nH(p) \label{eq:7.3-MI}
-\end{eqnarray}
-The last equality happens when if $X_i \sim_{i.i.d} Bernouli\big(\frac{1}{2}\big)$.
+\begin{align}
+    I(X^n;Y^n) &= H(X^n) - H(X^n|Y^n) &=& H(X^n) - H(Z^n|Y^n) &\ge H(X^n) - H(Z^n) \nonumber\\
+    &\ge H(X^n) - \sum H(Z_i) &=& H(X^n) - nH(p) &= n - nH(p) \nonumber
+\end{align}
+$I(X^n;Y^n) = n - nH(p)$ if $X_i \sim_{i.i.d} Bernouli\big(\frac{1}{2}\big)$.
 The capacity of the channel with memory of $n$ uses of the channel is
-\begin{eqnarray*}
-    nC^{(n)} &=& \max_{p(x^n)} I(X^n; Y^n) \\
-    &\ge& I(X^n;Y^n)_{p(x^n)=Bern(\frac{1}{2})} \\
-    &\ge& n ( 1 - H(p)) \text{ (from (\ref{eq:7.3-MI}))} \\
-    &\ge& nC
-\end{eqnarray*}
+\begin{align*}
+    nC^{(n)} &= \max_{p(x^n)} I(X^n; Y^n) \ge I(X^n;Y^n)_{p(x^n)=Bern(\frac{1}{2})} \\
+    &\ge n ( 1 - H(p)) \text{ (from the MI result.)} \\
+    &\ge nC
+\end{align*}
 So channels which have memory have capacity at least as high a capacity as the channel without memory.
 
 \textbf{\scriptsize 7.4 Channel capacity.}
@@ -514,8 +504,7 @@ Consider the mutual information $I(X;Y) = H(Y) - H(Y|X)$. The conditional
 entropy $H(Y|X)$ is equal to $H(Z)=\log 3$.
 So we have
 \begin{eqnarray*}
-    I(X;Y) &=& H(Y) - H(Y|X)  \\
-    &=& H(Y) - \log 3 
+    I(X;Y) = H(Y) - H(Y|X) = H(Y) - \log 3 
     \leq \log {\vert \mathcal{Y} \vert} - \log 3 \label{eq:7.4-cap}
 \end{eqnarray*}
 Equality can be achieved, and thus a maximum found, if $Y$ is distributed
@@ -566,14 +555,14 @@ D &= P^{-1}AP \\
     &= \frac{1}{2}\begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix}  \begin{pmatrix}
         1-p & p   \\
         p   & 1-p \\
-    \end{pmatrix}\begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix} \\
-    &= \begin{pmatrix} 1 & 0 \\ 0 & 1 - 2p \end{pmatrix}  \\
+    \end{pmatrix}\begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix}
+    = \begin{pmatrix} 1 & 0 \\ 0 & 1 - 2p \end{pmatrix}  \\
 A^n &= PD^nP^{-1} \\
     &= \begin{pmatrix} 1 & -1 \\ 1 & 1 \end{pmatrix} \begin{pmatrix} 1 & 0 \\ 0 & (1 - 2p)^n \end{pmatrix} \frac{1}{2}\begin{pmatrix} 1 & 1 \\ -1 & 1 \end{pmatrix} \\
 &= \begin{pmatrix}
         \frac{1}{2}(1 + (1-2p)^n) & \frac{1}{2}(1 - (1-2p)^n) \\
-        \frac{1}{2}(1 - (1-2p)^n) & \frac{1}{2}(1 + (1-2p)^n) \end{pmatrix}  \\
-    &= \begin{pmatrix} 1 - p_n & p_n \\
+        \frac{1}{2}(1 - (1-2p)^n) & \frac{1}{2}(1 + (1-2p)^n) \end{pmatrix}
+    = \begin{pmatrix} 1 - p_n & p_n \\
         p_n & 1 - p_n \end{pmatrix} 
 \end{align*} , where  $p_n = \frac{1}{2}(1 - (1-2p)^n)$.
 
@@ -608,11 +597,9 @@ Consider a channel with binary inputs that has both erasures and errors. Let the
 \textbf{(a)} Find the capacity of the channel.
 
 Like example in the text, set the input distn. for the two inputs to be $\pi$ and $1-\pi$. Then
-\begin{eqnarray*}
-    C &=& \max_{p(x)}I(X;Y) \\
-    &=& \max_{p(x)}[H(Y) - H(Y|X)] \\
-    &=& \max_{p(x)}H(Y) - H(1-\varepsilon-\alpha,\alpha,\varepsilon).
-\end{eqnarray*}
+\begin{align*}
+    C = \max_{p(x)}I(X;Y) = \max_{p(x)}[H(Y) - H(Y|X)] = \max_{p(x)}H(Y) - H(1-\varepsilon-\alpha,\alpha,\varepsilon).
+\end{align*}
 $H(Y)$ can not be made equal to $\log 3$, because of erasures. 
 \begin{eqnarray*}
     H(Y) &=& H( \pi(1-\varepsilon-\alpha) + (1-\pi)\varepsilon,\alpha, 1 - \dots)\\ %(1-\pi)(1-\varepsilon-\alpha) + \pi\varepsilon ) \\
@@ -639,24 +626,22 @@ Setting $\alpha = 0$ means $C=1-H(\varepsilon)$.
 Let $Y_1$ and $Y_2$ be conditionally independent and conditionally identically distributed given $X$.
 
 \textbf{(a)} Show that $I(X;Y_1, Y_2) = 2I(X;Y_1) - I(Y_1,Y_2)$
-\begin{eqnarray*}
-    && I(X;Y_1,Y_2) \\
-    &=& H(Y_1,Y_2) - H(Y_1,Y_2 | X) \\
-    &=& \sum_{i=1,2} H(Y_i) - I(Y_1;Y_2) - \sum_{i=1,2} H (Y_i|X) \\
-    &=& I(X;Y_1) + I(X_1,Y_2) - I(Y_1,Y-2) \\
-    &=& 2I(X_i,Y_i) - I(Y_1,Y_2)
-\end{eqnarray*}
+\begin{align*}
+    I(X;Y_1,Y_2) &= H(Y_1,Y_2) - H(Y_1,Y_2 | X) \\
+    &= \sum_{i=1,2} H(Y_i) - I(Y_1;Y_2) - \sum_{i=1,2} H (Y_i|X) \\
+    &= I(X;Y_1) + I(X_1,Y_2) - I(Y_1,Y-2) = 2I(X_i,Y_i) - I(Y_1,Y_2)
+\end{align*}
 
 \textbf{(b)} Conclude the channel $X\rightarrow\rightarrow(Y_1,Y_2)$ is less thatn twice the capacity of the channel $X\rightarrow\rightarrow(Y_1)$.
 
 The capacity of a single-look channel $X\rightarrow Y_1$ is $C_1 = \max_{p(x)} I(X;Y_1)$.
 
 The capacity of the channel $X \rightarrow (Y_1,Y_2)$ is 
-\begin{eqnarray*}
-    C_2 &=& \max_{p(x)}I(X;Y_1,Y_2) \\
-    &=& \max_{p(x)} 2I(X;Y_1) -I(Y_1; Y_2) \\
-    &\le& \max_{p(x)}2I(X;Y_1) = 2C_1;
-\end{eqnarray*}
+\begin{align*}
+    C_2 = \max_{p(x)}I(X;Y_1,Y_2) 
+    = \max_{p(x)} 2I(X;Y_1) -I(Y_1; Y_2) 
+    \le \max_{p(x)}2I(X;Y_1) = 2C_1;
+\end{align*}
 So two independent looks can do more than twice as good as single look.
 
 
