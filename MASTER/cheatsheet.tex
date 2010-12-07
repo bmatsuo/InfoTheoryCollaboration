@@ -477,11 +477,11 @@ Which has Huffman coding:
 	\item[c.] We note that in the first code, the symbol with probability $\frac{1}{4}$ is encoded with $3$ bits, whereas the Shannon code length is $\lceil log(\frac{1}{p(x)}) \rceil = 2$ bits. Thus, there are optimal codes with codeword lengths for some symbols that exceed the Shannon code length.
 \end{itemize}
 
-\textbf{\scriptsize 7.3 Channels with mevory have higher capacity.}
+\textbf{\scriptsize 7.3 Channels with memory have higher capacity.}
     $X_i, Y_i \in \{0,1\}$.
     $Y_i = X_i \oplus Z_i$.
     $Z_i = 1$ w/ prob $p$, 0 otherwise.
-    $Z_i$ are not assumed independent of one another, but $Z^n$ is independent of $X^n$.
+    $Z_i$ are not assumed independent of one another, but $Z^n$ is independent of $X^n$. (BSC)
 
 \begin{align}
     I(X^n;Y^n) &= H(X^n) - H(X^n|Y^n) = H(X^n) - H(Z^n|Y^n) &\ge H(X^n) - H(Z^n) \nonumber\\
@@ -492,9 +492,9 @@ The capacity of the channel with memory of $n$ uses of the channel is
 \begin{align*}
     nC^{(n)} = \max_{p(x^n)} I(X^n; Y^n) 
         \ge I(X^n;Y^n)\mid_{p(x^n) \sim Bern(\frac{1}{2})} 
-        \ge n ( 1 - H(p)) \ge nC
+        \ge n ( 1 - H(p)) = nC
 \end{align*}
-So channels which have memory have capacity at least as high a capacity as the channel without memory.
+So ($nC^{(n)} \ge nC$) channels which have memory have capacity at least as high a capacity as the channel without memory.
 
 \textbf{\scriptsize 7.4 Channel capacity.}
 
