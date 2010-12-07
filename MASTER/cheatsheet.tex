@@ -580,21 +580,21 @@ Let $Y_1,\dots,Y_n$ be conditionally independent given $X_1,\dots,X_n$ with dist
 
 Using the same chain of inequalities as in the proof of the converse to the chanel coding theorem. That is,
 \begin{eqnarray*}
-    I(X^n;Y^n) &=& H(Y^n) - H(Y^n|X^n)  = H(Y^n) - H(Y_i | Y^{i-1}, X^n)  \\
-        &=& H(Y^n) - \sum_{i=1}{n} H(Y_i | X_i)
+    I(X^n;Y^n) &=& H(Y^n) - H(Y^n|X^n)  = H(Y^n) - \sum_{i=1}^n H(Y_i | Y^{i-1}, X^n)  \\
+        &=& H(Y^n) - \sum_{i=1}^n H(Y_i | X_i)
 \end{eqnarray*}
 
 Since by the definition of the channel, $Y_i$ depends only on $X_i$ and is conditionally independent of everything else. Continuing the series of inequalities, we have
 
 \begin{eqnarray*}
-    I(X^n;Y^n) &=& H(Y^n) - \sum_{i=1}{n} H(Y_i | X_i) 
-    \le \sum_{i=1}^{n} H(Y_i) - \sum_{i=1}^{n}H(Y_i | X_i) \\ 
+    I(X^n;Y^n) &=& H(Y^n) - \sum_{i=1}^n H(Y_i | X_i) 
+    \le \sum_{i=1}^{n} H(Y_i) - \sum_{i=1}^n H(Y_i | X_i) \\ 
     &\le& \sum_{i=1}^{n} (1-H(p_i)),
 \end{eqnarray*}
 
 Equality holds if $X_i,\dots,X_n \sim_{i.i.d.} Bern(\frac{1}{2})$. Hence
 \begin{equation*}
-    \max_{p(x)} I(X^n; Y^n) = \sum_{i=1}^{n}(1-H(p)).
+    \max_{p(x)} I(X^n; Y^n) = \sum_{i=1}^{n}(1-H(p_i)).
 \end{equation*}
 
 \textbf{\scriptsize 7.13 Erasures and errors in a binary channel.}
