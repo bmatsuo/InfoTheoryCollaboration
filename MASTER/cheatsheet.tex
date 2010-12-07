@@ -40,7 +40,7 @@
 
 
 
-\fontsize{5.99999pt}{5pt}
+\fontsize{5.9pt}{5pt}
 
 \textbf{\scriptsize Entropy, Relative Entropy and Mutual Information}
 Definitions, alternate expressions, and properties.
@@ -510,10 +510,10 @@ Consider the channel $Y=X+Z\ (\bmod 11)$, where $X \in \setbrace{0,\dots,10}$ an
 Consider the mutual information $I(X;Y) = H(Y) - H(Y|X)$. The conditional
 entropy $H(Y|X)$ is equal to $H(Z)=\log 3$.
 So we have
-\begin{eqnarray*}
+\begin{eqnarray}
     I(X;Y) = H(Y) - H(Y|X) = H(Y) - \log 3 
     \leq \log {\vert \mathcal{Y} \vert} - \log 3 \label{eq:7.4-cap}
-\end{eqnarray*}
+\end{eqnarray}
 Equality can be achieved, and thus a maximum found, if $Y$ is distributed
 uniformily on $\setbrace{0,\dots,10}$. This is achieved when $X$ is
 distributed uniformily. That is
